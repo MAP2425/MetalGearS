@@ -15,7 +15,7 @@ public class MenuGUI {
         frame.setResizable(false); // Finestra non resizable
 
         // Imposta l'icona della finestra
-        ImageIcon windowIcon = new ImageIcon("solid_snake_icon.jpg");
+        ImageIcon windowIcon = new ImageIcon("src/main/resources/img/solid_snake_icon.jpg");
         frame.setIconImage(windowIcon.getImage());
 
         // Pannello di sfondo
@@ -23,7 +23,7 @@ public class MenuGUI {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon background = new ImageIcon("titleScreen.jpg");
+                ImageIcon background = new ImageIcon("src/main/resources/img/titleScreen.jpg");
                 g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
