@@ -1,60 +1,31 @@
 package org.it.uniba.fox.Entity;
 import java.util.List;
+import  org.it.uniba.fox.Type.CommandType;
 
-/**
- * The class that represents a command.
- */
+
 public class Command {
-    /**
-     * The name of the command.
-     */
-    private String name;
-    /**
-     * The aliaseses of the command.
-     */
-    private List<String> aliases;
-    /**
-     * The type of the command.
-     */
-    private CommandType type;
 
-    /**
-     * Instantiates a new Command.
-     *
-     * @param name  the name
-     * @param aliases the aliases
-     * @param type  the type
-     */
-    public Command(String name, List<String> aliases, CommandType type) {
-        this.name = name;
-        this.aliases = aliases;
-        this.type = type;
+    private final String name;
+
+    private final List <String> aliases;
+
+    private final CommandType type;
+
+    public Command(String name, List <String> aliases, CommandType type){
+        this.name=name;
+        this.aliases=aliases;
+        this.type=type;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    public String getName(){
+        return  this.name;
     }
 
-    /**
-     * Gets the aliases.
-     *
-     * @return the aliases
-     */
-    public List<String> getAliases() {
-        return aliases;
+    public List <String> getAliases(){
+        return this.aliases;
     }
 
-    /**
-     * Gets command type.
-     *
-     * @return the command type
-     */
-    public CommandType getCommandType() {
-        return type;
+    public CommandType getType(){
+        return this.type;
     }
 }

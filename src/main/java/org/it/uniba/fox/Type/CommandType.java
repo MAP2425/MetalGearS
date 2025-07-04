@@ -1,13 +1,11 @@
 package org.it.uniba.fox.Type;
 
-/**
- * The enum of the command types.
- */
+
 public enum CommandType {
     /**
-     * Help command type, shows the list of available commands.
+     * Codec command type, shows the list of available commands.
      */
-    AIUTO,
+    CODEC,
 
     /**
      * Nord command type, moves the player to the north room.

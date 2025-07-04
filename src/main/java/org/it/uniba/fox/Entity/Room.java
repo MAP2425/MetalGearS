@@ -1,129 +1,77 @@
 package org.it.uniba.fox.Entity;
-//import org.it.uniba.fox.DB_Web.DatabaseConnection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    /**
-     * The name of the room.
-     */
+
     private String name;
-    /**
-     * The current state of the room.
-     */
-    private String currentState;
-    /**
-     * The list of agents in the room.
-     */
-    private List<Agent> agents;
+    private String description;
+    private boolean free;
+    private List <Character> characters;
+    private List <Item> items;
 
-
-    /**
-     * Instantiates a new Room.
-     */
-    public Room() {
-        this.agents = new ArrayList<>();
+    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items){
+        this.name=name;
+        this.description=description;
+        this.free = free;
+        this.items=items;
+        this.characters=characters;
     }
 
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName (String name) {
-        this.name = name;
+    public String getName(){
+        return this.name;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    public String getDescription(){
+        return this.description;
     }
 
-    /**
-     * Sets state.
-     *
-     * @param state the state
-     */
-    public void SetState(String state){
-        currentState = state;
+    public List <Item> getItems(){
+        return this.items;
     }
 
-    /**
-     * Gets state.
-     *
-     * @return the state
-     */
-    public String getState() {
-        return currentState;
+    public List <Character> getCharacters(){
+        return this.characters;
     }
 
-    /**
-     * Checks if the room has the agent.
-     *
-     * @param agent the agent
-     * @return if the room has the agent
-     */
-    public boolean hasAgent(Agent agent) {
-        return agents.contains(agent);
+    public boolean getFree(){
+        return this.free;
     }
 
-    /**
-     * Adds the agent to the room.
-     *
-     * @param agent the agent
-     */
-    public void addAgent(Agent agent) {
-        agents.add(agent);
+    public void setName(String name){
+        this.name=name;
     }
 
-    /**
-     * Removes the agent from the room.
-     *
-     * @param agent the agent
-     */
-    public void removeAgent(Agent agent) {
-        agents.remove(agent);
+    public void setDescription(String description){
+        this.description=description;
     }
 
-    /**
-     * Gets all the agents in the room.
-     *
-     * @return the agents
-     */
-    public List<Agent> getAgents() {
-        return agents;
+    public void setFree(boolean free){
+        this.free = free;
     }
 
-    /**
-     * Print description.
-     */
-    public void printDescription() {
-        //DatabaseConnection.printFromDB("Osserva", name, currentState, "0", "0", "0");
+    public void setItems(List <Item> items){
+        this.items=items;
     }
 
-    /**
-     * Override of the equals method.
-     *
-     * @param obj the object to compare
-     * @return true if the two objects are equals, false otherwise
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return this == obj;
+    public void addItems(Item item){
+        this.items.add(item);
     }
 
-    /**
-     * Override of the hashcode method.
-     *
-     * @return the hashcode of the object
-     */
-    @Override
-    public int hashCode() {
-        return System.identityHashCode(this);
+    public void setCharacters(List <Character> characters){
+        this.characters=characters;
     }
 
+    public void addCharacters(Character character){
+        this.characters.add(character);
+    }
+
+    public boolean removeCharacter(String name){
+
+       return this.characters.removeIf(ch->ch.getName().equals(name));
+    }
+
+    public boolean removeItem(String name){
+
+        return this.items.removeIf(item->item.getName().equals(name));
+    }
 }
