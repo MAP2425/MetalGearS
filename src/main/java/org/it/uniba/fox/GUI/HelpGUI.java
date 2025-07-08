@@ -51,7 +51,7 @@ public class HelpGUI extends JFrame {
         setMinimumSize(new Dimension(460, 780));
         setResizable(false);
         getContentPane().setBackground(new Color(181, 8, 8));
-        setIconImage(new ImageIcon("src/main/resources/docs/img/solid_snake_icon.jpg").getImage());
+        setIconImage(new ImageIcon("src/main/resources/img/solid_snake_icon.jpg").getImage());
 
         // Set the properties of the label
         Font font = new Font("Georgia", Font.CENTER_BASELINE, 16);
