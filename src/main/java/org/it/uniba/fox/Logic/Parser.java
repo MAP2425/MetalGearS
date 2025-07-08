@@ -28,6 +28,40 @@ public class Parser {
 
 
 
+    public String[] parseInput(String input) {
+        String cleaned = input.trim().toLowerCase();
+        String[] words = cleaned.split("\\s+");
+        return java.util.Arrays.stream(words)
+                .filter(word -> !stopWords.contains(word))
+                .toArray(String[]::new);
+    }
+
+    public boolean containsCommand(String[] words) {
+        for (String word : words) {
+            boolean foundCommand = availableCommands.stream().anyMatch(cmd ->
+                    cmd.getName().equalsIgnoreCase(word) ||
+                            cmd.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(word))
+            );
+            if (foundCommand) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsItem(String[] words) {
+        for (String word : words) {
+            boolean foundItem = availableItems.stream().anyMatch(item ->
+                    item.getName().equalsIgnoreCase(word)
+            );
+            if (foundItem) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private void fillStopWords() throws Exception {
         Files.readAllBytes(Paths.get("src/main/resources/Utilities/stopWords.txt"));
         File file = new File("src/main/resources/Utilities/stopWords.txt");
