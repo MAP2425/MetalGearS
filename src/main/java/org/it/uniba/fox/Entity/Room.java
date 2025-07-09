@@ -8,13 +8,15 @@ public class Room {
     private boolean free;
     private List <Character> characters;
     private List <Item> items;
+    private List <Command> commands;
 
-    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items){
+    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items, List <Command> commands){
         this.name=name;
         this.description=description;
         this.free = free;
         this.items=items;
         this.characters=characters;
+        this.commands=commands;
     }
 
     public String getName(){
@@ -63,6 +65,21 @@ public class Room {
 
     public void addCharacters(Character character){
         this.characters.add(character);
+    }
+
+    public void addCommand(Command command){
+        this.commands.add(command);
+    }
+
+    public List <Command> getCommands(){
+        return this.commands;
+    }
+
+    public void setCommands(List <Command> commands){
+        this.commands=commands;
+    }
+    public boolean removeCommand(String name){
+        return this.commands.removeIf(cmd->cmd.getName().equals(name));
     }
 
     public boolean removeCharacter(String name){

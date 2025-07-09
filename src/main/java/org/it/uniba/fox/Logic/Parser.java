@@ -22,10 +22,13 @@ public class Parser {
 
         this.availableCommands=availableCommands;
         this.availableItems=availableItems;
+        try {
+            this.fillStopWords();
+        } catch (Exception e) {
+            System.err.println("Error loading stop words: " + e.getMessage());
+        }
 
     }
-
-
 
 
     public String[] parseInput(String input) {
@@ -62,7 +65,7 @@ public class Parser {
     }
 
 
-    private void fillStopWords() throws Exception {
+    public void fillStopWords() throws Exception {
         Files.readAllBytes(Paths.get("src/main/resources/Utilities/stopWords.txt"));
         File file = new File("src/main/resources/Utilities/stopWords.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -73,5 +76,29 @@ public class Parser {
         reader.close();
     }
 
+
+    public Command getMatchedCommand(String[] words) {
+        for (String word : words) {
+            for (Command cmd : availableCommands) {
+                if (cmd.getName().equalsIgnoreCase(word) ||
+                        cmd.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(word))) {
+                    return cmd;
+                }
+            }
+        }
+        // Non serve return null, la funzione sarà chiamata solo se c'è match
+        throw new IllegalStateException("Nessun comando trovato, ma la funzione non dovrebbe essere chiamata in questo caso.");
+    }
+
+    public Item getMatchedItem(String[] words) {
+        for (String word : words) {
+            for (Item item : availableItems) {
+                if (item.getName().equalsIgnoreCase(word)) {
+                    return item;
+                }
+            }
+        }
+        throw new IllegalStateException("Nessun item trovato, ma la funzione non dovrebbe essere chiamata in questo caso.");
+    }
 
 }
