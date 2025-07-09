@@ -101,7 +101,7 @@ public class MenuGUI extends JPanel {
         // Set the properties of the site button
         site.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
             }
         });
 
@@ -131,7 +131,7 @@ public class MenuGUI extends JPanel {
         // Set the properties of the new game button
         newGame.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
 
             }
         });
@@ -154,7 +154,7 @@ public class MenuGUI extends JPanel {
         // Set the properties of the sound button
         sound.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
 
             }
         });
@@ -176,7 +176,7 @@ public class MenuGUI extends JPanel {
         // Set the properties of the help button
         help.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
 
             }
         });
@@ -197,7 +197,7 @@ public class MenuGUI extends JPanel {
         // Set the properties of the load game button
         loadGame.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
 
             }
         });
@@ -224,13 +224,14 @@ public class MenuGUI extends JPanel {
         // Set the properties of the credits button
         credits.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 128);
 
             }
         });
         credits.setFocusPainted(false);
         credits.setBackground(new Color(204, 173, 27));
         credits.setForeground(new Color(255, 255, 255));
+        credits.setFont(new Font("Otacon", 1, 24));
         credits.setBorderPainted(true);
         credits.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255), 3));
         credits.setText("Riconoscimenti");

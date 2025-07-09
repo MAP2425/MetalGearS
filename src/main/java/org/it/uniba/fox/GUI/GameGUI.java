@@ -106,7 +106,7 @@ public class GameGUI extends JPanel {
         imagePanel.setPreferredSize(new Dimension(440, 400));
         imagePanel.setMaximumSize(new Dimension(440, 400));
         imagePanel.setMinimumSize(new Dimension(440, 400));
-        imagePanel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 5));
+        imagePanel.setBorder(BorderFactory.createLineBorder(new Color(134, 177, 157, 255), 5));
         imagePanel.setBackground(new Color(255, 0, 0, 202));
 
         cardLayout = new CardLayout();
@@ -119,17 +119,8 @@ public class GameGUI extends JPanel {
 
         imagePanel.setLayout(cardLayout);
 
-        imagePanel.add(new JPanel(null) {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Desert.png");
-                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        }, "Desert");
-
         for (int i = 1; i <= 10; i++) {
-            final String imagePath = "src/main/resources/docs/img/Stanza" + i + ".png";
+            final String imagePath = "src/main/resources/img/Stanza" + i + ".png";
             imagePanel.add(new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -139,24 +130,6 @@ public class GameGUI extends JPanel {
                 }
             }, "Stanza" + i);
         }
-
-        imagePanel.add(new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Saggezza.png");
-                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        }, "Saggezza");
-
-        imagePanel.add(new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/docs/img/Ricchezza.png");
-                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        }, "Ricchezza");
     }
 
     /**
@@ -192,7 +165,7 @@ public class GameGUI extends JPanel {
      */
     private void initComponents() {
         // Setting properties of the panel
-        setBackground(new Color(25, 30, 66));
+        setBackground(new Color(76, 100, 89, 255));
         setPreferredSize(new Dimension(800, 600));
 
         // Initialization of the components
@@ -212,7 +185,7 @@ public class GameGUI extends JPanel {
         // Setting the properties of the toolbar and its components
         toolBar.setBorderPainted(false);
         toolBar.setFloatable(false);
-        toolBar.setBackground(new Color(25, 30, 66));
+        toolBar.setBackground(new Color(76, 100, 89, 255));
         toolBar.add(Box.createHorizontalStrut(5));
 
         // Setting the properties of the go back button
@@ -223,15 +196,17 @@ public class GameGUI extends JPanel {
             }
         });
         goBackButton.setFocusPainted(false);
-        goBackButton.setBackground(new Color(255, 255, 255));
-        goBackButton.setForeground(new Color(255, 0, 0, 202));
+        goBackButton.setBackground(new Color(89, 89, 86));
+        goBackButton.setForeground(new Color(185, 245, 218, 255));
         goBackButton.setBorderPainted(true);
-        goBackButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        goBackButton.setBorder(BorderFactory.createLineBorder(new Color(172, 228, 202, 255), 2));
         goBackButton.setFont(new Font("Otacon", 1, 16));
         goBackButton.setText("⮜");
         goBackButton.setFocusable(false);
         goBackButton.setHorizontalTextPosition(SwingConstants.CENTER);
         goBackButton.setVerticalTextPosition(SwingConstants.CENTER);
+        goBackButton.setOpaque(false);
+        goBackButton.setContentAreaFilled(false);
         goBackButton.addActionListener(this::goBackButtonActionPerformed);
         toolBar.add(goBackButton);
 
@@ -246,16 +221,18 @@ public class GameGUI extends JPanel {
             }
         });
         saveGameButton.setFocusPainted(false);
-        saveGameButton.setBackground(new Color(255, 255, 255));
-        saveGameButton.setForeground(new Color(255, 0, 0, 202));
+        saveGameButton.setBackground(new Color(89, 89, 86));
+        saveGameButton.setForeground(new Color(185, 245, 218, 255));
         saveGameButton.setBorderPainted(true);
-        saveGameButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        saveGameButton.setBorder(BorderFactory.createLineBorder(new Color(172, 228, 202, 255), 2));
         saveGameButton.setFont(new Font("Otacon", 1, 16));
         saveGameButton.setText(" Salva ");
         saveGameButton.setToolTipText("");
         saveGameButton.setFocusable(false);
         saveGameButton.setHorizontalTextPosition(SwingConstants.CENTER);
         saveGameButton.setVerticalTextPosition(SwingConstants.CENTER);
+        saveGameButton.setOpaque(false);
+        saveGameButton.setContentAreaFilled(false);
         saveGameButton.addActionListener(evt -> {
             try {
                 saveGameButtonActionPerformed();
@@ -276,16 +253,18 @@ public class GameGUI extends JPanel {
             }
         });
         helpButton.setFocusPainted(false);
-        helpButton.setBackground(new Color(255, 255, 255));
-        helpButton.setForeground(new Color(255, 0, 0, 202));
+        helpButton.setBackground(new Color(89, 89, 86));
+        helpButton.setForeground(new Color(185, 245, 218, 255));
         helpButton.setBorderPainted(true);
-        helpButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        helpButton.setBorder(BorderFactory.createLineBorder(new Color(172, 228, 202, 255), 2));
         helpButton.setFont(new Font("Otacon", 1, 20));
         helpButton.setMargin(new Insets(0, 10, 0, 0));
         helpButton.setText("  ?  ");
         helpButton.setFocusable(false);
         helpButton.setHorizontalTextPosition(SwingConstants.CENTER);
         helpButton.setVerticalTextPosition(SwingConstants.CENTER);
+        helpButton.setOpaque(false);
+        helpButton.setContentAreaFilled(false);
         helpButton.addActionListener(this::helpButtonActionPerformed);
         toolBar.add(helpButton);
 
@@ -304,15 +283,17 @@ public class GameGUI extends JPanel {
             }
         });
         musicButton.setFocusPainted(false);
-        musicButton.setBackground(new Color(255, 255, 255, 255));
-        musicButton.setForeground(new Color(255, 0, 0, 202));
+        musicButton.setBackground(new Color(89, 89, 86, 255));
+        musicButton.setForeground(new Color(185, 245, 218, 255));
         musicButton.setBorderPainted(true);
-        musicButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        musicButton.setBorder(BorderFactory.createLineBorder(new Color(172, 228, 202, 255), 2));
         musicButton.setFont(musicButton.getFont().deriveFont(18f));
         musicButton.setText(" 🔊 ");
         musicButton.setFocusable(false);
         musicButton.setHorizontalTextPosition(SwingConstants.CENTER);
         musicButton.setVerticalTextPosition(SwingConstants.CENTER);
+        musicButton.setOpaque(false);
+        musicButton.setContentAreaFilled(false);
         musicButton.addActionListener(this::musicButtonActionPerformed);
         toolBar.add(musicButton);
 
@@ -321,7 +302,7 @@ public class GameGUI extends JPanel {
 
         // Setting the properties of the timer label
         timerLabel.setOpaque(true);
-        timerLabel.setBackground(new Color(255, 255, 255));
+        timerLabel.setBackground(new Color(89, 89, 86));
         timerLabel.setForeground(new Color(255, 0, 0, 202));
         timerLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
         timerLabel.setFont(new Font("Otacon", 1, 16));
@@ -329,10 +310,11 @@ public class GameGUI extends JPanel {
         timerLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         timerLabel.setVerticalTextPosition(SwingConstants.CENTER);
         timerLabel.setText(" 00:00:00 ");
+        timerLabel.setOpaque(false);
         toolBar.add(timerLabel);
 
         // Setting the properties of the inventory text area
-        Image inventoryImg = new ImageIcon("src/main/resources/docs/img/bagTextArea.png").getImage();
+        Image inventoryImg = new ImageIcon("src/main/resources/img/bagTextArea.jpeg").getImage();
 
         JViewport inventoryView = new JViewport() {
             @Override
@@ -359,10 +341,10 @@ public class GameGUI extends JPanel {
         scrollPaneInventoryText.setPreferredSize(new Dimension(440, 100));
         scrollPaneInventoryText.setMaximumSize(new Dimension(440, 100));
         scrollPaneInventoryText.setMinimumSize(new Dimension(440, 100));
-        scrollPaneInventoryText.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, new Color(255, 0, 0, 205)));
+        scrollPaneInventoryText.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, new Color(134, 177, 157, 255)));
 
         // Setting the properties of the display text pane
-        Image img = new ImageIcon("src/main/resources/docs/img/papyrTextPane.png").getImage();
+        Image img = new ImageIcon("src/main/resources/img/foxTextPanel.png").getImage();
 
         JViewport view = new JViewport() {
             @Override
@@ -380,14 +362,14 @@ public class GameGUI extends JPanel {
         displayTextPane.setOpaque(false);
         displayTextPane.setForeground(new Color(0, 0, 0));
 
-        scrollPaneDisplayText.setBackground(new Color(255, 255, 255));
+        scrollPaneDisplayText.setBackground(new Color(76, 100, 89, 255));
         scrollPaneDisplayText.setViewport(view);
         scrollPaneDisplayText.setViewportView(displayTextPane);
         scrollPaneDisplayText.setPreferredSize(new Dimension(335, 550));
         scrollPaneDisplayText.setMaximumSize(new Dimension(335, 550));
         scrollPaneDisplayText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneDisplayText.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPaneDisplayText.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(255, 0, 0, 205)));
+        scrollPaneDisplayText.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(134, 177, 157, 255)));
 
         // Setting the properties of the user input field
         userInputField.addActionListener(this::userInputFieldActionPerformed);
@@ -398,11 +380,11 @@ public class GameGUI extends JPanel {
         userInputField.setPreferredSize(new Dimension(335, 31));
         userInputField.setMaximumSize(new Dimension(335, 31));
         userInputField.setMinimumSize(new Dimension(335, 31));
-        userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(255, 0, 0, 205)));
+        userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(134, 177, 157, 255)));
         userInputField.setBounds(0, 0, 335, 31);
         //UserInputManager.startInputListener();
 
-        Image img2 = new ImageIcon("src/main/resources/docs/img/OtaconerInputField.png").getImage();
+        Image img2 = new ImageIcon("src/main/resources/img/foxUserInputField.png").getImage();
 
         JPanel userInputFieldPanel = new JPanel()
         {
@@ -411,7 +393,7 @@ public class GameGUI extends JPanel {
                 super.paintComponent(g);
                 g.drawImage(img2, 0, 0, getWidth(), getHeight(), this);
             }
-        };
+       };
         userInputFieldPanel.setLayout(null);
         userInputFieldPanel.setPreferredSize(new Dimension(335, 31));
         userInputFieldPanel.setMaximumSize(new Dimension(335, 31));

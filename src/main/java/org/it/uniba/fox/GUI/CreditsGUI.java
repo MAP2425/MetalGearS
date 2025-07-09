@@ -89,7 +89,7 @@ public class CreditsGUI extends JPanel {
             }
         });
         goBack.setFocusPainted(false);
-        goBack.setBackground(new Color(204, 173, 27));
+        goBack.setBackground(new Color(255, 255, 255));
         goBack.setForeground(new Color(255, 0, 0, 202));
         goBack.setBorderPainted(true);
         goBack.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 128), 2));
@@ -186,7 +186,7 @@ public class CreditsGUI extends JPanel {
         titleLabel.setPreferredSize(new Dimension(220, 39));
 
         // Set the properties of the content label
-        contentLabel.setBackground(new Color(255, 0, 0, 205));
+        contentLabel.setBackground(new Color(255, 0, 0, 204));
         contentLabel.setForeground(new Color(255, 255, 255));
         contentLabel.setOpaque(true);
         contentLabel.setVerticalAlignment(SwingConstants.TOP);
