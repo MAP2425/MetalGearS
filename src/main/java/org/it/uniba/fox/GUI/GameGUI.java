@@ -106,8 +106,8 @@ public class GameGUI extends JPanel {
         imagePanel.setPreferredSize(new Dimension(440, 400));
         imagePanel.setMaximumSize(new Dimension(440, 400));
         imagePanel.setMinimumSize(new Dimension(440, 400));
-        imagePanel.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 5));
-        imagePanel.setBackground(new Color(107, 90, 13));
+        imagePanel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 5));
+        imagePanel.setBackground(new Color(255, 0, 0, 202));
 
         cardLayout = new CardLayout();
 
@@ -218,17 +218,17 @@ public class GameGUI extends JPanel {
         // Setting the properties of the go back button
         goBackButton.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 255);
 
             }
         });
         goBackButton.setFocusPainted(false);
-        goBackButton.setBackground(new Color(204, 173, 27));
-        goBackButton.setForeground(new Color(255, 255, 255));
+        goBackButton.setBackground(new Color(255, 255, 255));
+        goBackButton.setForeground(new Color(255, 0, 0, 202));
         goBackButton.setBorderPainted(true);
-        goBackButton.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 2));
-        goBackButton.setFont(new Font("Papyrus", 1, 16));
-        goBackButton.setText(" Indietro ");
+        goBackButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        goBackButton.setFont(new Font("Otacon", 1, 16));
+        goBackButton.setText("⮜");
         goBackButton.setFocusable(false);
         goBackButton.setHorizontalTextPosition(SwingConstants.CENTER);
         goBackButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -241,16 +241,16 @@ public class GameGUI extends JPanel {
         // Setting the properties of the save game button
         saveGameButton.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 255);
 
             }
         });
         saveGameButton.setFocusPainted(false);
-        saveGameButton.setBackground(new Color(204, 173, 27));
-        saveGameButton.setForeground(new Color(255, 255, 255));
+        saveGameButton.setBackground(new Color(255, 255, 255));
+        saveGameButton.setForeground(new Color(255, 0, 0, 202));
         saveGameButton.setBorderPainted(true);
-        saveGameButton.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 2));
-        saveGameButton.setFont(new Font("Papyrus", 1, 16));
+        saveGameButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        saveGameButton.setFont(new Font("Otacon", 1, 16));
         saveGameButton.setText(" Salva ");
         saveGameButton.setToolTipText("");
         saveGameButton.setFocusable(false);
@@ -271,16 +271,16 @@ public class GameGUI extends JPanel {
         // Setting the properties of the help button
         helpButton.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 255);
 
             }
         });
         helpButton.setFocusPainted(false);
-        helpButton.setBackground(new Color(204, 173, 27));
-        helpButton.setForeground(new Color(255, 255, 255));
+        helpButton.setBackground(new Color(255, 255, 255));
+        helpButton.setForeground(new Color(255, 0, 0, 202));
         helpButton.setBorderPainted(true);
-        helpButton.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 2));
-        helpButton.setFont(new Font("Papyrus", 1, 20));
+        helpButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        helpButton.setFont(new Font("Otacon", 1, 20));
         helpButton.setMargin(new Insets(0, 10, 0, 0));
         helpButton.setText("  ?  ");
         helpButton.setFocusable(false);
@@ -299,15 +299,15 @@ public class GameGUI extends JPanel {
         musicButton.setMinimumSize(musicButtonDim);
         musicButton.setUI(new MetalButtonUI() {
             protected Color getSelectColor () {
-                return new Color(133, 106, 5, 50);
+                return new Color(89, 89, 86, 255);
 
             }
         });
         musicButton.setFocusPainted(false);
-        musicButton.setBackground(new Color(204, 173, 27));
-        musicButton.setForeground(new Color(255, 255, 255));
+        musicButton.setBackground(new Color(255, 255, 255, 255));
+        musicButton.setForeground(new Color(255, 0, 0, 202));
         musicButton.setBorderPainted(true);
-        musicButton.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 2));
+        musicButton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
         musicButton.setFont(musicButton.getFont().deriveFont(18f));
         musicButton.setText(" 🔊 ");
         musicButton.setFocusable(false);
@@ -321,10 +321,10 @@ public class GameGUI extends JPanel {
 
         // Setting the properties of the timer label
         timerLabel.setOpaque(true);
-        timerLabel.setBackground(new Color(204, 173, 27));
-        timerLabel.setForeground(new Color(255, 255, 255));
-        timerLabel.setBorder(BorderFactory.createLineBorder(new Color(107, 90, 13), 2));
-        timerLabel.setFont(new Font("Papyrus", 1, 16));
+        timerLabel.setBackground(new Color(255, 255, 255));
+        timerLabel.setForeground(new Color(255, 0, 0, 202));
+        timerLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0, 205), 2));
+        timerLabel.setFont(new Font("Otacon", 1, 16));
         timerLabel.setFocusable(false);
         timerLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         timerLabel.setVerticalTextPosition(SwingConstants.CENTER);
@@ -359,7 +359,7 @@ public class GameGUI extends JPanel {
         scrollPaneInventoryText.setPreferredSize(new Dimension(440, 100));
         scrollPaneInventoryText.setMaximumSize(new Dimension(440, 100));
         scrollPaneInventoryText.setMinimumSize(new Dimension(440, 100));
-        scrollPaneInventoryText.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, new Color(107, 90, 13)));
+        scrollPaneInventoryText.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 5, new Color(255, 0, 0, 205)));
 
         // Setting the properties of the display text pane
         Image img = new ImageIcon("src/main/resources/docs/img/papyrTextPane.png").getImage();
@@ -380,14 +380,14 @@ public class GameGUI extends JPanel {
         displayTextPane.setOpaque(false);
         displayTextPane.setForeground(new Color(0, 0, 0));
 
-        scrollPaneDisplayText.setBackground(new Color(204, 173, 27));
+        scrollPaneDisplayText.setBackground(new Color(255, 255, 255));
         scrollPaneDisplayText.setViewport(view);
         scrollPaneDisplayText.setViewportView(displayTextPane);
         scrollPaneDisplayText.setPreferredSize(new Dimension(335, 550));
         scrollPaneDisplayText.setMaximumSize(new Dimension(335, 550));
         scrollPaneDisplayText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneDisplayText.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPaneDisplayText.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(107, 90, 13)));
+        scrollPaneDisplayText.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, new Color(255, 0, 0, 205)));
 
         // Setting the properties of the user input field
         userInputField.addActionListener(this::userInputFieldActionPerformed);
@@ -398,11 +398,11 @@ public class GameGUI extends JPanel {
         userInputField.setPreferredSize(new Dimension(335, 31));
         userInputField.setMaximumSize(new Dimension(335, 31));
         userInputField.setMinimumSize(new Dimension(335, 31));
-        userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(107, 90, 13)));
+        userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(255, 0, 0, 205)));
         userInputField.setBounds(0, 0, 335, 31);
         //UserInputManager.startInputListener();
 
-        Image img2 = new ImageIcon("src/main/resources/docs/img/papyrUserInputField.png").getImage();
+        Image img2 = new ImageIcon("src/main/resources/docs/img/OtaconerInputField.png").getImage();
 
         JPanel userInputFieldPanel = new JPanel()
         {
@@ -458,7 +458,7 @@ public class GameGUI extends JPanel {
      * @throws ClassNotFoundException the class not found exception
      */
     private void saveGameButtonActionPerformed() throws IOException, ClassNotFoundException {
-        Font font = new Font("Papyrus", Font.PLAIN, 13);
+        Font font = new Font("Otacon", Font.PLAIN, 13);
         UIManager.put("OptionPane.messageFont", font);
         int save = JOptionPane.showConfirmDialog(this, "Would you like to save?", "Save", JOptionPane.YES_NO_OPTION);
 
@@ -494,7 +494,7 @@ public class GameGUI extends JPanel {
      * Method when you don't save the file
      */
     private void notSavedFile() {
-        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        UIManager.put("OptionPane.messageFont", new Font("Otacon", 0, 13));
         JOptionPane.showMessageDialog(this, "Game not saved", "Save", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -504,7 +504,7 @@ public class GameGUI extends JPanel {
      * @param evt the evt
      */
     private void goBackButtonActionPerformed(ActionEvent evt) {
-        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        UIManager.put("OptionPane.messageFont", new Font("Otacon", 0, 13));
         int back = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler tornare al Menù senza salvare?", "Back", JOptionPane.YES_NO_OPTION);
 
         if (back == JOptionPane.YES_OPTION) {
@@ -530,7 +530,7 @@ public class GameGUI extends JPanel {
      * Method when you don't go back
      */
     private void notGoBack() {
-        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
+        UIManager.put("OptionPane.messageFont", new Font("Otacon", 0, 13));
         JOptionPane.showMessageDialog(this, "Sii più deciso la prossima volta", "Back", JOptionPane.INFORMATION_MESSAGE);
     }
 
