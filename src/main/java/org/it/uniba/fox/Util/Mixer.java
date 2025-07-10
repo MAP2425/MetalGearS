@@ -1,4 +1,4 @@
-package org.it.uniba.fox.util;
+package org.it.uniba.fox.Util;
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

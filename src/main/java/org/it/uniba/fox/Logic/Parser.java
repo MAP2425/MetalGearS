@@ -16,12 +16,13 @@ public class Parser {
 
     private final Set<Command> availableCommands;
 
-    private final Set <Item> availableItems;
+    private final Set<Item> availableItems;
 
-    public Parser(Set <Command> availableCommands,Set <Item> availableItems){
 
-        this.availableCommands=availableCommands;
-        this.availableItems=availableItems;
+    public Parser(Set<Command> availableCommands, Set<Item> availableItems) {
+
+        this.availableCommands = availableCommands;
+        this.availableItems = availableItems;
         try {
             this.fillStopWords();
         } catch (Exception e) {
@@ -52,6 +53,7 @@ public class Parser {
         return false;
     }
 
+
     public boolean containsItem(String[] words) {
         for (String word : words) {
             boolean foundItem = availableItems.stream().anyMatch(item ->
@@ -66,8 +68,8 @@ public class Parser {
 
 
     public void fillStopWords() throws Exception {
-        Files.readAllBytes(Paths.get("src/main/resources/Utilities/stopWords.txt"));
-        File file = new File("src/main/resources/Utilities/stopWords.txt");
+        Files.readAllBytes(Paths.get("src/main/resources/utilities/stopWords.txt"));
+        File file = new File("src/main/resources/utilities/stopWords.txt");
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         while (reader.ready()) {
@@ -100,5 +102,7 @@ public class Parser {
         }
         throw new IllegalStateException("Nessun item trovato, ma la funzione non dovrebbe essere chiamata in questo caso.");
     }
+
+
 
 }

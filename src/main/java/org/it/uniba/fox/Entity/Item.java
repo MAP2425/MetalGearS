@@ -5,6 +5,7 @@ public class Item {
     private String name;
     private String description;
     private boolean reusable=true;
+    private boolean isPicked=false;
 
 
 
@@ -20,6 +21,8 @@ public class Item {
         return this.reusable;
     }
 
+    public boolean getPicked(){ return this.isPicked;}
+
     public void setName(String name){
         this.name=name;
     }
@@ -31,5 +34,11 @@ public class Item {
     public void setReusable(boolean reusable) {
         this.reusable=reusable;
     }
+
+    public void setPicked(boolean isPicked) {
+        this.isPicked=isPicked;
+    }
+
+
 
 }

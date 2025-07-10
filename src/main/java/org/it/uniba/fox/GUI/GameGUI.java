@@ -1,13 +1,10 @@
 package org.it.uniba.fox.GUI;
 
-import org.it.uniba.fox.util.Mixer;
+import org.it.uniba.fox.Util.Mixer;
 
-import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import javax.swing.plaf.metal.MetalButtonUI;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -34,8 +31,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.awt.Image;
 
 /**
