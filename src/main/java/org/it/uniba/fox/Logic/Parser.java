@@ -79,7 +79,7 @@ public class Parser {
     }
 
 
-    public Command getMatchedCommand(String[] words) {
+    /*public Command getMatchedCommand(String[] words) {
         for (String word : words) {
             for (Command cmd : availableCommands) {
                 if (cmd.getName().equalsIgnoreCase(word) ||
@@ -101,7 +101,7 @@ public class Parser {
             }
         }
         throw new IllegalStateException("Nessun item trovato, ma la funzione non dovrebbe essere chiamata in questo caso.");
-    }
+    }*/
 
 
 

@@ -91,4 +91,8 @@ public class Room {
 
         return this.items.removeIf(item->item.getName().equals(name));
     }
+
+    public void printDescription() {
+        //DatabaseConnection.printFromDB("Osserva", name, currentState, "0", "0", "0");
+    }
 }
