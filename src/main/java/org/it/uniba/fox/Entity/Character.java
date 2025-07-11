@@ -13,6 +13,10 @@ public class Character extends Item{
          this.position=position;
      }
 
+    public boolean hasName(String name) {
+        return this.getName().equals(name);
+    }
+
 
 
 }

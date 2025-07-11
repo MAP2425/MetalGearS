@@ -87,9 +87,9 @@ public class Room {
        return this.characters.removeIf(ch->ch.getName().equals(name));
     }
 
-    public boolean removeItem(String name){
+    public void removeItem(String name){
 
-        return this.items.removeIf(item->item.getName().equals(name));
+        this.items.removeIf(item -> item.getName().equals(name));
     }
 
     public void printDescription() {

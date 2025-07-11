@@ -23,6 +23,11 @@ public class Item {
 
     public boolean getPicked(){ return this.isPicked;}
 
+
+    public boolean hasName(String name) {
+        return this.getName().equals(name);
+    }
+
     public void setName(String name){
         this.name=name;
     }
