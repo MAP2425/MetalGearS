@@ -193,7 +193,7 @@ public class CreditsGUI extends JPanel {
         contentLabel.setFont(new Font("Georgia", 0, 14));
         contentLabel.setText(
                 "<html><center>"
-                        + "<p>\"Metal Gear\" è un'avventura testuale realizzata da Fabrizio Giuseppe Mazzilli, Francesco Ricci e Marco Virardi nell’ambito del corso universitario di \"Metodi Avanzati di Programmazione\". Pur essendo un progetto focalizzato sull'applicazione pratica dei principali concetti affrontati durante le lezioni, gli autori non hanno trascurato la componente ludica, creando qualcosa di ben fatto e divertente, al limite delle loro possibilità.</p>"
+                        + "<p>\"Metal Gear\" è un'avventura testuale realizzata da Fabrizio Giuseppe Mazzilli, Francesco Ricci e Marco Vilardi nell’ambito del corso universitario di \"Metodi Avanzati di Programmazione\". Pur essendo un progetto focalizzato sull'applicazione pratica dei principali concetti affrontati durante le lezioni, gli autori non hanno trascurato la componente ludica, creando qualcosa di ben fatto e divertente, al limite delle loro possibilità.</p>"
                         + "</html><center>"
         );
         contentLabel.setPreferredSize(new Dimension(500, 132));

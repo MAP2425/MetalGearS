@@ -1,5 +1,6 @@
 package org.it.uniba.fox.GUI;
 
+import org.it.uniba.fox.InteractionManager.UserInputManager;
 import org.it.uniba.fox.Util.Mixer;
 
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -377,7 +378,7 @@ public class GameGUI extends JPanel {
         userInputField.setMinimumSize(new Dimension(335, 31));
         userInputField.setBorder(BorderFactory.createMatteBorder(0, 5, 5, 0, new Color(134, 177, 157, 255)));
         userInputField.setBounds(0, 0, 335, 31);
-        //UserInputManager.startInputListener();
+        UserInputManager.startInputListener();
 
         Image img2 = new ImageIcon("src/main/resources/img/foxUserInputField.png").getImage();
 
@@ -542,7 +543,7 @@ public class GameGUI extends JPanel {
     private void userInputFieldActionPerformed(ActionEvent evt) {
         String text = userInputField.getText();
         userInputField.setText("");
-        //UserInputManager.setCurrentInput(text);
+        UserInputManager.setCurrentInput(text);
     }
 
     /**
