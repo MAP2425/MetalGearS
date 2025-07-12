@@ -11,8 +11,6 @@ public class Item {
     private List<String> aliases;
 
 
-
-
     public String getName(){
         return this.name;
     }
@@ -57,6 +55,12 @@ public class Item {
         this.isPicked=isPicked;
     }
 
-
+    public Item(String name, String description, boolean reusable, boolean isPicked, List<String> aliases) {
+        this.name = name;
+        this.description = description;
+        this.reusable = reusable;
+        this.isPicked = isPicked;
+        this.aliases = aliases;
+    }
 
 }
