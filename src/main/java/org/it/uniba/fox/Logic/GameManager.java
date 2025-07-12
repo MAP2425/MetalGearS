@@ -94,18 +94,18 @@ public class GameManager {
     public Set<Command> getAllCommands() {
         Set<Command> availableCommands = new HashSet<>();
 
-        availableCommands.add(new Command("Aiuto", List.of("h", "help", "comandi", "comando", "guida"), CommandType.CODEC));
+        availableCommands.add(new Command("Codec", List.of("h", "help", "comandi", "comando", "guida"), CommandType.CODEC));
         availableCommands.add(new Command("Nord", List.of("n", "north", "avanti", "vaiAvanti"), CommandType.NORD));
         availableCommands.add(new Command("Sud", List.of("s", "south", "indietro", "vaiIndietro"), CommandType.SUD));
         availableCommands.add(new Command("Est", List.of("e", "east", "destra", "vaiDestra", "vaiADestra"), CommandType.EST));
         availableCommands.add(new Command("Ovest", List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra"), CommandType.OVEST));
         availableCommands.add(new Command("Inventario", List.of("i", "inventory", "borsa", "zaino", "valigia", "inv"), CommandType.INVENTARIO));
-        availableCommands.add(new Command("Guarda", List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona"), CommandType.OSSERVA));
+        availableCommands.add(new Command("Osserva", List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona"), CommandType.OSSERVA));
         availableCommands.add(new Command("Prendi", List.of("p", "t", "take", "raccogli", "recupera", "intasca"), CommandType.PRENDI));
         availableCommands.add(new Command("Usa", List.of("u", "use", "utilizza", "poggia", "appoggia", "poni"), CommandType.USA));
         availableCommands.add(new Command("Parla", List.of("talk", "dialoga"), CommandType.PARLA));
         availableCommands.add(new Command("Dai", List.of("give", "d", "passa", "consegna", "regala", "dona", "porgi"), CommandType.DAI));
-        availableCommands.add(new Command("Unisci", List.of("fuse", "f", "componi", "fondi", "combina", "assembla", "mischia", "miscela", "incastra"), CommandType.UNISCI));
+
 
         return availableCommands;
     }

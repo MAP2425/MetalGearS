@@ -34,35 +34,38 @@ public class Mixer extends Thread {
      * The constructor of the Mixer.
      */
     private Mixer() {
-        clips = new Clip[9];
+        clips = new Clip[8];
         // menu music
-        // example: loadClip(0, "src/main/resources/docs/audio/Desert_Menu-newSMB_DS.wav");
+        loadClip(0, "src/main/resources/audio/Metal Gear Solid 2- Main Theme 8-bit.wav");
+        //rooms music
+        loadClip(1, "src/main/resources/audio/MG2 - SS OST [27 - INFILTRATION (Alert Mode 1 part7)].wav");
+        loadClip(2, "src/main/resources/audio/MG2 - SS OST [26 - FIGHT INTO ENEMY TERITORY (Sneaking into Enemy Territory BGM)].wav");
+        loadClip(3, "src/main/resources/audio/MG2 - SS OST [28 - IN SECURITY (Holly is Captured)].wav");
+        loadClip(4, "src/main/resources/audio/MG2 - SS OST [15 - MECANIC (Boss BGM 2)].wav");
+        loadClip(5, "src/main/resources/audio/MG2 - SS OST [13 - BATTLE AGAINST TIME (Boss BGM 1)].wav");
+        loadClip(6, "src/main/resources/audio/Metal Gear (NES) Music - Super Computer Area.wav");
+        loadClip(7, "src/main/resources/audio/Metal Gear (NES) Music - Boss Battle.wav");
+        loadClip(8, "src/main/resources/audio/Metal Gear (NES) Music - Password Theme.wav");
 
         // map room to clip instantiation
         roomToClipIndex = new HashMap<>();
 
         roomToClipIndex.put("Menu", 0);
 
-        roomToClipIndex.put("Desert", 1);
+        roomToClipIndex.put("WordleGUI", 5);
 
-        roomToClipIndex.put("WordleGUI", 2);
-        roomToClipIndex.put("Mattonelle", 8);
-        roomToClipIndex.put("Impiccato", 8);
-        roomToClipIndex.put("Stanza6", 2);
-
-        roomToClipIndex.put("Stanza1", 3);
-        roomToClipIndex.put("Stanza2", 3);
-        roomToClipIndex.put("Stanza3", 3);
+        roomToClipIndex.put("Stanza1", 1);
+        roomToClipIndex.put("Stanza2", 2);
+        roomToClipIndex.put("Stanza3", 2);
         roomToClipIndex.put("Stanza4", 3);
-
-        roomToClipIndex.put("Stanza5", 4);
-        roomToClipIndex.put("Stanza7", 7);
-        roomToClipIndex.put("Stanza8", 6);
-        roomToClipIndex.put("Stanza9", 7);
-
-        roomToClipIndex.put("Stanza10", 5);
-        roomToClipIndex.put("Saggezza", 5);
-        roomToClipIndex.put("Ricchezza", 5);
+        roomToClipIndex.put("Stanza5", 7);
+        roomToClipIndex.put("Stanza6", 1);
+        roomToClipIndex.put("Stanza7", 4);
+        roomToClipIndex.put("Stanza8", 4);
+        roomToClipIndex.put("Stanza9", 8);
+        roomToClipIndex.put("Stanza10", 3);
+        roomToClipIndex.put("Stanza11", 5);
+        roomToClipIndex.put("Stanza12", 7);
     }
 
     /**
@@ -101,6 +104,7 @@ public class Mixer extends Thread {
     @Override
     public void run() {
         running = true;
+
         try {
             if (clips[0] != null) {
                 clips[0].start();

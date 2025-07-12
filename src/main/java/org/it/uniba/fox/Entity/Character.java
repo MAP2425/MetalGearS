@@ -2,17 +2,15 @@ package org.it.uniba.fox.Entity;
 
 public class Character extends Item{
 
-     Room position;
+    Room position;
 
-     public Room getPosition(){
+
+    public Room getPosition(){
 
          return this.position;
-     }
+    }
 
-     public void setPosition(Room position){
+    public void setPosition(Room position){
          this.position=position;
-     }
-
-
-
+    }
 }
