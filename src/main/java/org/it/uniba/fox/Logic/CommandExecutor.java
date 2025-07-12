@@ -99,7 +99,7 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
                     if (game.getInventory().contains(p.getItem1()) || game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        String statusBeforeAction = game.getCurrentRoom().getState();
+                        Boolean statusBeforeAction = game.getCurrentRoom().getFree();
                         if (gameLogic.executeUseSingleItem((Item) p.getItem1())) {
                             //DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getItem1().getName(), "0");
                         } else {
@@ -114,7 +114,7 @@ public class CommandExecutor {
                 p -> {
                     if (game.getInventory().contains(p.getItem1())) {
                         if (game.getCurrentRoom().getItems().contains(p.getItem2())) {
-                            String statusBeforeAction = game.getCurrentRoom().getFree();
+                            Boolean statusBeforeAction = game.getCurrentRoom().getFree();
                             if (p.getItem2() instanceof Character) {
                                 if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Character) p.getItem2())) {
                                     //DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getItem2().getName(), p.getItem1().getName(), "0");
