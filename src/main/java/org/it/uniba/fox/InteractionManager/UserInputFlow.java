@@ -20,6 +20,10 @@ public class UserInputFlow {
      */
     private static TriviaGame triviaGame;
     /**
+     * The wordleGame object that manages the wordle game in case 1.
+     */
+    private static WordleGame wordleGame;
+    /**
      * The parser object that parses the user input in case 0.
      */
     private static Parser parser;
@@ -38,6 +42,7 @@ public class UserInputFlow {
                 // triviaGame.handleInput(text);
                 break;
             case 2: // Hangman game
+                wordleFlow(text);
                 // hangmanGame.handleInput(text);
                 break;
             default:
@@ -56,7 +61,7 @@ public class UserInputFlow {
 
     public static void setUpGameFlow(final Game game) {
         OutputDisplayManager.displayText("Benvenuto nel gioco! Digita un comando per iniziare.");
-        Event = 1;
+        Event = 0;
     }
 
 
@@ -74,6 +79,16 @@ public class UserInputFlow {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * The method to manage the wordle game event.
+     *
+     * @param text the user input
+     */
+    public static void wordleFlow(final String text) {
+        wordleGame.manageGuess(text.trim().toUpperCase());
     }
 
 }

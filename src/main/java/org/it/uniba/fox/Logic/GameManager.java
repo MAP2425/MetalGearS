@@ -21,22 +21,22 @@ public class GameManager {
     /**
      * The converter.
      */
-    //private final Converter converter = new Converter();
+    private final Converter converter = new Converter();
 
     /**
      * Instantiates a new game and creates all the agents.
      */
-   // public void createGame() {
-       // allAgents = converter.convertJsonToJavaClass();
-   // }
+    public void createGame() {
+       allAgents = converter.convertJsonToJavaClass();
+    }
 
     /**
      * The method to save the game and the agents in a json file.
      *
      */
     public void saveGame() {
-       // converter.ConvertGameToJson();
-       // converter.ConvertAgentsToJson();
+        converter.ConvertGameToJson();
+        converter.ConvertAgentsToJson();
     }
 
     /**

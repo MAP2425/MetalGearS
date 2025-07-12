@@ -1,6 +1,6 @@
 package org.it.uniba.fox.GUI;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.Mixer;
+import org.it.uniba.fox.Util.Mixer;
 import javax.swing.JFrame;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,6 @@ public class ManagerGUI extends JFrame {
         setPreferredSize(new Dimension(800, 600));
         setResizable(false);
         try {
-
             Image icon = ImageIO.read(new File("src/main/resources/img/solid_snake_icon.jpg"));
             setIconImage(icon);
         } catch (IOException e) {
@@ -53,8 +52,7 @@ public class ManagerGUI extends JFrame {
         setVisible(true);
 
         // Start the music
-        // Mixer music = Mixer.getInstance();
-        //music.start();
+        Mixer.getInstance().start();
     }
 
     /**

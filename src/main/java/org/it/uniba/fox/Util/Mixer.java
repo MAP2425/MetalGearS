@@ -5,6 +5,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.util.HashMap;
 
+import static org.it.uniba.fox.GUI.GameGUI.musicButtonSetTextGame;
+import static org.it.uniba.fox.GUI.MenuGUI.musicButtonSetTextMenu;
+
 /**
  * The class that manages the music.
  */
@@ -34,7 +37,7 @@ public class Mixer extends Thread {
      * The constructor of the Mixer.
      */
     private Mixer() {
-        clips = new Clip[8];
+        clips = new Clip[9];
         // menu music
         loadClip(0, "src/main/resources/audio/Metal Gear Solid 2- Main Theme 8-bit.wav");
         //rooms music
@@ -122,7 +125,7 @@ public class Mixer extends Thread {
     public static void startClip() {
         if (clips[currentClip] != null) {
             running = true;
-            //reverseIcons();
+            reverseIcons();
             clips[currentClip].start();
         }
     }
@@ -133,7 +136,7 @@ public class Mixer extends Thread {
     public static void stopClip() {
         if (clips[currentClip] != null) {
             running = false;
-            //reverseIcons();
+            reverseIcons();
             clips[currentClip].stop();
         }
     }
@@ -168,16 +171,15 @@ public class Mixer extends Thread {
     /**
      * Reverses the music icons.
      */
-
-    // public static void reverseIcons() {
-    //  if (!running) {
-    //      musicButtonSetTextGame("🔇");
-    //      musicButtonSetTextMenu("🔇");
-    //  } else {
-    //      musicButtonSetTextGame("🔊");
-    //      musicButtonSetTextMenu("🔊");
-    //  }
-    // }
+     public static void reverseIcons() {
+      if (!running) {
+         musicButtonSetTextGame("🔇");
+         musicButtonSetTextMenu("🔇");
+      } else {
+          musicButtonSetTextGame("🔊");
+          musicButtonSetTextMenu("🔊");
+      }
+     }
 
     /*
      * Changes the music based on the room.

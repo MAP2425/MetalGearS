@@ -1,11 +1,15 @@
 package org.it.uniba.fox.Entity;
 
+import java.util.List;
+
 public class Item {
 
     private String name;
     private String description;
     private boolean reusable=true;
     private boolean isPicked=false;
+    private List<String> aliases;
+
 
 
 
@@ -22,6 +26,15 @@ public class Item {
     }
 
     public boolean getPicked(){ return this.isPicked;}
+
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(List<String> aliases) {
+        this.aliases = aliases;
+    }
 
 
     public boolean hasName(String name) {

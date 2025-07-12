@@ -1,6 +1,8 @@
 package org.it.uniba.fox.GUI;
 import org.it.uniba.fox.Entity.Game;
+import org.it.uniba.fox.Logic.GameManager;
 import org.it.uniba.fox.InteractionManager.UserInputFlow;
+import org.it.uniba.fox.Util.Mixer;
 import org.it.uniba.fox.Util.TimerManager;
 
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+
 
 /**
  * The GUI of the menu.
@@ -61,7 +64,10 @@ public class MenuGUI extends JPanel {
      * The site button.
      */
     private JButton site;
-
+    /**
+     * The instance of game manager.
+     */
+    GameManager gameManager = new GameManager();
     /**
      * Constructor of the class.
      */
@@ -305,20 +311,24 @@ public class MenuGUI extends JPanel {
     private void newGameActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
+        //gameManager.createGame();
         Game game = Game.getInstance();
         new Thread(() -> UserInputFlow.setUpGameFlow(game)).start();
         TimerManager.getInstance().startTimer("00:00:00");
-        // Reset the game state
-        // Mixer.startClip(); // Uncomment if you want to start the music when a new game starts
+         //Reset the game state
+         Mixer.startClip(); // Uncomment if you want to start the music when a new game starts
     }
 
     /**
      * Start or stop the music.
      */
     private void soundActionPerformed(ActionEvent evt) {
-
+        if (Mixer.isRunning()) {
+            Mixer.stopClip();
+        } else {
+            Mixer.startClip();
+        }
     }
-
     /**
      * Open the help dialog.
      *
