@@ -1,6 +1,8 @@
 package org.it.uniba.fox.Entity;
 import org.it.uniba.fox.GUI.GameGUI;
 import org.it.uniba.fox.InteractionManager.OutputDisplayManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,15 @@ public class Game {
      * The instance of the game.
      */
     private static Game game = new Game();
+
+    /**
+     * Constructor for Game class
+     */
+    public Game() {
+        this.inventory = new ArrayList<>();
+        this.corridorsMap = new ArrayList<>();
+        this.freeMap = new HashMap<>();
+    }
 
     /**
      * Sets up the instance of the game.
@@ -106,11 +117,13 @@ public class Game {
      * @param room the room
      */
     public void setCurrentRoom(Room room) {
-        for (Corridor corridor : game.corridorsMap) {
-            if (corridor.getStartingRoom().equals(room)) {
-                game.currentRoom = corridor.getStartingRoom();
-                GameGUI.setImagePanel(game.currentRoom.getName());
-                return;
+        if (game.corridorsMap != null) {
+            for (Corridor corridor : game.corridorsMap) {
+                if (corridor.getStartingRoom().equals(room)) {
+                    game.currentRoom = corridor.getStartingRoom();
+                    GameGUI.setImagePanel(game.currentRoom.getName());
+                    return;
+                }
             }
         }
         game.currentRoom = room;
@@ -145,6 +158,15 @@ public class Game {
     }
 
     /**
+     * Sets corridors map.
+     *
+     * @param corridorsMap the corridors map
+     */
+    public void setCorridorsMap(List<Corridor> corridorsMap) {
+        game.corridorsMap = corridorsMap;
+    }
+
+    /**
      * Unlocks a corridor.
      *
      * @param r1 the starting room
@@ -174,10 +196,26 @@ public class Game {
      * @param room  the room
      * @param isFree the state of the room
      */
-    public void setRoomState(String room, Boolean isFree){
-        game.freeMap.replace(room,isFree );
-        game.corridorsMap.stream()
-                .filter(corridor -> corridor.getStartingRoom().getName().equals(room))
-                .forEach(corridor -> corridor.getStartingRoom().setFree(isFree));
+    /**
+     * Sets room state.
+     *
+     * @param room  the room
+     * @param isFree the state of the room
+     */
+    public void setRoomState(String room, Boolean isFree) {
+        // Inizializza freeMap se è null
+        if (game.freeMap == null) {
+            game.freeMap = new HashMap<>();
+        }
+
+        game.freeMap.put(room, isFree);
+
+        // Aggiorna lo stato della stanza nei corridoi se necessario
+        if (game.corridorsMap != null) {
+            game.corridorsMap.stream()
+                    .filter(corridor -> corridor.getStartingRoom().getName().equals(room))
+                    .forEach(corridor -> corridor.getStartingRoom().setFree(isFree));
+        }
     }
+
 }

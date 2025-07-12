@@ -10,25 +10,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Parser {
-
-
+    /**
+     * The available commands set.
+     */
+    private final Set<Command> availableCommands;
+    /**
+     * The available agents set
+     */
+    private final Set<Item> availableItems;
+    /**
+     * The stop words set.
+     */
     private final Set<String> stopWords = new HashSet<>();
 
-    private final Set<Command> availableCommands;
+    /**
+     * Constructor of the class.
+     */
+    public Parser() {
+        GameManager gameManager = new GameManager();
 
-    private final Set<Item> availableItems;
-
-
-    public Parser(Set<Command> availableCommands, Set<Item> availableItems) {
-
-        this.availableCommands = availableCommands;
-        this.availableItems = availableItems;
-        try {
-            this.fillStopWords();
-        } catch (Exception e) {
-            System.err.println("Error loading stop words: " + e.getMessage());
-        }
-
+        availableCommands = gameManager.getAllCommands();
+        availableItems = gameManager.getAllItems();
     }
 
 
@@ -79,7 +81,7 @@ public class Parser {
     }
 
 
-    /*public Command getMatchedCommand(String[] words) {
+    public Command getMatchedCommand(String[] words) {
         for (String word : words) {
             for (Command cmd : availableCommands) {
                 if (cmd.getName().equalsIgnoreCase(word) ||
@@ -101,7 +103,7 @@ public class Parser {
             }
         }
         throw new IllegalStateException("Nessun item trovato, ma la funzione non dovrebbe essere chiamata in questo caso.");
-    }*/
+    }
 
 
 

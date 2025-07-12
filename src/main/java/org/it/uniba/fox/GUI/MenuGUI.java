@@ -5,12 +5,7 @@ import org.it.uniba.fox.InteractionManager.UserInputFlow;
 import org.it.uniba.fox.Util.Mixer;
 import org.it.uniba.fox.Util.TimerManager;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.GroupLayout;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -311,12 +306,21 @@ public class MenuGUI extends JPanel {
     private void newGameActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
-        //gameManager.createGame();
+        gameManager.createGame();
         Game game = Game.getInstance();
         new Thread(() -> UserInputFlow.setUpGameFlow(game)).start();
         TimerManager.getInstance().startTimer("00:00:00");
          //Reset the game state
-         Mixer.startClip(); // Uncomment if you want to start the music when a new game starts
+         Mixer.startClip();
+        Timer timer = new Timer(1000, e -> {
+            GameGUI.updateInventoryTextArea(
+                    Game.getInstance().getInventory().stream()
+                            .map(item -> item.getName())
+                            .toArray(String[]::new)
+            );
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     /**

@@ -1,11 +1,10 @@
 package org.it.uniba.fox.Logic;
-
-
-import ch.qos.logback.core.pattern.Converter;
 import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Type.CommandType;
+import org.it.uniba.fox.Util.Converter;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,10 +13,11 @@ import java.util.stream.Collectors;
  * The class that manages the game.
  */
 public class GameManager {
+
     /**
      * A map containing all the agents mapped to their names.
      */
-    private static Map<String, Character> allAgents;
+    private static Map<String, Item> allAgents = new HashMap<>();
     /**
      * The converter.
      */
@@ -36,7 +36,7 @@ public class GameManager {
      */
     public void saveGame() {
         converter.ConvertGameToJson();
-        converter.ConvertAgentsToJson();
+        converter.ConvertItemsToJson();
     }
 
     /**
@@ -45,7 +45,7 @@ public class GameManager {
      * @return the boolean
      */
     public boolean loadGame() {
-        //allAgents = converter.loadGame();
+        allAgents = converter.loadGame();
 
         try {
             allAgents.get(1);
@@ -62,27 +62,15 @@ public class GameManager {
      * @return the agent
      */
     public Character getAgentFromName(String name) {
-        return allAgents.get(name);
+        return (Character) allAgents.get(name);
     }
 
-    /**
-     * Returns a set with all the agents.
-     *
-     * @return the all agents set
-     */
-    public Set<Character> getAllAgents() {
-        return new HashSet<>(allAgents.values());
-    }
-
-    /**
-     * Returns a set with all the items.
-     *
-     * @return the all items set
-     */
     public Set<Item> getAllItems() {
+        if (allAgents == null) {
+            return new HashSet<>();
+        }
         return allAgents.values().stream()
                 .filter(Objects::nonNull)
-                .map(agent -> (Item) agent)
                 .collect(Collectors.toSet());
     }
 
@@ -114,6 +102,6 @@ public class GameManager {
      * Reset all agents map.
      */
     public void resetAllAgents() {
-        allAgents = null;
+        allAgents = new HashMap<>();
     }
 }

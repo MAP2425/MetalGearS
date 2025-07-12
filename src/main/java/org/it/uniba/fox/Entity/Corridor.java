@@ -80,4 +80,9 @@ public class Corridor {
     public void setArrivingRoom(Room room) {
         this.arrivingRoom = room;
     }
+
+
+    public void setDirection(CommandType direction) {
+        this.direction = direction;
+    }
 }

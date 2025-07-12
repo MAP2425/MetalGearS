@@ -1,3 +1,4 @@
+
 package org.it.uniba.fox.Util;
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
@@ -33,6 +34,25 @@ public class Mixer extends Thread {
      */
     private static Mixer instance;
 
+    // Inizializzazione statica della mappa roomToClipIndex
+    static {
+        roomToClipIndex = new HashMap<>();
+        roomToClipIndex.put("Menu", 0);
+        roomToClipIndex.put("WordleGUI", 5);
+        roomToClipIndex.put("Stanza1", 1);
+        roomToClipIndex.put("Stanza2", 2);
+        roomToClipIndex.put("Stanza3", 2);
+        roomToClipIndex.put("Stanza4", 3);
+        roomToClipIndex.put("Stanza5", 7);
+        roomToClipIndex.put("Stanza6", 1);
+        roomToClipIndex.put("Stanza7", 4);
+        roomToClipIndex.put("Stanza8", 4);
+        roomToClipIndex.put("Stanza9", 8);
+        roomToClipIndex.put("Stanza10", 3);
+        roomToClipIndex.put("Stanza11", 5);
+        roomToClipIndex.put("Stanza12", 7);
+    }
+
     /**
      * The constructor of the Mixer.
      */
@@ -49,26 +69,6 @@ public class Mixer extends Thread {
         loadClip(6, "src/main/resources/audio/Metal Gear (NES) Music - Super Computer Area.wav");
         loadClip(7, "src/main/resources/audio/Metal Gear (NES) Music - Boss Battle.wav");
         loadClip(8, "src/main/resources/audio/Metal Gear (NES) Music - Password Theme.wav");
-
-        // map room to clip instantiation
-        roomToClipIndex = new HashMap<>();
-
-        roomToClipIndex.put("Menu", 0);
-
-        roomToClipIndex.put("WordleGUI", 5);
-
-        roomToClipIndex.put("Stanza1", 1);
-        roomToClipIndex.put("Stanza2", 2);
-        roomToClipIndex.put("Stanza3", 2);
-        roomToClipIndex.put("Stanza4", 3);
-        roomToClipIndex.put("Stanza5", 7);
-        roomToClipIndex.put("Stanza6", 1);
-        roomToClipIndex.put("Stanza7", 4);
-        roomToClipIndex.put("Stanza8", 4);
-        roomToClipIndex.put("Stanza9", 8);
-        roomToClipIndex.put("Stanza10", 3);
-        roomToClipIndex.put("Stanza11", 5);
-        roomToClipIndex.put("Stanza12", 7);
     }
 
     /**
@@ -147,6 +147,9 @@ public class Mixer extends Thread {
      * @param i the index of the music
      */
     private static void changeClip(int i) {
+        // Assicuriamoci che l'istanza esista prima di usare clips
+        getInstance();
+
         if (running) {
             if (clips[currentClip] != null) {
                 clips[currentClip].stop();
@@ -171,20 +174,29 @@ public class Mixer extends Thread {
     /**
      * Reverses the music icons.
      */
-     public static void reverseIcons() {
-      if (!running) {
-         musicButtonSetTextGame("🔇");
-         musicButtonSetTextMenu("🔇");
-      } else {
-          musicButtonSetTextGame("🔊");
-          musicButtonSetTextMenu("🔊");
-      }
-     }
+    public static void reverseIcons() {
+        if (!running) {
+            musicButtonSetTextGame("🔇");
+            musicButtonSetTextMenu("🔇");
+        } else {
+            musicButtonSetTextGame("🔊");
+            musicButtonSetTextMenu("🔊");
+        }
+    }
 
-    /*
+    /**
      * Changes the music based on the room.
      */
     public static void changRoomMusic(String room) {
-        changeClip(roomToClipIndex.getOrDefault(room, 3));
+        // Assicuriamoci che l'istanza del Mixer esista prima di usare le sue risorse
+        getInstance();
+
+        // Verifichiamo che roomToClipIndex non sia null
+        if (roomToClipIndex != null) {
+            changeClip(roomToClipIndex.getOrDefault(room, 3));
+        } else {
+            // Fallback nel caso roomToClipIndex sia ancora null
+            changeClip(3);
+        }
     }
 }

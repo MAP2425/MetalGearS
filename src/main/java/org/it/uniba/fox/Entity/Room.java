@@ -1,4 +1,7 @@
+
 package org.it.uniba.fox.Entity;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Room {
@@ -8,15 +11,13 @@ public class Room {
     private boolean free;
     private List <Character> characters;
     private List <Item> items;
-    private List <Command> commands;
 
-    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items, List <Command> commands){
+    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items){
         this.name=name;
         this.description=description;
         this.free = free;
-        this.items=items;
-        this.characters=characters;
-        this.commands=commands;
+        this.items = (items != null) ? items : new ArrayList<>();
+        this.characters = (characters != null) ? characters : new ArrayList<>();
     }
 
     public String getName(){
@@ -39,52 +40,24 @@ public class Room {
         return this.free;
     }
 
-    public void setName(String name){
-        this.name=name;
-    }
-
-    public void setDescription(String description){
-        this.description=description;
-    }
 
     public void setFree(boolean free){
         this.free = free;
     }
 
-    public void setItems(List <Item> items){
-        this.items=items;
+
+    public void addItems(Item... items) {
+        this.items.addAll(Arrays.asList(items));
     }
 
-    public void addItems(Item item){
-        this.items.add(item);
+    public void addCharacters(Character... characters) {
+        this.characters.addAll(Arrays.asList(characters));
     }
 
-    public void setCharacters(List <Character> characters){
-        this.characters=characters;
-    }
-
-    public void addCharacters(Character character){
-        this.characters.add(character);
-    }
-
-    public void addCommand(Command command){
-        this.commands.add(command);
-    }
-
-    public List <Command> getCommands(){
-        return this.commands;
-    }
-
-    public void setCommands(List <Command> commands){
-        this.commands=commands;
-    }
-    public boolean removeCommand(String name){
-        return this.commands.removeIf(cmd->cmd.getName().equals(name));
-    }
 
     public boolean removeCharacter(String name){
 
-       return this.characters.removeIf(ch->ch.getName().equals(name));
+        return this.characters.removeIf(ch->ch.getName().equals(name));
     }
 
     public void removeItem(String name){
