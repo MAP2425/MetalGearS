@@ -132,11 +132,11 @@ public class GameGUI extends JPanel {
      * Gets the instance of the WordleGUI.
      *
      * @return the wordle GUI
-
-    public static WordleGUI getWordle() {
-    return (WordleGUI) imagePanel.getComponent(1);
-    }
      */
+    public static WordleGUI getWordle() {
+        return (WordleGUI) imagePanel.getComponent(1);
+    }
+
 
     /**
      * Gets text pane font metrics.
