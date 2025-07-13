@@ -11,6 +11,8 @@ public class Room {
     private boolean free;
     private List <Character> characters;
     private List <Item> items;
+    public static List<Room> allRooms = new ArrayList<>();
+
 
     public Room(String name, String description, boolean free, List <Character> characters, List <Item> items){
         this.name=name;
@@ -18,6 +20,16 @@ public class Room {
         this.free = free;
         this.items = (items != null) ? items : new ArrayList<>();
         this.characters = (characters != null) ? characters : new ArrayList<>();
+    }
+
+
+    public static Room getRoomByName(String position) {
+        for (Room room : allRooms) {
+            if (room.getName().equalsIgnoreCase(position)) {
+                return room;
+            }
+        }
+        return null;
     }
 
     public String getName(){

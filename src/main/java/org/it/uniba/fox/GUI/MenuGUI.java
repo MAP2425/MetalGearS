@@ -1,5 +1,6 @@
 package org.it.uniba.fox.GUI;
 import org.it.uniba.fox.Entity.Game;
+import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Logic.GameManager;
 import org.it.uniba.fox.InteractionManager.UserInputFlow;
 import org.it.uniba.fox.Util.Mixer;
@@ -315,7 +316,7 @@ public class MenuGUI extends JPanel {
         Timer timer = new Timer(1000, e -> {
             GameGUI.updateInventoryTextArea(
                     Game.getInstance().getInventory().stream()
-                            .map(item -> item.getName())
+                            .map(Item::getName)
                             .toArray(String[]::new)
             );
         });

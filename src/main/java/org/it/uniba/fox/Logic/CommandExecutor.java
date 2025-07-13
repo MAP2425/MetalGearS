@@ -70,15 +70,16 @@ public class CommandExecutor {
                     if (game.getInventory().contains(p.getItem1())) {
                         OutputDisplayManager.displayText("> Hai già " + p.getItem1().getName() + " nell'inventario!");
                     } else if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        if ((p.getItem1() != null) && ((Item) p.getItem1()).getPicked()) {
-                            game.addInventory((Item) p.getItem1());
+                        if ((p.getItem1() != null) && !p.getItem1().getPicked()) {
+                            game.addInventory(p.getItem1());
                             game.getCurrentRoom().removeItem(p.getItem1().getName());
-                            //gameLogic.executeTake((Item) p.getItem1());
                             OutputDisplayManager.displayText("> Hai raccolto: " + p.getItem1().getName() + "!");
                         } else {
+                            System.out.println("Uniforme picked: " + p.getItem1().getPicked());
                             OutputDisplayManager.displayText("> Non puoi raccogliere " + p.getItem1().getName() + "!");
                         }
                     } else {
+                        System.out.println(game.getCurrentRoom().getItems().contains(p.getItem1()));
                         OutputDisplayManager.displayText("> Non c'è " + p.getItem1().getName() + " nella stanza!");
                     }
                 });
@@ -98,15 +99,16 @@ public class CommandExecutor {
 
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
-                    if (game.getInventory().contains(p.getItem1()) || game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        String statusBeforeAction = String.valueOf(game.getCurrentRoom().getFree());
-                        if (gameLogic.executeUseSingleItem((Item) p.getItem1())) {
-                            //DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getItem1().getName(), "0");
-                        } else {
-                            OutputDisplayManager.displayText("> Non puoi usare " + p.getItem1().getName() + " da solo!");
-                        }
+                    if (game.getInventory().contains(p.getItem1()) ) {
+                   gameLogic.executeUseSingleItem(p.getItem1());
+                   if (p.getItem1().getReusable()) {
+                        game.getInventory().remove(p.getItem1());
                     } else {
-                        OutputDisplayManager.displayText("> " + p.getItem1().getName() + " non è nell'inventario!");
+                        OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");
+                   }
+                        //DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0", "0");
+                    } else {
+                        OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
                 });
 

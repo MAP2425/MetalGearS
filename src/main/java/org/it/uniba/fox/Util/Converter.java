@@ -206,8 +206,11 @@ public class Converter {
             System.out.println("Numero totale oggetti: " + allItems.size());
             for (Item it : allItems) {
                 System.out.println("  - Nome: " + it.getName());
+                System.out.println("    Descrizione: " +
+                        (it.getDescription() != null ? it.getDescription() : "N/D"));
+                System.out.println("Raccolto  " + it.getPicked());
             }
-        }
+
 
         System.out.println("\n--- PERSONAGGI ---");
         List<Character> characters = allItems.stream()
@@ -227,6 +230,7 @@ public class Converter {
         }
 
         System.out.println("=======================================================");
+    }
     }
 
     public void ConvertGameToJson() {

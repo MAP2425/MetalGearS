@@ -7,7 +7,7 @@ public class Item {
     private String name;
     private String description;
     private boolean reusable=true;
-    private boolean isPicked=false;
+    private boolean isPicked= false;
     private boolean isPickable=true;
     private List<String> aliases;
 
@@ -72,4 +72,21 @@ public class Item {
         this.aliases = aliases;
     }
 
+    public Item() {
+        // Default constructor for inizializer
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Item item = (Item) obj;
+        return name != null && name.equalsIgnoreCase(item.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.toLowerCase().hashCode() : 0;
+    }
 }

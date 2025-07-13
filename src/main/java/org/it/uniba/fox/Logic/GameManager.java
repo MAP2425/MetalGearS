@@ -1,3 +1,4 @@
+
 package org.it.uniba.fox.Logic;
 import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Command;
@@ -27,7 +28,7 @@ public class GameManager {
      * Instantiates a new game and creates all the agents.
      */
     public void createGame() {
-       allAgents = converter.convertJsonToJavaClass();
+        allAgents = converter.convertJsonToJavaClass();
     }
 
     /**
@@ -62,15 +63,40 @@ public class GameManager {
      * @return the agent
      */
     public Character getAgentFromName(String name) {
-        return (Character) allAgents.get(name);
+        Item item = allAgents.get(name);
+        if (item instanceof Character) {
+            return (Character) item;
+        }
+        return null;
     }
 
+    /**
+     * Returns a set with all the items.
+     *
+     * @return the set of all items
+     */
     public Set<Item> getAllItems() {
         if (allAgents == null) {
             return new HashSet<>();
         }
         return allAgents.values().stream()
                 .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a set with all the agents of type Character.
+     *
+     * @return the set of all characters
+     */
+    public Set<Character> getAllAgents() {
+        if (allAgents == null) {
+            return new HashSet<>();
+        }
+
+        return allAgents.values().stream()
+                .filter(item -> item instanceof Character)
+                .map(item -> (Character) item)
                 .collect(Collectors.toSet());
     }
 
@@ -93,7 +119,6 @@ public class GameManager {
         availableCommands.add(new Command("Usa", List.of("u", "use", "utilizza", "poggia", "appoggia", "poni"), CommandType.USA));
         availableCommands.add(new Command("Parla", List.of("talk", "dialoga"), CommandType.PARLA));
         availableCommands.add(new Command("Dai", List.of("give", "d", "passa", "consegna", "regala", "dona", "porgi"), CommandType.DAI));
-
 
         return availableCommands;
     }

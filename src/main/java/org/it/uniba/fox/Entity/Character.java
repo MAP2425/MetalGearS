@@ -11,13 +11,15 @@ public class Character extends Item{
          return this.position;
      }
 
-     public void setPosition(Room position){
-         this.position=position;
+     public void setPosition(String position){
+            this.position = Room.getRoomByName(position);
      }
 
      public Character(String name, String description, boolean reusable, boolean isPicked, boolean isPickable,  List<String> aliases, String roomName) {
         super(name, description, reusable, isPicked, isPickable, aliases);
         this.position = null; // La posizione può essere risolta successivamente tramite il nome stanza
     }
+
+    public Character(){}
 
 }

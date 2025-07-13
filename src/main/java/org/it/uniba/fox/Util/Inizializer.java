@@ -22,25 +22,163 @@ public class Inizializer {
     public static void main(String[] args) {
         List<Item> items = new ArrayList<>();
         Game game = Game.getInstance();
-        items.add(new Item("Pistola", "Una pistola semiautomatica in dotazione standard dell'esercito degli Stati Uniti, modello Beretta 92FS. E' dotata di silenziatore e munizioni stordenti.", true, true, true, Arrays.asList("Beretta", "Arma", "PistolaSilenziata")));
-        items.add(new Item("Sigarette", "Avvertenza del ministero della salute: fumare può essere pericoloso per la salute. Ha un uso limitato nel rivelare la posizione dei sensori a infrarossi.", false, true, true, Arrays.asList("Pacchetto", "Fumo", "SigaretteAmericane")));
-        items.add(new Item("Tavolo", "Il tavolo di metallo è vecchio e segnato da graffi profondi. Sopra di esso, tra vecchi documenti e attrezzi abbandonati, un piccolo dispositivo elettronico attira l’attenzione di Snake. La luce tremolante del terminale spento riflette sulla superficie della passkey, facendola brillare leggermente.", false, false, false, Arrays.asList("Banco", "Tavola", "Scrivania")));
-        items.add(new Item("Armadietto", "L’armadietto è leggermente socchiuso, come se qualcuno l’avesse lasciato in fretta. La lamiera è graffiata e opaca, ma all’interno si intravede chiaramente una uniforme piegata con cura su un ripiano. Il tessuto scuro porta ancora il distintivo della sicurezza della struttura. Un guanto penzola dal bordo, suggerendo che l’equipaggiamento è stato usato di recente... o abbandonato in fretta.", false, false, false, Arrays.asList("Armadio", "Comodino", "Cassettone") ));
-        items.add(new Item("Passkey", "Una chiave elettronica indispensabile per disabilitare le serrature elettroniche della base.", true, true, true, Arrays.asList("Chiave", "Passkey", "ChiaveElettronica")));
-        items.add(new Item("Uniforme", "Un travestimento completo che consente a Snake di muoversi più liberamente senza essere immediatamente riconosciuto.", true, true, true, Arrays.asList("Divisa", "Uniforme", "Travestimento")));
-        items.add(new Item("Scatola", "Perfetta per passare inosservato tra le guardie. Un classico che non delude mai.", true, true, true, Arrays.asList("Scatola", "Cartone", "ScatolaCartone")));
-        items.add(new Item("Terminale", "Il terminale risponde con un leggero ronzio mentre Snake digita rapidamente. Le opzioni sullo schermo includono diverse impostazioni di sicurezza, ma il suo obiettivo è chiaro. Dopo pochi istanti, trova l’opzione -Disattivazione Telecamere-. Con un clic deciso, seleziona il comando.", false, false, false, Arrays.asList("Console", "Punto di Accesso", "Postazione di Controllo")));
-        items.add(new Item("Foglietto", "Il foglio è leggermente sgualcito, come se fosse stato afferrato in fretta. L’inchiostro nero risalta sulla carta, tracciato con una calligrafia semplice ma decisa. Al centro del foglio è scritto chiaramente: 14112.", true, false, true, Arrays.asList("Foglio", "Foglietto", "Biglietto")));
-        items.add(new Item("Badge", "Il badge è di metallo, con un design distintivo e il logo della base inciso sopra. Sotto il logo, il badge riporta un numero di identificazione e un nome, che potrebbe essere utile per le identificazioni future.", true, true, true, Arrays.asList("Badge", "Tesserino", "Pass")));
-        items.add(new Item("Scaffale", "Su uno dei ripiani inferiori, quasi nascosta tra una vecchia lampada a raggi infrarossi e un dispositivo di misurazione rotto, si trova una piccola radio… È di un modello retrò, con una cassa di legno graffiata e pulsanti argentati consumati dal tempo. La radio emette un leggero ronzio, come se fosse ancora collegata a una fonte di alimentazione. È un oggetto insolito in mezzo a tutta quella tecnologia avanzata, come se la sua presenza potesse essere più di quanto sembri a prima vista…", false, true, false, Arrays.asList("Ripiano", "Mensola", "Palchetto")));
-        items.add(new Item("Radio", "Un dispositivo retrò in legno scuro con manopole consumate e piccoli led lampeggianti. Collegata al sistema del laboratorio, potrebbe trasmettere segnali segreti o attivare funzioni nascoste.", true, true, true, Arrays.asList("Radio", "Ricetrasmittente", "DispositivoRadio")));
-        items.add(new Item("Pannello", "Snake si avvicina con cautela al pannello. Sul display è presente la scritta:\"Inserire la password numerica per procedere\". I tasti sotto il display brillano leggermente, pronti a ricevere l’input corretto.", false, false, false, Arrays.asList("Pannello", "Tastiera", "Pannello di Controllo")));
-        items.add(new Item("Chiavetta", "La chiavetta contiene il protocollo \"Eclipse Omega\", un piano segreto e alternativo al progetto principale del laboratorio. Questo misterioso programma è stato ideato per attivarsi solo in situazioni critiche, capace di sovvertire le direttive attuali e prendere il controllo degli sviluppi in corso.", true, true, true, Arrays.asList("Chiavetta", "USB", "ChiavettaUSB")));
+// Java
+        Item pistola = new Item();
+        pistola.setName("Pistola");
+        pistola.setDescription("Una pistola semiautomatica in dotazione standard dell'esercito degli Stati Uniti, modello Beretta 92FS. E' dotata di silenziatore e munizioni stordenti.");
+        pistola.setReusable(true);
+        pistola.setPicked(true);
+        pistola.setPickable(true);
+        pistola.setAliases(Arrays.asList("Beretta", "Arma", "PistolaSilenziata"));
+        items.add(pistola);
 
-        items.add(new Character("Dottoressa", "La dottoressa ha un aspetto ordinato e professionale. Indossa un camice bianco sopra una camicia chiara e pantaloni pratici. I capelli biondi sono raccolti in uno chignon stretto, lasciando scoperto un volto dai tratti delicati ma decisi. Gli occhi chiari osservano con attenzione da dietro occhiali sottili, e ogni suo movimento è preciso, riflesso di un controllo totale su sé stessa e sull'ambiente che la circonda.", false, false, false, Arrays.asList("Weissman", "Ragazza", "Ricercatrice"), "Stanza10"));
-        items.add(new Character("IA", "Nel cuore del corridoio immerso nella penombra, l'intelligenza artificiale si manifesta su uno schermo incastonato nella parete. Una sequenza di volti sfocati e in continuo mutamento scorre rapidamente, mescolando tratti umani e digitali in un flusso inquietante. Ogni volto si dissolve nell'altro in una danza ipnotica, come se l'IA stesse cercando una forma stabile che non riesce mai a raggiungere.Una sottile scarica elettrica attraversa l'aria, suggerendo che l'entità sta osservando... e aspettando una risposta.", false, false, false, Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"), "Stanza5"));
-        items.add(new Character("IA", "L'IA torna a manifestarsi su un nuovo schermo, più grande, incassato in una struttura metallica verticale. I volti sfocati scorrono ancora, ma ora sono più definiti, quasi familiari, come se l'entità stesse imparando. Attorno al monitor, luci gialle lampeggiano lentamente, segnalando uno stato di allerta moderato. Una serie di simboli criptici compare e scompare ai margini dello schermo, mentre il silenzio carico di attesa suggerisce che un nuovo enigma sta per essere proposto.", false, false, false, Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"), "Stanza12"));
+        Item sigarette = new Item();
+        sigarette.setName("Sigarette");
+        sigarette.setDescription("Avvertenza del ministero della salute: fumare può essere pericoloso per la salute. Ha un uso limitato nel rivelare la posizione dei sensori a infrarossi.");
+        sigarette.setReusable(false);
+        sigarette.setPicked(true);
+        sigarette.setPickable(true);
+        sigarette.setAliases(Arrays.asList("Pacchetto", "Fumo", "SigaretteAmericane"));
+        items.add(sigarette);
 
+        Item tavolo = new Item();
+        tavolo.setName("Tavolo");
+        tavolo.setDescription("Il tavolo di metallo è vecchio e segnato da graffi profondi. Sopra di esso, tra vecchi documenti e attrezzi abbandonati, un piccolo dispositivo elettronico attira l’attenzione di Snake. La luce tremolante del terminale spento riflette sulla superficie della passkey, facendola brillare leggermente.");
+        tavolo.setReusable(false);
+        tavolo.setPicked(false);
+        tavolo.setPickable(false);
+        tavolo.setAliases(Arrays.asList("Banco", "Tavola", "Scrivania"));
+        items.add(tavolo);
+
+        Item armadietto = new Item();
+        armadietto.setName("Armadietto");
+        armadietto.setDescription("L’armadietto è leggermente socchiuso, come se qualcuno l’avesse lasciato in fretta. La lamiera è graffiata e opaca, ma all’interno si intravede chiaramente una uniforme piegata con cura su un ripiano. Il tessuto scuro porta ancora il distintivo della sicurezza della struttura. Un guanto penzola dal bordo, suggerendo che l’equipaggiamento è stato usato di recente... o abbandonato in fretta.");
+        armadietto.setReusable(false);
+        armadietto.setPicked(false);
+        armadietto.setPickable(false);
+        armadietto.setAliases(Arrays.asList("Armadio", "Comodino", "Cassettone"));
+        items.add(armadietto);
+
+        Item passkey = new Item();
+        passkey.setName("Passkey");
+        passkey.setDescription("Una chiave elettronica indispensabile per disabilitare le serrature elettroniche della base.");
+        passkey.setReusable(true);
+        passkey.setPicked(false);
+        passkey.setPickable(true);
+        passkey.setAliases(Arrays.asList("Chiave", "Passkey", "ChiaveElettronica"));
+        items.add(passkey);
+
+        Item uniforme = new Item();
+        uniforme.setName("Uniforme");
+        uniforme.setDescription("Un travestimento completo che consente a Snake di muoversi più liberamente senza essere immediatamente riconosciuto.");
+        uniforme.setReusable(true);
+        uniforme.setPicked(false);
+        uniforme.setPickable(true);
+        uniforme.setAliases(Arrays.asList("Divisa", "Uniforme", "Travestimento"));
+        items.add(uniforme);
+
+        Item scatola = new Item();
+        scatola.setName("Scatola");
+        scatola.setDescription("Perfetta per passare inosservato tra le guardie. Un classico che non delude mai.");
+        scatola.setReusable(true);
+        scatola.setPicked(false);
+        scatola.setPickable(true);
+        scatola.setAliases(Arrays.asList("Scatola", "Cartone", "ScatolaCartone"));
+        items.add(scatola);
+
+        Item terminale = new Item();
+        terminale.setName("Terminale");
+        terminale.setDescription("Il terminale risponde con un leggero ronzio mentre Snake digita rapidamente. Le opzioni sullo schermo includono diverse impostazioni di sicurezza, ma il suo obiettivo è chiaro. Dopo pochi istanti, trova l’opzione -Disattivazione Telecamere-. Con un clic deciso, seleziona il comando.");
+        terminale.setReusable(false);
+        terminale.setPicked(false);
+        terminale.setPickable(false);
+        terminale.setAliases(Arrays.asList("Console", "Punto di Accesso", "Postazione di Controllo"));
+        items.add(terminale);
+
+        Item foglietto = new Item();
+        foglietto.setName("Foglietto");
+        foglietto.setDescription("Il foglio è leggermente sgualcito, come se fosse stato afferrato in fretta. L’inchiostro nero risalta sulla carta, tracciato con una calligrafia semplice ma decisa. Al centro del foglio è scritto chiaramente: 14112.");
+        foglietto.setReusable(true);
+        foglietto.setPicked(false);
+        foglietto.setPickable(true);
+        foglietto.setAliases(Arrays.asList("Foglio", "Foglietto", "Biglietto"));
+        items.add(foglietto);
+
+        Item badge = new Item();
+        badge.setName("Badge");
+        badge.setDescription("Il badge è di metallo, con un design distintivo e il logo della base inciso sopra. Sotto il logo, il badge riporta un numero di identificazione e un nome, che potrebbe essere utile per le identificazioni future.");
+        badge.setReusable(true);
+        badge.setPicked(false);
+        badge.setPickable(true);
+        badge.setAliases(Arrays.asList("Badge", "Tesserino", "Pass"));
+        items.add(badge);
+
+        Item scaffale = new Item();
+        scaffale.setName("Scaffale");
+        scaffale.setDescription("Su uno dei ripiani inferiori, quasi nascosta tra una vecchia lampada a raggi infrarossi e un dispositivo di misurazione rotto, si trova una piccola radio… È di un modello retrò, con una cassa di legno graffiata e pulsanti argentati consumati dal tempo. La radio emette un leggero ronzio, come se fosse ancora collegata a una fonte di alimentazione. È un oggetto insolito in mezzo a tutta quella tecnologia avanzata, come se la sua presenza potesse essere più di quanto sembri a prima vista…");
+        scaffale.setReusable(false);
+        scaffale.setPicked(true);
+        scaffale.setPickable(false);
+        scaffale.setAliases(Arrays.asList("Ripiano", "Mensola", "Palchetto"));
+        items.add(scaffale);
+
+        Item radio = new Item();
+        radio.setName("Radio");
+        radio.setDescription("Un dispositivo retrò in legno scuro con manopole consumate e piccoli led lampeggianti. Collegata al sistema del laboratorio, potrebbe trasmettere segnali segreti o attivare funzioni nascoste.");
+        radio.setReusable(true);
+        radio.setPicked(false);
+        radio.setPickable(true);
+        radio.setAliases(Arrays.asList("Radio", "Ricetrasmittente", "DispositivoRadio"));
+        items.add(radio);
+
+        Item pannello = new Item();
+        pannello.setName("Pannello");
+        pannello.setDescription("Snake si avvicina con cautela al pannello. Sul display è presente la scritta:\"Inserire la password numerica per procedere\". I tasti sotto il display brillano leggermente, pronti a ricevere l’input corretto.");
+        pannello.setReusable(false);
+        pannello.setPicked(false);
+        pannello.setPickable(false);
+        pannello.setAliases(Arrays.asList("Pannello", "Tastiera", "Pannello di Controllo"));
+        items.add(pannello);
+
+        Item chiavetta = new Item();
+        chiavetta.setName("Chiavetta");
+        chiavetta.setDescription("La chiavetta contiene il protocollo \"Eclipse Omega\", un piano segreto e alternativo al progetto principale del laboratorio. Questo misterioso programma è stato ideato per attivarsi solo in situazioni critiche, capace di sovvertire le direttive attuali e prendere il controllo degli sviluppi in corso.");
+        chiavetta.setReusable(true);
+        chiavetta.setPicked(false);
+        chiavetta.setPickable(true);
+        chiavetta.setAliases(Arrays.asList("Chiavetta", "USB", "ChiavettaUSB"));
+        items.add(chiavetta);
+
+// Personaggi
+        Character dottoressa = new Character();
+        dottoressa.setName("Dottoressa");
+        dottoressa.setDescription("La dottoressa ha un aspetto ordinato e professionale. Indossa un camice bianco sopra una camicia chiara e pantaloni pratici. I capelli biondi sono raccolti in uno chignon stretto, lasciando scoperto un volto dai tratti delicati ma decisi. Gli occhi chiari osservano con attenzione da dietro occhiali sottili, e ogni suo movimento è preciso, riflesso di un controllo totale su sé stessa e sull'ambiente che la circonda.");
+        dottoressa.setReusable(false);
+        dottoressa.setPicked(false);
+        dottoressa.setPickable(false);
+        dottoressa.setAliases(Arrays.asList("Weissman", "Ragazza", "Ricercatrice"));
+        dottoressa.setPosition("Stanza10");
+        items.add(dottoressa);
+
+        Character ia1 = new Character();
+        ia1.setName("IA");
+        ia1.setDescription("Nel cuore del corridoio immerso nella penombra, l'intelligenza artificiale si manifesta su uno schermo incastonato nella parete. Una sequenza di volti sfocati e in continuo mutamento scorre rapidamente, mescolando tratti umani e digitali in un flusso inquietante. Ogni volto si dissolve nell'altro in una danza ipnotica, come se l'IA stesse cercando una forma stabile che non riesce mai a raggiungere.Una sottile scarica elettrica attraversa l'aria, suggerendo che l'entità sta osservando... e aspettando una risposta.");
+        ia1.setReusable(false);
+        ia1.setPicked(false);
+        ia1.setPickable(false);
+        ia1.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
+        ia1.setPosition("Stanza5");
+        items.add(ia1);
+
+        Character ia2 = new Character();
+        ia2.setName("IA");
+        ia2.setDescription("L'IA torna a manifestarsi su un nuovo schermo, più grande, incassato in una struttura metallica verticale. I volti sfocati scorrono ancora, ma ora sono più definiti, quasi familiari, come se l'entità stesse imparando. Attorno al monitor, luci gialle lampeggiano lentamente, segnalando uno stato di allerta moderato. Una serie di simboli criptici compare e scompare ai margini dello schermo, mentre il silenzio carico di attesa suggerisce che un nuovo enigma sta per essere proposto.");
+        ia2.setReusable(false);
+        ia2.setPicked(false);
+        ia2.setPickable(false);
+        ia2.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
+        ia2.setPosition("Stanza12");
+        items.add(ia2);
         Room stanza1 = new Room("Stanza1", "Ti trovi nell'ingresso principale della base, una stanza imponente e austera. Le pareti di cemento grigio sono scarsamente illuminate da luci fluorescenti che tremolano leggermente, proiettando ombre inquietanti. L'aria è densa e carica di tensione, interrotta solo dal monotono ronzio delle telecamere di sicurezza montate negli angoli del soffitto.\n" +
                 "Di fronte a te, c'è un tavolo di metallo con un terminale di sicurezza spento. Accanto al terminale, si nota un piccolo dispositivo che brilla debolmente sotto la luce tremolante: sembra essere una passkey.\n" +
                 "Sul lato destro della stanza, un piccolo armadietto di metallo è appoggiato contro la parete, con un gancio che sporge dalla porta leggermente aperta, rivelando un lembo di stoffa che sembra essere parte di un'uniforme.", true, null, null);

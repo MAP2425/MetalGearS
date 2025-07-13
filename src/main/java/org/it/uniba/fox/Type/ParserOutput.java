@@ -9,13 +9,13 @@ public class ParserOutput {
      */
     private CommandType command;
     /**
-     * The first item
+     * The first argument (can be Item or Character)
      */
-    private Item item1;
+    private Object arg1;
     /**
-     * The second item
+     * The second argument (can be Item or Character)
      */
-    private Item item2;
+    private Object arg2;
     /**
      * The number of arguments.
      */
@@ -65,39 +65,75 @@ public class ParserOutput {
     }
 
     /**
-     * Sets the first item.
+     * Sets the first argument.
      *
-     * @param item1 the first item
+     * @param arg1 the first argument (Item or Character)
      */
-    public void setItem1(Item item1) {
-        this.item1 = item1;
+    public void setArg1(Object arg1) {
+        this.arg1 = arg1;
     }
 
     /**
-     * Gets the first item.
+     * Gets the first argument.
      *
-     * @return the first item
+     * @return the first argument
+     */
+    public Object getArg1() {
+        return arg1;
+    }
+
+    /**
+     * Sets second argument.
+     *
+     * @param arg2 the second argument (Item or Character)
+     */
+    public void setArg2(Object arg2) {
+        this.arg2 = arg2;
+    }
+
+    /**
+     * Gets second argument.
+     *
+     * @return the second argument
+     */
+    public Object getArg2() {
+        return arg2;
+    }
+
+    /**
+     * Gets the first argument as Item if it is an Item.
+     *
+     * @return the first item or null if not an Item
      */
     public Item getItem1() {
-        return item1;
+        return arg1 instanceof Item ? (Item) arg1 : null;
     }
 
     /**
-     * Sets second item.
+     * Gets the second argument as Item if it is an Item.
      *
-     * @param item2 the second item
-     */
-    public void setItem2(Item item2) {
-        this.item2 = item2;
-    }
-
-    /**
-     * Gets second item.
-     *
-     * @return the second item
+     * @return the second item or null if not an Item
      */
     public Item getItem2() {
-        return item2;
+        return arg2 instanceof Item ? (Item) arg2 : null;
+    }
+
+    /**
+     * Gets the first argument as Character if it is a Character.
+     *
+     * @return the first character or null if not a Character
+     */
+    public Character getCharacter1() {
+        return arg1 instanceof Character ? (Character) arg1 : null;
+    }
+
+    /**
+     * Gets the second argument as Character if it is a Character.
+     *
+     * @return the second character or null if not a Character
+     */
+    public Character getCharacter2() {
+        return arg2 instanceof Character ? (Character) arg2 : null;
     }
 
     /**
@@ -112,8 +148,8 @@ public class ParserOutput {
         if (!(o instanceof ParserOutput)) return false;
         ParserOutput that = (ParserOutput) o;
         return command == that.command &&
-                (item1 != null ? item1.equals(that.item1) : that.item1 == null) &&
-                (item2 != null ? item2.equals(that.item2) : that.item2 == null);
+                (arg1 != null ? arg1.equals(that.arg1) : that.arg1 == null) &&
+                (arg2 != null ? arg2.equals(that.arg2) : that.arg2 == null);
     }
 
     /**
@@ -124,8 +160,8 @@ public class ParserOutput {
     @Override
     public int hashCode() {
         int result = command != null ? command.hashCode() : 0;
-        result = 31 * result + (item1 != null ? item1.hashCode() : 0);
-        result = 31 * result + (item2 != null ? item2.hashCode() : 0);
+        result = 31 * result + (arg1 != null ? arg1.hashCode() : 0);
+        result = 31 * result + (arg2 != null ? arg2.hashCode() : 0);
         return result;
     }
 }

@@ -76,9 +76,7 @@ public class GameLogic {
          * @return true if the action is performed, false otherwise
          */
         public boolean executeUseSingleItem(Item i) {
-            if (i.hasName("Passkey") && game.getCurrentRoom().getName().equals("Stanza1")
-            && (game.getInventory().contains(gameManager.getAgentFromName("Chiave"))
-            && game.getInventory().contains(gameManager.getAgentFromName("Uniforme")))) {
+            if (i.hasName("Passkey") && game.getCurrentRoom().getName().equals("Stanza1")){
 
                 game.unlockCorridor("Stanza1", "Stanza2");
                 return true;
