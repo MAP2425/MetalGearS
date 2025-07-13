@@ -125,72 +125,142 @@ public class Inizializer {
         Corridor c1 = new Corridor();
         c1.setStartingRoom(stanza1);
         c1.setDirection(CommandType.NORD);
-        c1.setLocked(true);
+        c1.setLocked(true); // Andata bloccata
         c1.setArrivingRoom(stanza2);
 
-        Corridor c66 = new Corridor();
-        c1.setStartingRoom(stanza2);
-        c1.setDirection(CommandType.SUD);
-        c1.setLocked(true);
-        c1.setArrivingRoom(stanza1);
-
-
+        Corridor c1b = new Corridor();
+        c1b.setStartingRoom(stanza2);
+        c1b.setDirection(CommandType.SUD);
+        c1b.setLocked(false); // Ritorno sempre sbloccato
+        c1b.setArrivingRoom(stanza1);
 
         Corridor c2 = new Corridor();
         c2.setStartingRoom(stanza2);
+        c2.setDirection(CommandType.OVEST);
         c2.setLocked(false);
         c2.setArrivingRoom(stanza3);
 
+        Corridor c2b = new Corridor();
+        c2b.setStartingRoom(stanza3);
+        c2b.setDirection(CommandType.EST);
+        c2b.setLocked(false);
+        c2b.setArrivingRoom(stanza2);
+
         Corridor c3 = new Corridor();
         c3.setStartingRoom(stanza3);
+        c3.setDirection(CommandType.NORD);
         c3.setLocked(false);
         c3.setArrivingRoom(stanza4);
 
+        Corridor c3b = new Corridor();
+        c3b.setStartingRoom(stanza4);
+        c3b.setDirection(CommandType.SUD);
+        c3b.setLocked(false);
+        c3b.setArrivingRoom(stanza3);
+
         Corridor c4 = new Corridor();
         c4.setStartingRoom(stanza4);
+        c4.setDirection(CommandType.NORD);
         c4.setLocked(false);
         c4.setArrivingRoom(stanza5);
 
+        Corridor c4b = new Corridor();
+        c4b.setStartingRoom(stanza5);
+        c4b.setDirection(CommandType.SUD);
+        c4b.setLocked(false);
+        c4b.setArrivingRoom(stanza4);
+
         Corridor c5 = new Corridor();
         c5.setStartingRoom(stanza5);
+        c5.setDirection(CommandType.NORD);
         c5.setLocked(true);
         c5.setArrivingRoom(stanza6);
 
+        Corridor c5b = new Corridor();
+        c5b.setStartingRoom(stanza6);
+        c5b.setDirection(CommandType.SUD);
+        c5b.setLocked(false);
+        c5b.setArrivingRoom(stanza5);
+
         Corridor c6 = new Corridor();
         c6.setStartingRoom(stanza6);
+        c6.setDirection(CommandType.EST);
         c6.setLocked(false);
         c6.setArrivingRoom(stanza7);
 
+        Corridor c6b = new Corridor();
+        c6b.setStartingRoom(stanza7);
+        c6b.setDirection(CommandType.OVEST);
+        c6b.setLocked(false);
+        c6b.setArrivingRoom(stanza6);
+
         Corridor c7 = new Corridor();
         c7.setStartingRoom(stanza6);
+        c7.setDirection(CommandType.OVEST);
         c7.setLocked(false);
         c7.setArrivingRoom(stanza8);
 
+        Corridor c7b = new Corridor();
+        c7b.setStartingRoom(stanza8);
+        c7b.setDirection(CommandType.EST);
+        c7b.setLocked(false);
+        c7b.setArrivingRoom(stanza6);
+
         Corridor c8 = new Corridor();
         c8.setStartingRoom(stanza8);
+        c8.setDirection(CommandType.NORD);
         c8.setLocked(true);
         c8.setArrivingRoom(stanza9);
 
+        Corridor c8b = new Corridor();
+        c8b.setStartingRoom(stanza9);
+        c8b.setDirection(CommandType.SUD);
+        c8b.setLocked(false);
+        c8b.setArrivingRoom(stanza8);
+
         Corridor c9 = new Corridor();
         c9.setStartingRoom(stanza9);
+        c9.setDirection(CommandType.EST);
         c9.setLocked(true);
         c9.setArrivingRoom(stanza10);
 
+        Corridor c9b = new Corridor();
+        c9b.setStartingRoom(stanza10);
+        c9b.setDirection(CommandType.OVEST);
+        c9b.setLocked(false);
+        c9b.setArrivingRoom(stanza9);
+
         Corridor c10 = new Corridor();
         c10.setStartingRoom(stanza10);
+        c10.setDirection(CommandType.EST);
         c10.setLocked(true);
         c10.setArrivingRoom(stanza11);
 
-        Corridor c11 = new Corridor();
-        c11.setStartingRoom(stanza10);
+        Corridor c10b = new Corridor();
+        c10b.setStartingRoom(stanza11);
+        c10b.setDirection(CommandType.OVEST);
+        c10b.setLocked(false);
+        c10b.setArrivingRoom(stanza10);
 
+        Corridor c11 = new Corridor();
+        c11.setStartingRoom(stanza11);
+        c11.setDirection(CommandType.EST);
         c11.setLocked(true);
         c11.setArrivingRoom(stanza12);
 
-        // Raccolta e assegnazione al gioco
-        List<Corridor> corridoi = Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11);
+        Corridor c11b = new Corridor();
+        c11b.setStartingRoom(stanza12);
+        c11b.setDirection(CommandType.OVEST);
+        c11b.setLocked(false);
+        c11b.setArrivingRoom(stanza11);
 
-        // Assegna la lista dei corridoi al gioco
+
+        // Raccolta e assegnazione al gioco
+        List<Corridor> corridoi = Arrays.asList(
+                c1, c1b, c2, c2b, c3, c3b, c4, c4b, c5, c5b, c6, c6b, c7, c7b, c8, c8b, c9, c9b, c10, c10b, c11, c11b
+        );
+
+        // Assegna la lista al gioco
         game.setCorridorsMap(corridoi);
 
         game.setCurrentRoom(stanza1);
