@@ -8,6 +8,7 @@ public class Item {
     private String description;
     private boolean reusable=true;
     private boolean isPicked=false;
+    private boolean isPickable=true;
     private List<String> aliases;
 
 
@@ -25,6 +26,9 @@ public class Item {
 
     public boolean getPicked(){ return this.isPicked;}
 
+    public boolean isPickable() {
+        return isPickable;
+    }
 
     public List<String> getAliases() {
         return aliases;
@@ -55,11 +59,16 @@ public class Item {
         this.isPicked=isPicked;
     }
 
-    public Item(String name, String description, boolean reusable, boolean isPicked, List<String> aliases) {
+    public void setPickable(boolean b) {
+        isPickable = b;
+    }
+
+    public Item(String name, String description, boolean reusable, boolean isPicked, boolean isPickable, List<String> aliases) {
         this.name = name;
         this.description = description;
         this.reusable = reusable;
         this.isPicked = isPicked;
+        this.isPickable = isPickable;
         this.aliases = aliases;
     }
 
