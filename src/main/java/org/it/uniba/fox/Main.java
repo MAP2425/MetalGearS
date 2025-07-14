@@ -1,4 +1,6 @@
 package org.it.uniba.fox;
+import org.it.uniba.fox.DB_Web.DatabaseConnection;
+import org.it.uniba.fox.DB_Web.RestServer;
 import org.it.uniba.fox.GUI.ManagerGUI;
 
 /**
@@ -12,5 +14,11 @@ public class Main {
      */
     public static void main(final String[] args) {
         new ManagerGUI();
+        try {
+            new RestServer().startServer();
+            DatabaseConnection.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

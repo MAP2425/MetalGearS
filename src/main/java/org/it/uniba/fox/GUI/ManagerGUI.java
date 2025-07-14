@@ -52,7 +52,7 @@ public class ManagerGUI extends JFrame {
         setVisible(true);
 
         // Start the music
-        //Mixer.getInstance().start();
+        Mixer.getInstance().start();
     }
 
     /**

@@ -1,4 +1,5 @@
 package org.it.uniba.fox.InteractionManager;
+import org.it.uniba.fox.DB_Web.DatabaseConnection;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.InteractionManager.OutputDisplayManager;
 import org.it.uniba.fox.Logic.CommandExecutor;
@@ -104,7 +105,7 @@ public class UserInputFlow {
      */
     public static void setUpGameFlow(final Game game) {
         Event = 0;
-        // DatabaseConnection.printFromDB("0", "Desert", "Start", "0", "0", "0");
+         //DatabaseConnection.printFromDB("0",game.getCurrentRoom().getName(), "Libero", "0", "0");
         // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
         // così da non bloccare il flusso del gioco
         new Thread(() -> wordleGame = new WordleGame()).start();
