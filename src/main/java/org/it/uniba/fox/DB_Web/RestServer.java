@@ -12,7 +12,7 @@ public class RestServer {
     public void startServer() throws IOException {
         HttpServer server = HttpServer.createSimpleServer("/", 8080);
         ServerConfiguration config = server.getServerConfiguration();
-        //config.addHttpHandler(new DatabaseHandler(), "/api/data");
+        config.addHttpHandler(new DatabaseHandler(), "/api/data");
 
         Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
 
