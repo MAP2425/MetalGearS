@@ -275,7 +275,7 @@ public class Inizializer {
         Corridor c2 = new Corridor();
         c2.setStartingRoom(stanza2);
         c2.setDirection(CommandType.OVEST);
-        c2.setLocked(false);
+        c2.setLocked(true);
         c2.setArrivingRoom(stanza3);
 
         Corridor c2b = new Corridor();

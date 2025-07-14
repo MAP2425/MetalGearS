@@ -89,7 +89,7 @@ public class CommandExecutor {
                     if (game.getInventory().contains(p.getItem1())) {
                         OutputDisplayManager.displayText("> Hai già " + p.getItem1().getName() + " nell'inventario!");
                     } else if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        if ((p.getItem1() != null) && !p.getItem1().getPicked()) {
+                        if ((p.getItem1() != null) && !p.getItem1().getPicked() && p.getItem1().isPickable()) {
                             game.addInventory(p.getItem1());
                             game.getCurrentRoom().removeItem(p.getItem1().getName());
                             OutputDisplayManager.displayText("> Hai raccolto: " + p.getItem1().getName() + "!");
