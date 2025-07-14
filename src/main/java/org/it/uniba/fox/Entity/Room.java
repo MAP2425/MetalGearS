@@ -1,5 +1,7 @@
 
 package org.it.uniba.fox.Entity;
+import org.it.uniba.fox.DB_Web.DatabaseConnection;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -175,6 +177,6 @@ public class Room {
      * Prints the description of the room.
      */
     public void printDescription() {
-        //DatabaseConnection.printFromDB("Osserva", name, currentState, "0", "0", "0");
+        DatabaseConnection.printFromDB("Osserva", name, "Libero", "0", "0", "0");
     }
 }

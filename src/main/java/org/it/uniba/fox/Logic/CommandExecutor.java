@@ -1,4 +1,5 @@
 package org.it.uniba.fox.Logic;
+import org.it.uniba.fox.DB_Web.DatabaseConnection;
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Game;
@@ -124,7 +125,7 @@ public class CommandExecutor {
                     } else {
                         OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");
                    }
-                        //DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0", "0");
+                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0", "0");
                     } else {
                         OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
@@ -137,7 +138,7 @@ public class CommandExecutor {
                             String statusBeforeAction = String.valueOf(game.getCurrentRoom().getFree());
                             if (p.getItem2() instanceof Character) {
                                 if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Character) p.getItem2())) {
-                                    //DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getItem2().getName(), p.getItem1().getName(), "0");
+                                    DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getItem2().getName(), p.getItem1().getName(), "0");
                                 } else {
                                     OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + p.getItem2().getName() + "!");
                                 }
