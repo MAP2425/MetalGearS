@@ -117,7 +117,7 @@ public class WordleGame {
         // Checks if the word is correct
         // if it is the wordle game ends and the user wins
         if (text.equals(GuessingWord)) {
-            DatabaseConnection.printFromDB("0", "Desert", "Corretto", "Sfinge", "0", "0");
+            DatabaseConnection.printFromDB("0", "Desert", "Corretto", "Sfinge", "0");
             UserInputFlow.Event = 0;
             Game game = Game.getInstance();
             game.getCurrentRoom().setFree(true);
@@ -129,7 +129,7 @@ public class WordleGame {
         // Checks if the user has reached the maximum number of attempts
         // if it is the wordle game ends and the user loses
         if (currentTry == MAX_ATTEMPTS) {
-            DatabaseConnection.printFromDB("0", "Desert", "Sbagliato", "Sfinge", "0", "0");
+            DatabaseConnection.printFromDB("0", "Desert", "Sbagliato", "Sfinge", "0");
             OutputDisplayManager.displayText("> \"La parola corretta era: " + GuessingWord + "!\"");
             UserInputFlow.Event = 0;
             Game game = Game.getInstance();

@@ -116,6 +116,18 @@ public class CommandExecutor {
                     }
                 });
 
+        // The command to look at an agent
+        commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, 1),
+                p -> {
+                    if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
+                        DatabaseConnection.printFromDB("Osserva", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()),"0",p.getItem1().getName());
+                    } else if (game.getInventory().contains(p.getItem1())) {
+                        OutputDisplayManager.displayText("> La tua borsa non è trasparente!");
+                    } else {
+                        OutputDisplayManager.displayText("> " + p.getItem1().getName() + " non è nella stanza!");
+                    }
+                });
+
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
                     if (game.getInventory().contains(p.getItem1()) ) {
@@ -125,7 +137,7 @@ public class CommandExecutor {
                     } else {
                         OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");
                    }
-                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0", "0");
+                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0");
                     } else {
                         OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
@@ -138,7 +150,7 @@ public class CommandExecutor {
                             String statusBeforeAction = String.valueOf(game.getCurrentRoom().getFree());
                             if (p.getItem2() instanceof Character) {
                                 if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Character) p.getItem2())) {
-                                    DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), statusBeforeAction, p.getItem2().getName(), p.getItem1().getName(), "0");
+                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""), "0");
                                 } else {
                                     OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + p.getItem2().getName() + "!");
                                 }

@@ -87,45 +87,26 @@ public class DatabaseConnection {
             }
         }
     }
-
-    /**
-     * Print from db.
-     *
-     * @param idComando     the id comando
-     * @param idStanza      the id stanza
-     * @param idStato       the id stato
-     * @param idPersonaggio the id personaggio
-     * @param idOggetto1    the id oggetto 1
-     */
-    public static void printFromDB(String idComando, String idStanza, String idStato, String idPersonaggio, String idOggetto1) {
-        Connection conn;
-        conn = DatabaseConnection.connect();
-        String sql_query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = '" + idComando + "' AND STANZA = '" + idStanza + "' AND STATO = '" + idStato + "' AND PERSONAGGIO = '" + idPersonaggio + "' AND OGGETTO1 = '" + idOggetto1;;
-        OutputDisplayManager.displayText(DatabaseConnection.getDescriptionFromDatabase(conn, sql_query));
-        DatabaseConnection.close(conn);
-    }
-
-    /**
-     * Gets description from database.
-     *
-     * @param conn the conn
-     * @param sql_query the sql query
-     * @return the description from database
-     */
-    public static String getDescriptionFromDatabase(Connection conn, String sql_query) {
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql_query);
+    public static void printFromDB(String comando, String stanza, String stato, String personaggio, String oggetto) {
+        String statoDB = stato.equalsIgnoreCase("true") ? "Libero" : "Sorvegliato";
+        String query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = ? AND STANZA = ? AND STATO = ? AND PERSONAGGIO = ? AND OGGETTO = ?";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, comando.replaceAll("[^a-zA-Z0-9 ]", ""));
+            stmt.setString(2, stanza.replaceAll("[^a-zA-Z0-9 ]", ""));
+            stmt.setString(3, statoDB);
+            stmt.setString(4, personaggio);
+            stmt.setString(5, oggetto);
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getString("DESCRIZIONE");
+                OutputDisplayManager.displayText(rs.getString("DESCRIZIONE"));
+            } else {
+                OutputDisplayManager.displayText("No String Found");
             }
             rs.close();
-            stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "No String Found";
-
     }
 
 

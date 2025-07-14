@@ -177,6 +177,6 @@ public class Room {
      * Prints the description of the room.
      */
     public void printDescription() {
-        DatabaseConnection.printFromDB("Osserva", name, "Libero", "0", "0", "0");
+        DatabaseConnection.printFromDB("Osserva", name, "Libero", "0", "0");
     }
 }
