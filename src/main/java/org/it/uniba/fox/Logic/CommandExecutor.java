@@ -13,11 +13,29 @@ import org.it.uniba.fox.Type.ParserOutput;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * The class that manages the execution of the commands.
+ */
 public class CommandExecutor {
+
+    /**
+     * The game instance.
+     */
     private Game game;
+
+    /**
+     * A map that contains the command behaviors.
+     */
     private HashMap<CommandExecutorKey, CommandBehavior> commandMap;
+
+    /**
+     * The instance of the game logic.
+     */
     private GameLogic gameLogic;
 
+    /**
+     * The generalized behavior of the movement commands.
+     */
     private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
         return p -> {
             Corridor corridor = game.getCorridorsMap().stream()
@@ -136,6 +154,11 @@ public class CommandExecutor {
 
     }
 
+    /**
+     * Execute the command based on the parser output.
+     *
+     * @param p the p
+     */
     public void execute(ParserOutput p) {
         int args = (p.getItem1() != null) ? ((p.getItem2() != null) ? 2 : 1) : 0;
 

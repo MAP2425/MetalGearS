@@ -13,12 +13,34 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The class that manages the parsing of the input.
+ */
 public class Parser {
+
+    /**
+     * The available commands set.
+     */
     private final Set<Command> availableCommands;
+
+    /**
+     * The available items set.
+     */
     private final Set<Item> availableItems;
+
+    /**
+     * The stop words set.
+     */
     private final Set<String> stopWords = new HashSet<>();
+
+    /**
+     * The available characters set.
+     */
     private final Set<Character> availableCharacters;
 
+    /**
+     * Constructor of the class.
+     */
     public Parser() {
         GameManager gameManager = new GameManager();
         availableCommands = gameManager.getAllCommands();
@@ -32,6 +54,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input and returns the output of the operation.
+     *
+     * @param input the input
+     * @return the parser output
+     */
     public ParserOutput parse(String input) {
         ParserOutput output = new ParserOutput();
 
@@ -82,6 +110,11 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Finds an object by its name or alias in the available items and characters.
+     * @param name the name or alias of the object to find
+     * @return the found object, or null if not found
+     */
     private Object findObjectByName(String name) {
         for (Item item : availableItems) {
             if (item.getName().equalsIgnoreCase(name) ||
@@ -102,6 +135,11 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Sets up the stop words.
+     *
+     * @throws Exception the exception
+     */
     private void setupUselessWords() throws IOException {
         File file = new File("src/main/resources/utilities/stopWords.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

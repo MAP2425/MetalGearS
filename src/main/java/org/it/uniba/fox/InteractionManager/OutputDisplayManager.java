@@ -2,6 +2,9 @@ package org.it.uniba.fox.InteractionManager;
 import org.it.uniba.fox.GUI.GameGUI;
 import java.awt.FontMetrics;
 
+/**
+ * This class is responsible for displaying text on the game panel.
+ */
 public class OutputDisplayManager {
     /**
      * The font metrics of the text pane.
