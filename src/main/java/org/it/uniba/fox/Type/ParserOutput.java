@@ -2,7 +2,10 @@ package org.it.uniba.fox.Type;
 
 import org.it.uniba.fox.Entity.Item;
 
-
+/**
+ * The class representing the parser output.
+ * It extends the CommandExecutorKey class by adding the number of arguments.
+ */
 public class ParserOutput {
     /**
      * The command type

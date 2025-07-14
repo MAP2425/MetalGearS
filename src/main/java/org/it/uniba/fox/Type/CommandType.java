@@ -1,6 +1,8 @@
 package org.it.uniba.fox.Type;
 
-
+/**
+ * The enum representing the command types in the game.
+ */
 public enum CommandType {
     /**
      * Codec command type, shows the list of available commands.

@@ -22,19 +22,36 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The class that manages the conversion of json files to java classes and vice versa.
+ */
 public class Converter {
 
+    /**
+     * Method that manages the conversion of json files to java classes in the case of a new game.
+     *
+     * @return the map of all the agents
+     */
     public Map<String, Item> convertJsonToJavaClass() {
         ensureResourceDirectoriesExist();
         return processJsonFiles("src/main/resources/static/Game.json", "src/main/resources/static/Agents.json");
 
     }
 
+    /**
+     * Method that manages the conversion of json files to java classes in the case of a loaded game.
+     *
+     * @return the map of all the agents
+     */
     public Map<String, Item> loadGame() {
         ensureResourceDirectoriesExist();
         return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedAgents.json");
     }
 
+    /**
+     * Ensures that the necessary resource directories and files exist.
+     * If they do not exist, they are created with default content.
+     */
     private void ensureResourceDirectoriesExist() {
         try {
             Path staticDir = Paths.get("src", "main", "resources", "static");
@@ -56,6 +73,14 @@ public class Converter {
         }
     }
 
+    /**
+     * Converts the json files of a game and its agents to java classes.
+     * Returns a map containing all the agents mapped to their names.
+     *
+     * @param gameFilePath   the game file path
+     * @param itemsFilePath the agents file path
+     * @return the map of the agents
+     */
     private Map<String, Item> processJsonFiles(String gameFilePath, String itemsFilePath) {
         Gson gson = new GsonBuilder().create();
         Map<String, Item> allItems = new HashMap<>();
@@ -130,7 +155,9 @@ public class Converter {
         return allItems;
     }
 
-
+    /**
+     * Prints the details of the game, including the current room, inventory, rooms, corridors, all items, and characters.
+     */
     private void printgameFiles() {
         Game game = Game.getInstance();
         if (game == null) {
@@ -233,6 +260,9 @@ public class Converter {
     }
     }
 
+    /**
+     * Converts the game instance to json file to save the game.
+     */
     public void ConvertGameToJson() {
         Gson gson = new Gson();
         Game game = Game.getInstance();
@@ -245,6 +275,9 @@ public class Converter {
         }
     }
 
+    /**
+     * Converts the items to json file to save the game.
+     */
     public void ConvertItemsToJson() {
         Gson gson = new Gson();
         Game game = Game.getInstance();

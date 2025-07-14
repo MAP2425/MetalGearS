@@ -3,6 +3,9 @@ import org.it.uniba.fox.GUI.GameGUI;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The class that manages the timer.
+ */
 public class TimerManager {
 
     /**
