@@ -7,6 +7,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * The type Box letter.
+ */
 public class BoxLetter {
 
     /**

@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The class of the WordleGUI GUI.
+ */
 public class WordleGUI extends JPanel{
     /**
      * The constants.
