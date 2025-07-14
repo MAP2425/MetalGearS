@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The class that represents the game.
+ */
 public class Game {
     /**
      * The inventory of the player.
