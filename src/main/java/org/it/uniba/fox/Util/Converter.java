@@ -1,7 +1,7 @@
 package org.it.uniba.fox.Util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -9,7 +9,7 @@ import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Entity.Room;
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Logic.GameManager;
 
 import java.io.File;
@@ -82,7 +82,7 @@ public class Converter {
      * @return the map of the agents
      */
     private Map<String, Item> processJsonFiles(String gameFilePath, String itemsFilePath) {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new Gson();
         Map<String, Item> allItems = new HashMap<>();
         Map<String, Room> allRooms = new HashMap<>();
 
@@ -132,31 +132,35 @@ public class Converter {
             throw new RuntimeException(e);
         }
 
-        // Lettura Items.json
         try {
             byte[] fileBytes = Files.readAllBytes(Paths.get(itemsFilePath));
             if (fileBytes.length == 0) {
                 return allItems;
             }
-            JsonReader reader = new JsonReader(new FileReader(itemsFilePath));
-            Type ItemListType = new TypeToken<ArrayList<Item>>() {}.getType();
-            List<Item> ItemList = gson.fromJson(reader, ItemListType);
-            if (ItemList != null) {
-                ItemList.forEach(Item -> allItems.put(Item.getName(), Item));
+            JsonArray array = JsonParser.parseReader(new FileReader(itemsFilePath)).getAsJsonArray();
+            for (JsonElement elem : array) {
+                JsonObject obj = elem.getAsJsonObject();
+                String type = obj.get("type").getAsString();
+                Item item;
+                if ("Agent".equals(type)) {
+                    item = gson.fromJson(obj, Agent.class);
+                } else if ("Item".equals(type)) {
+                    item = gson.fromJson(obj, Item.class);
+                } else {
+                    continue;
+                }
+                allItems.put(item.getName(), item);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        new Thread(() ->
-                printgameFiles()).start();
-        // Stampa dettagli del gioco
+        new Thread(() -> printgameFiles()).start();
 
         return allItems;
     }
-
     /**
-     * Prints the details of the game, including the current room, inventory, rooms, corridors, all items, and characters.
+     * Prints the details of the game, including the current room, inventory, rooms, corridors, all items, and Agents.
      */
     private void printgameFiles() {
         Game game = Game.getInstance();
@@ -192,7 +196,6 @@ public class Converter {
             rooms.addAll(corridors.stream()
                     .map(Corridor::getArrivingRoom)
                     .collect(Collectors.toSet()));
-
             System.out.println("\nSTANZE (" + rooms.size() + "):");
             for (Room room : rooms) {
                 if (room == null) {
@@ -200,19 +203,23 @@ public class Converter {
                     continue;
                 }
                 System.out.println("  - Nome: " + room.getName());
-                System.out.println("    Descrizione: " +
-                        (room.getDescription() != null ? room.getDescription() : "N/D"));
                 List<Item> roomItems = room.getItems();
-                if (roomItems == null || roomItems.isEmpty()) {
-                    System.out.println("    Oggetti: Nessuno");
+                List<Agent> agentsInRoom = roomItems == null ? Collections.emptyList() :
+                        roomItems.stream()
+                                .filter(item -> item instanceof Agent)
+                                .map(item -> (Agent) item)
+                                .collect(Collectors.toList());
+                if (agentsInRoom.isEmpty()) {
+                    System.out.println("    Personaggi: Nessuno");
                 } else {
-                    System.out.println("    Oggetti (" + roomItems.size() + "):");
-                    for (Item it : roomItems) {
-                        System.out.println("      - Nome: " + it.getName());
+                    System.out.println("    Personaggi (" + agentsInRoom.size() + "):");
+                    for (Agent agent : agentsInRoom) {
+                        System.out.println("      - Nome: " + agent.getName());
+                        System.out.println("        Descrizione: " +
+                                (agent.getDescription() != null ? agent.getDescription() : "N/D"));
                     }
                 }
             }
-
             System.out.println("\nCORRIDOI (" + corridors.size() + "):");
             for (int i = 0; i < corridors.size(); i++) {
                 Corridor c = corridors.get(i);
@@ -240,15 +247,15 @@ public class Converter {
 
 
         System.out.println("\n--- PERSONAGGI ---");
-        List<Character> characters = allItems.stream()
-                .filter(i -> i instanceof Character)
-                .map(i -> (Character) i)
+        List<Agent> Agents = allItems.stream()
+                .filter(i -> i instanceof Agent)
+                .map(i -> (Agent) i)
                 .collect(Collectors.toList());
-        if (characters.isEmpty()) {
+        if (Agents.isEmpty()) {
             System.out.println("Non ci sono personaggi nel gioco.");
         } else {
-            System.out.println("Numero personaggi: " + characters.size());
-            for (Character ch : characters) {
+            System.out.println("Numero personaggi: " + Agents.size());
+            for (Agent ch : Agents) {
                 System.out.println("  - Nome: " + ch.getName());
                 System.out.println("    Descrizione: " +
                         (ch.getDescription() != null ? ch.getDescription() : "N/D"));

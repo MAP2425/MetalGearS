@@ -4,7 +4,7 @@ package org.it.uniba.fox.Util;
 import com.google.gson.Gson;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Item;
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Entity.Room;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Type.CommandType;
@@ -29,6 +29,7 @@ public class Inizializer {
         pistola.setReusable(true);
         pistola.setPicked(true);
         pistola.setPickable(true);
+        pistola.setType("Item");
         pistola.setAliases(Arrays.asList("Beretta", "Arma", "PistolaSilenziata"));
         items.add(pistola);
 
@@ -38,6 +39,7 @@ public class Inizializer {
         sigarette.setReusable(false);
         sigarette.setPicked(true);
         sigarette.setPickable(true);
+        sigarette.setType("Item");
         sigarette.setAliases(Arrays.asList("Pacchetto", "Fumo", "SigaretteAmericane"));
         items.add(sigarette);
 
@@ -47,6 +49,7 @@ public class Inizializer {
         tavolo.setReusable(false);
         tavolo.setPicked(false);
         tavolo.setPickable(false);
+        tavolo.setType("Item");
         tavolo.setAliases(Arrays.asList("Banco", "Tavola", "Scrivania"));
         items.add(tavolo);
 
@@ -56,6 +59,7 @@ public class Inizializer {
         armadietto.setReusable(false);
         armadietto.setPicked(false);
         armadietto.setPickable(false);
+        armadietto.setType("Item");
         armadietto.setAliases(Arrays.asList("Armadio", "Comodino", "Cassettone"));
         items.add(armadietto);
 
@@ -65,6 +69,7 @@ public class Inizializer {
         passkey.setReusable(true);
         passkey.setPicked(false);
         passkey.setPickable(true);
+        passkey.setType("Item");
         passkey.setAliases(Arrays.asList("Chiave", "Passkey", "ChiaveElettronica"));
         items.add(passkey);
 
@@ -74,6 +79,7 @@ public class Inizializer {
         uniforme.setReusable(true);
         uniforme.setPicked(false);
         uniforme.setPickable(true);
+        uniforme.setType("Item");
         uniforme.setAliases(Arrays.asList("Divisa", "Uniforme", "Travestimento"));
         items.add(uniforme);
 
@@ -83,6 +89,7 @@ public class Inizializer {
         scatola.setReusable(true);
         scatola.setPicked(false);
         scatola.setPickable(true);
+        scatola.setType("Item");
         scatola.setAliases(Arrays.asList("Scatola", "Cartone", "ScatolaCartone"));
         items.add(scatola);
 
@@ -92,6 +99,7 @@ public class Inizializer {
         terminale.setReusable(false);
         terminale.setPicked(false);
         terminale.setPickable(false);
+        terminale.setType("Item");
         terminale.setAliases(Arrays.asList("Console", "Punto di Accesso", "Postazione di Controllo"));
         items.add(terminale);
 
@@ -101,6 +109,7 @@ public class Inizializer {
         foglietto.setReusable(true);
         foglietto.setPicked(false);
         foglietto.setPickable(true);
+        foglietto.setType("Item");
         foglietto.setAliases(Arrays.asList("Foglio", "Foglietto", "Biglietto"));
         items.add(foglietto);
 
@@ -110,6 +119,7 @@ public class Inizializer {
         badge.setReusable(true);
         badge.setPicked(false);
         badge.setPickable(true);
+        badge.setType("Item");
         badge.setAliases(Arrays.asList("Badge", "Tesserino", "Pass"));
         items.add(badge);
 
@@ -119,6 +129,7 @@ public class Inizializer {
         scaffale.setReusable(false);
         scaffale.setPicked(true);
         scaffale.setPickable(false);
+        scaffale.setType("Item");
         scaffale.setAliases(Arrays.asList("Ripiano", "Mensola", "Palchetto"));
         items.add(scaffale);
 
@@ -128,6 +139,7 @@ public class Inizializer {
         radio.setReusable(true);
         radio.setPicked(false);
         radio.setPickable(true);
+        radio.setType("Item");
         radio.setAliases(Arrays.asList("Radio", "Ricetrasmittente", "DispositivoRadio"));
         items.add(radio);
 
@@ -137,6 +149,7 @@ public class Inizializer {
         pannello.setReusable(false);
         pannello.setPicked(false);
         pannello.setPickable(false);
+        pannello.setType("Item");
         pannello.setAliases(Arrays.asList("Pannello", "Tastiera", "Pannello di Controllo"));
         items.add(pannello);
 
@@ -146,36 +159,40 @@ public class Inizializer {
         chiavetta.setReusable(true);
         chiavetta.setPicked(false);
         chiavetta.setPickable(true);
+        chiavetta.setType("Item");
         chiavetta.setAliases(Arrays.asList("Chiavetta", "USB", "ChiavettaUSB"));
         items.add(chiavetta);
 
 // Personaggi
-        Character dottoressa = new Character();
+        Agent dottoressa = new Agent();
         dottoressa.setName("Dottoressa");
         dottoressa.setDescription("La dottoressa ha un aspetto ordinato e professionale. Indossa un camice bianco sopra una camicia chiara e pantaloni pratici. I capelli biondi sono raccolti in uno chignon stretto, lasciando scoperto un volto dai tratti delicati ma decisi. Gli occhi chiari osservano con attenzione da dietro occhiali sottili, e ogni suo movimento è preciso, riflesso di un controllo totale su sé stessa e sull'ambiente che la circonda.");
         dottoressa.setReusable(false);
         dottoressa.setPicked(false);
         dottoressa.setPickable(false);
+        dottoressa.setType("Agent");
         dottoressa.setAliases(Arrays.asList("Weissman", "Ragazza", "Ricercatrice"));
         dottoressa.setPosition("Stanza10");
         items.add(dottoressa);
 
-        Character ia1 = new Character();
+        Agent ia1 = new Agent();
         ia1.setName("IA");
         ia1.setDescription("Nel cuore del corridoio immerso nella penombra, l'intelligenza artificiale si manifesta su uno schermo incastonato nella parete. Una sequenza di volti sfocati e in continuo mutamento scorre rapidamente, mescolando tratti umani e digitali in un flusso inquietante. Ogni volto si dissolve nell'altro in una danza ipnotica, come se l'IA stesse cercando una forma stabile che non riesce mai a raggiungere.Una sottile scarica elettrica attraversa l'aria, suggerendo che l'entità sta osservando... e aspettando una risposta.");
         ia1.setReusable(false);
         ia1.setPicked(false);
         ia1.setPickable(false);
+        ia1.setType("Agent");
         ia1.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
         ia1.setPosition("Stanza5");
         items.add(ia1);
 
-        Character ia2 = new Character();
+        Agent ia2 = new Agent();
         ia2.setName("IA");
         ia2.setDescription("L'IA torna a manifestarsi su un nuovo schermo, più grande, incassato in una struttura metallica verticale. I volti sfocati scorrono ancora, ma ora sono più definiti, quasi familiari, come se l'entità stesse imparando. Attorno al monitor, luci gialle lampeggiano lentamente, segnalando uno stato di allerta moderato. Una serie di simboli criptici compare e scompare ai margini dello schermo, mentre il silenzio carico di attesa suggerisce che un nuovo enigma sta per essere proposto.");
         ia2.setReusable(false);
         ia2.setPicked(false);
         ia2.setPickable(false);
+        ia2.setType("Agent");
         ia2.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
         ia2.setPosition("Stanza12");
         items.add(ia2);
@@ -239,26 +256,26 @@ public class Inizializer {
                 .toList()
                 .toArray(new Item[0]));
 
-        // popolamento characters
-        stanza10.addCharacters(items.stream()
-                .filter(i -> i instanceof Character && i.getName().equals("Dottoressa"))
-                .map(i -> (Character) i)
+        // popolamento Agents
+        stanza10.addAgents(items.stream()
+                .filter(i -> i instanceof Agent && i.getName().equals("Dottoressa"))
+                .map(i -> (Agent) i)
                 .toList()
-                .toArray(new Character[0]));
+                .toArray(new Agent[0]));
 
-        stanza5.addCharacters(items.stream()
-                .filter(i -> i instanceof Character && i.getName().equals("IA"))
-                .map(i -> (Character) i)
+        stanza5.addAgents(items.stream()
+                .filter(i -> i instanceof Agent && i.getName().equals("IA"))
+                .map(i -> (Agent) i)
                 .limit(1)
                 .toList()
-                .toArray(new Character[0]));
+                .toArray(new Agent[0]));
 
-        stanza12.addCharacters(items.stream()
-                .filter(i -> i instanceof Character && i.getName().equals("IA"))
-                .map(i -> (Character) i)
+        stanza12.addAgents(items.stream()
+                .filter(i -> i instanceof Agent && i.getName().equals("IA"))
+                .map(i -> (Agent) i)
                 .skip(1)
                 .toList()
-                .toArray(new Character[0]));
+                .toArray(new Agent[0]));
 // Configurazione dei corridoi con setter
         Corridor c1 = new Corridor();
         c1.setStartingRoom(stanza1);

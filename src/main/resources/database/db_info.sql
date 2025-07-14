@@ -1,6 +1,6 @@
 INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO, DESCRIZIONE) VALUES
 (1, '0', 'Stanza1', '0', '0', '0', 'COLONNELLO ROY CAMPBELL: "Snake, il mondo è sull’orlo di una crisi. La Dottoressa Weissmann è stata rapita da BLACK HAND per creare armi autonome. Infiltrati nella loro base, salvala prima che sia troppo tardi. Ogni secondo conta. La missione inizia ora. Buona fortuna."'),
-(2, 'Osserva', 'Stanza1', '0', '0', '0', '"Sei nell’ingresso principale. Luci fioche e telecamere di sicurezza. Sul tavolo, un terminale spento e una passkey brillante. Accanto, un armadietto semiaperto rivela un pezzo di stoffa."'),
+(2, 'Osserva', 'Stanza1', 'Libero', '0', '0', '"Sei nell’ingresso principale. Luci fioche e telecamere di sicurezza. Sul tavolo, un terminale spento e una passkey brillante. Accanto, un armadietto semiaperto rivela un pezzo di stoffa."'),
 (3, 'Osserva', 'Stanza1', 'Libero', '0', 'Tavolo', 'Il tavolo di metallo ospita una passkey elettronica, che brilla sotto la luce tremolante del terminale spento.'),
 (4, 'Prendi', 'Stanza1', 'Libero', '0', 'Passkey', 'Snake prende la passkey dal tavolo, fredda e solida al tatto.'),
 (5, 'Osserva', 'Stanza1', 'Libero', '0', 'Armadietto', 'L’armadietto è socchiuso, mostrando un’uniforme piegata con cura e un guanto pendente.'),

@@ -116,7 +116,7 @@ Questa classe viene definita come una classe statica, per facilitare l'uso dei s
 - **Game**: Questa classe Singleton rappresenta la partita, contiene le informazioni principali del gioco, tra cui: il nome del giocatore, il tempo di gioco, l'inventario del giocatore, la stanza attuale dove si trova il giocatore e la mappa di gioco.
 - **Room**: Questa classe rappresenta una stanza del gioco, contiene le informazioni principali della stanza tra cui: oggetti, personaggi e lo stato della stanza.
 - **Item**: Questa classe rappresenta un oggetto o un personaggio all'interno del gioco.Un oggeto può essere raccolto o meno dal giocatore, inoltre un oggetto può essere spostabile o meno da una stanza. 
-- **Character**: Questa classe rappresenta un personaggio all'interno del gioco.
+- **Agent**: Questa classe rappresenta un personaggio all'interno del gioco.
 - **Corridor**: Questa classe rappresenta il collegamento tra due stanze la direzione della stanza di arrivo rispetto a quella di partenza. Un corridoio può essere bloccato o meno.
 
 #### [Ritorna all'Indice](#indice)

@@ -1,6 +1,6 @@
 
 package org.it.uniba.fox.Logic;
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Type.CommandType;
@@ -62,10 +62,10 @@ public class GameManager {
      * @param name the name of the agent
      * @return the agent
      */
-    public Character getAgentFromName(String name) {
+    public Agent getAgentFromName(String name) {
         Item item = allAgents.get(name);
-        if (item instanceof Character) {
-            return (Character) item;
+        if (item instanceof Agent) {
+            return (Agent) item;
         }
         return null;
     }
@@ -85,18 +85,18 @@ public class GameManager {
     }
 
     /**
-     * Returns a set with all the agents of type Character.
+     * Returns a set with all the agents of type Agent.
      *
-     * @return the set of all characters
+     * @return the set of all Agents
      */
-    public Set<Character> getAllAgents() {
+    public Set<Agent> getAllAgents() {
         if (allAgents == null) {
             return new HashSet<>();
         }
 
         return allAgents.values().stream()
-                .filter(item -> item instanceof Character)
-                .map(item -> (Character) item)
+                .filter(item -> item instanceof Agent)
+                .map(item -> (Agent) item)
                 .collect(Collectors.toSet());
     }
 

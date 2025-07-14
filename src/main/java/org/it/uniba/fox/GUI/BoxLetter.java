@@ -21,7 +21,7 @@ public class BoxLetter {
      * Instantiates a new box letter.
      */
     public BoxLetter() {
-        textField = new JTextField(1); // Single character input
+        textField = new JTextField(1); // Single Agent input
         textField.setFont(new Font("Otacon", Font.BOLD, 30));
         textField.setHorizontalAlignment(JTextField.CENTER);
         ((AbstractDocument) textField.getDocument()).setDocumentFilter(new SingleCharDocumentFilter());
@@ -46,7 +46,7 @@ public class BoxLetter {
     }
 
     /**
-     * Underclass to filter the input of the textfield to a single character.
+     * Underclass to filter the input of the textfield to a single Agent.
      */
     private static class SingleCharDocumentFilter extends DocumentFilter {
         @Override

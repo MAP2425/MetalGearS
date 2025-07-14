@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Represents a room in the game, containing its name, description, state (free or not),
- * the characters and items present, and a static list of all rooms.
+ * the Agents and items present, and a static list of all rooms.
  */
 public class Room {
 
@@ -17,6 +17,7 @@ public class Room {
      * The name of the room.
      */
     private String name;
+
 
 
     /**
@@ -30,9 +31,9 @@ public class Room {
     private boolean free;
 
     /**
-     * The list of characters present in the room.
+     * The list of Agents present in the room.
      */
-    private List <Character> characters;
+    private List <Agent> Agents;
 
     /**
      * The list of items present in the room.
@@ -50,15 +51,15 @@ public class Room {
      * @param name the name of the room
      * @param description the description of the room
      * @param free whether the room is free (accessible)
-     * @param characters the list of characters in the room
+     * @param Agents the list of Agents in the room
      * @param items the list of items in the room
      */
-    public Room(String name, String description, boolean free, List <Character> characters, List <Item> items){
+    public Room(String name, String description, boolean free, List <Agent> Agents, List <Item> items){
         this.name=name;
         this.description=description;
         this.free = free;
         this.items = (items != null) ? items : new ArrayList<>();
-        this.characters = (characters != null) ? characters : new ArrayList<>();
+        this.Agents = (Agents != null) ? Agents : new ArrayList<>();
     }
 
     /**
@@ -104,12 +105,12 @@ public class Room {
     }
 
     /**
-     * Returns the list of characters present in the room.
+     * Returns the list of Agents present in the room.
      *
-     * @return the list of characters
+     * @return the list of Agents
      */
-    public List <Character> getCharacters(){
-        return this.characters;
+    public List <Agent> getAgents(){
+        return this.Agents;
     }
 
     /**
@@ -141,32 +142,32 @@ public class Room {
     }
 
     /**
-     * Adds one or more characters to the room.
+     * Adds one or more Agents to the room.
      *
-     * @param characters the characters to add
+     * @param Agents the Agents to add
      */
-    public void addCharacters(Character... characters) {
-        this.characters.addAll(Arrays.asList(characters));
+    public void addAgents(Agent... Agents) {
+        this.Agents.addAll(Arrays.asList(Agents));
     }
 
 
     /**
-     * Removes a character from the room by name.
+     * Removes a Agent from the room by name.
      *
-     * @param name the name of the character to remove
-     * @return true if the character was removed, false otherwise
+     * @param name the name of the Agent to remove
+     * @return true if the Agent was removed, false otherwise
      */
-    public boolean removeCharacter(String name){
+    public boolean removeAgent(String name){
 
-        return this.characters.removeIf(ch->ch.getName().equals(name));
+        return this.Agents.removeIf(ch->ch.getName().equals(name));
     }
 
 
     /**
-     * Removes a character from the room by name.
+     * Removes a Agent from the room by name.
      *
-     * @param name the name of the character to remove
-     * @return true if the character was removed, false otherwise
+     * @param name the name of the Agent to remove
+     * @return true if the Agent was removed, false otherwise
      */
     public void removeItem(String name){
 
@@ -177,6 +178,6 @@ public class Room {
      * Prints the description of the room.
      */
     public void printDescription() {
-        DatabaseConnection.printFromDB("Osserva", name, "Libero", "0", "0");
+        DatabaseConnection.printFromDB("Osserva", name, String.valueOf(free), "0", "0");
     }
 }

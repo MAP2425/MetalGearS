@@ -1,6 +1,6 @@
 package org.it.uniba.fox.Logic;
 
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.GUI.GameGUI;
@@ -34,7 +34,7 @@ public class GameLogic {
      *
      * @param c the personage to talk to
      */
-    public void talkToPersonage(Character c) {
+    public void talkToPersonage(Agent c) {
         if (c.getPosition().toString().equals("Stanza5")) {
             UserInputFlow.Event = 1;
             return;
@@ -58,7 +58,7 @@ public class GameLogic {
          * @param c the personage to give the item to
          * @return true if the action is performed, false otherwise
          */
-        public boolean executeGiveCombination(Item i, Character c) {
+        public boolean executeGiveCombination(Item i, Agent c) {
             if (i.hasName("Chiavetta") && c.hasName("Dottoressa") && game.getCurrentRoom().getName().equals("Stanza10")) {
                 game.removeInventory(i);
                 game.getCurrentRoom().addItems(i);

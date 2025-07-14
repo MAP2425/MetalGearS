@@ -1,5 +1,6 @@
 package org.it.uniba.fox.Type;
 
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Entity.Item;
 
 /**
@@ -12,11 +13,11 @@ public class ParserOutput {
      */
     private CommandType command;
     /**
-     * The first argument (can be Item or Character)
+     * The first argument (can be Item or Agent)
      */
     private Object arg1;
     /**
-     * The second argument (can be Item or Character)
+     * The second argument (can be Item or Agent)
      */
     private Object arg2;
     /**
@@ -70,7 +71,7 @@ public class ParserOutput {
     /**
      * Sets the first argument.
      *
-     * @param arg1 the first argument (Item or Character)
+     * @param arg1 the first argument (Item or Agent)
      */
     public void setArg1(Object arg1) {
         this.arg1 = arg1;
@@ -88,7 +89,7 @@ public class ParserOutput {
     /**
      * Sets second argument.
      *
-     * @param arg2 the second argument (Item or Character)
+     * @param arg2 the second argument (Item or Agent)
      */
     public void setArg2(Object arg2) {
         this.arg2 = arg2;
@@ -122,21 +123,21 @@ public class ParserOutput {
     }
 
     /**
-     * Gets the first argument as Character if it is a Character.
+     * Gets the first argument as Agent if it is a Agent.
      *
-     * @return the first character or null if not a Character
+     * @return the first Agent or null if not a Agent
      */
-    public Character getCharacter1() {
-        return arg1 instanceof Character ? (Character) arg1 : null;
+    public Agent getAgent1() {
+        return arg1 instanceof Agent ? (Agent) arg1 : null;
     }
 
     /**
-     * Gets the second argument as Character if it is a Character.
+     * Gets the second argument as Agent if it is a Agent.
      *
-     * @return the second character or null if not a Character
+     * @return the second Agent or null if not a Agent
      */
-    public Character getCharacter2() {
-        return arg2 instanceof Character ? (Character) arg2 : null;
+    public Agent getAgent2() {
+        return arg2 instanceof Agent ? (Agent) arg2 : null;
     }
 
     /**

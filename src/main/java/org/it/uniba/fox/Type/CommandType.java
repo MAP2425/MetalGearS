@@ -30,7 +30,7 @@ public enum CommandType {
     OVEST,
 
     /**
-     * Observe command type, allows the player to observe objects, rooms, and characters.
+     * Observe command type, allows the player to observe objects, rooms, and Agents.
      */
     OSSERVA,
 
@@ -50,12 +50,12 @@ public enum CommandType {
     USA,
 
     /**
-     * Talk command type, allows the player to talk to characters.
+     * Talk command type, allows the player to talk to Agents.
      */
     PARLA,
 
     /**
-     * Give command type, allows the player to give objects to characters.
+     * Give command type, allows the player to give objects to Agents.
      */
     DAI,
 }

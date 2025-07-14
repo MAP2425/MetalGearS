@@ -8,6 +8,10 @@ import java.util.List;
 public class Item {
 
     /**
+     * The type of the item.
+     */
+    private String type;
+    /**
      * The name of the item.
      */
     private String name;
@@ -171,6 +175,11 @@ public class Item {
      */
     public Item() {
         // Default constructor for inizializer
+    }
+
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**

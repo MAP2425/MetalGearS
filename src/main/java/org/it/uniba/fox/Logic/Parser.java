@@ -2,7 +2,7 @@ package org.it.uniba.fox.Logic;
 
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Item;
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Type.ParserOutput;
 
 import java.io.BufferedReader;
@@ -34,9 +34,9 @@ public class Parser {
     private final Set<String> stopWords = new HashSet<>();
 
     /**
-     * The available characters set.
+     * The available Agents set.
      */
-    private final Set<Character> availableCharacters;
+    private final Set<Agent> availableAgents;
 
     /**
      * Constructor of the class.
@@ -45,7 +45,7 @@ public class Parser {
         GameManager gameManager = new GameManager();
         availableCommands = gameManager.getAllCommands();
         availableItems = gameManager.getAllItems();
-        availableCharacters = gameManager.getAllAgents();
+        availableAgents = gameManager.getAllAgents();
 
         try {
             setupUselessWords();
@@ -111,7 +111,7 @@ public class Parser {
     }
 
     /**
-     * Finds an object by its name or alias in the available items and characters.
+     * Finds an object by its name or alias in the available items and Agents.
      * @param name the name or alias of the object to find
      * @return the found object, or null if not found
      */
@@ -123,11 +123,11 @@ public class Parser {
             }
         }
 
-        if (availableCharacters != null) {
-            for (Character character : availableCharacters) {
-                if (character.getName().equalsIgnoreCase(name) ||
-                        character.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(name))) {
-                    return character;
+        if (availableAgents != null) {
+            for (Agent Agent : availableAgents) {
+                if (Agent.getName().equalsIgnoreCase(name) ||
+                        Agent.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(name))) {
+                    return Agent;
                 }
             }
         }

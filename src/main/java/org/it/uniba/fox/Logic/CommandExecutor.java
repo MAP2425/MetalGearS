@@ -4,7 +4,7 @@ import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
-import org.it.uniba.fox.Entity.Character;
+import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.InteractionManager.OutputDisplayManager;
 import org.it.uniba.fox.Type.CommandBehavior;
 import org.it.uniba.fox.Type.CommandExecutorKey;
@@ -105,16 +105,22 @@ public class CommandExecutor {
 
         commandMap.put(new CommandExecutorKey(CommandType.PARLA, 1),
                 p -> {
-                    if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        if (p.getItem1() instanceof Character) {
-                            gameLogic.talkToPersonage((Character) p.getItem1());
+
+                    System.out.println(game.getCurrentRoom().getItems());
+                    boolean found = p.getAgent1() != null &&
+                            game.getCurrentRoom().getAgents().stream()
+                                    .anyMatch(c -> c.getName().equalsIgnoreCase(p.getAgent1().getName()));
+                    if (found) {
+                        if (p.getItem1() instanceof Agent) {
+                            gameLogic.talkToPersonage((Agent) p.getItem1());
                         } else {
                             OutputDisplayManager.displayText("> Non puoi parlare con " + p.getItem1().getName() + "!");
                         }
                     } else {
                         OutputDisplayManager.displayText("> " + p.getItem1().getName() + " non è nella stanza!");
                     }
-                });
+                }
+        );
 
         // The command to look at an agent
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, 1),
@@ -137,7 +143,7 @@ public class CommandExecutor {
                     } else {
                         OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");
                    }
-                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName(), "0");
+                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0",p.getItem1().getName());
                     } else {
                         OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
@@ -148,8 +154,8 @@ public class CommandExecutor {
                     if (game.getInventory().contains(p.getItem1())) {
                         if (game.getCurrentRoom().getItems().contains(p.getItem2())) {
                             String statusBeforeAction = String.valueOf(game.getCurrentRoom().getFree());
-                            if (p.getItem2() instanceof Character) {
-                                if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Character) p.getItem2())) {
+                            if (p.getItem2() instanceof Agent) {
+                                if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Agent) p.getItem2())) {
                                     DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""), "0");
                                 } else {
                                     OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + p.getItem2().getName() + "!");
