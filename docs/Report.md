@@ -70,7 +70,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione **Ja
 - **Database**: il gioco include un database, in particolare **H2**, utilizzato per contenere le descrizioni delle stanze, degli oggetti, dei personaggi ed altre informazioni utili.
 - **Thread**: il gioco utilizza i thread per non rendere conscio il giocatore di ciò che sta succedendo in background, dal momento che sarà accompagnato da una musica di sottofondo adatta all'ambientazione del gioco.
 - **File di Configurazione**: il gioco include un file di configurazione in formato **JSON** per creare una nuova partita o caricare una partita salvata.
-- **Socket / REST**: il gioco include un server socket, sulla porta xxxx, per visualizzare direttamente sul browser le informazioni più importanti e per permettere di leggere l'intera avventura di Snake dall'inizio alla fine direttamente dal browser.
+- **Socket / REST**: il gioco include un server socket, sulla porta 8080, per visualizzare direttamente sul browser le informazioni più importanti e per permettere di leggere l'intera avventura di Snake dall'inizio alla fine direttamente dal browser.
 - **API**: il gioco include un'API per generare parole casuali per il minigioco della **AI malevola** e un'API per generare domande casuali per il minigioco del **Trivia**.
 - **GUI**: nonostante il gioco sia testuale, è stata implementata una GUI per visualizzare le informazioni principali del gioco, come la stanza corrente e l'inventario del giocatore.
 
