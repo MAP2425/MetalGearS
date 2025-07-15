@@ -139,11 +139,11 @@ H2 è molto popolare in ambito di sviluppo di applicazioni Java, in quanto è fa
 L'utilizzo del database ci ha permesso di memorizzare i dati relativi a tutti i dialoghi del gioco, i punteggi dei giocatori e le informazioni sui tempi di gioco, garantendo la persistenza dei dati e la possibilità di recuperarli in qualsiasi momento.
 Un ulteriore vantaggio di H2 è il fatto di avere una console web che permette di visualizzare i dati del database in modo semplice e intuitivo, facilitando il debug e il controllo dei dati memorizzati, come mostrato di seguito:
 
-![img_H2](../resources/img/database1.png)
+![img_H2](../resources/img/database1.jpg)
 
 A seguito dell'inserimento dei dati nel database, è possibile visualizzare i dati memorizzati all'interno del database, come mostrato di seguito:
 
-![img_H2](../resources/img/database3.png)
+![img_H2](../resources/img/database2.jpg)
 
 Il database, come appreso durante il corso, ha bisogno di una connessione per poter essere utilizzato. Per questo motivo, abbiamo implementato la classe <b>DatabaseConnection</b> per gestire la connessione al database e le operazioni di lettura e scrittura dei dati, come mostrato di seguito:
 ```java
@@ -461,8 +461,8 @@ Questo bottone è stato implementato utilizzando i socket sulla porta 8080, in p
 <h4><b>Che informazioni contiene il sito web?</b></h4>
 Ecco come appare il sito web:
 
-![img_Sito_Web1](../resources/img/immagine_sito_web1.png)
-![img_Sito_Web2](../resources/img/immagine_sito_web2.png)
+![img_sito_web1](../resources/img/immagine_sito_web1.jpg)
+![img_sito_web2](../resources/img/immagine_sito_web2.jpg)
 
 Il sito web contiene le seguenti informazioni:
 - **Titolo del gioco**: il nome del gioco, ossia "Avventura nella Piramide".
@@ -557,7 +557,7 @@ I panel verranno aggiunti al CardLayout, che permette di passare da una schermat
 Il metodo <b>closeGame()</b> permette di tornare al menu principale del gioco, chiamando il metodo <b>goBack()</b> del pannello del gioco.
 
 Nel momento in cui il gioco viene avviato, viene mostrato il Menu principale, che contiene vari pulsanti per iniziare una nuova partita, caricare una partita salvata, visualizzare i crediti, aprire il sito web del gioco e attivare o disattivare la musica di sottofondo, come mostrato di seguito:
-![img_MenuGUI](../src/main/resources/docs/img/mainBackground.jpeg)
+![img_MenuGUI](../src/main/resources/img/titleScreen.jpg)
 
 La classe che gestisce il Menu principale è la classe <b>MenuGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici del Menu, come mostrato di seguito:
 ```java
@@ -645,7 +645,7 @@ Il caricamento di una partita salvata avviene  allo stesso modo di una nuova par
 
 Dopo aver cliccato il pulsante "Riconoscimenti", viene mostrata una schermata con i nomi dei membri del team di sviluppo, come mostrato di seguito:
 
-![img_Credits](../resources/img/Credits.png)
+![img_Credits](../resources/img/Credits.jpg)
 
 
 La classe che gestisce i Riconoscimenti è la classe <b>RiconoscimentiGUI</b>, che estende la classe JPanel e contiene tutti i componenti grafici dei Riconoscimenti, come mostrato di seguito:
@@ -677,7 +677,7 @@ public class CreditsGUI extends JPanel {
 
 Nel Menu principale del gioco è presente un bottone "Help", che apre, al click, una finestra di dialogo contenente le istruzioni per giocare, come mostrato di seguito:
 
-![img_HelpGUI](../resources/img/Help.png)
+![img_HelpGUI](../resources/img/HelpGUI.jpg)
 
 La classe che mostra i comandi è la classe <b>HelpGUI</b>, che estende la classe JFrame e, con l'aggiunta di una JLabel permette la visualizzazione delle istruzioni del gioco.
 
