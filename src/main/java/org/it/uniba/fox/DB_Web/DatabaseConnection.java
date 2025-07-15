@@ -87,6 +87,15 @@ public class DatabaseConnection {
             }
         }
     }
+
+    /**
+     * Print from db
+     * @param comando the command to search in the database
+     * @param stanza the room where the command is executed
+     * @param stato the state of the command (true for "Libero", false for "Sorvegliato")
+     * @param personaggio the character related to the command
+     * @param oggetto the object related to the command
+     */
     public static void printFromDB(String comando, String stanza, String stato, String personaggio, String oggetto) {
         String statoDB = stato.equalsIgnoreCase("true") ? "Libero" : "Sorvegliato";
         String query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = ? AND STANZA = ? AND STATO = ? AND PERSONAGGIO = ? AND OGGETTO = ?";

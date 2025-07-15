@@ -83,7 +83,7 @@ public class TriviaGame {
                 break;
             } catch (IOException e) {
                 if (attempt == maxAttempts - 1) {
-                    OutputDisplayManager.displayText("> Scusa nipotino, l'età fa brutti scherzi e non riesco a ricordare la domanda. Ti dispiace ricominciare? (Il numero di domande a cui hai risposto correttamente me lo ricordo però!)");
+                    OutputDisplayManager.displayText("> Sistemi bloccati. Accesso negato al tuo precedente input. Ripeti la tua richiesta per continuare l'interazione. (Le tue risposte corrette sono già state processate e memorizzate.)");
                     UserInputFlow.Event = 0;
                 }
             }

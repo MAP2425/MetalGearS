@@ -36,13 +36,11 @@ public class ManagerGUI extends JFrame {
         JPanel cards = new JPanel(new CardLayout());
         MenuGUI menu = new MenuGUI();
         CreditsGUI credits = new CreditsGUI();
-        // ProgressBarGUI progressBar = new ProgressBarGUI();
         game = new GameGUI();
 
         // Add the panels to cards
         cards.add(menu, "MenuGUI");
         cards.add(credits, "CreditsGUI");
-        //cards.add(progressBar, "ProgressBarGUI");
         cards.add(game, "GameGUI");
 
         // Start the frame
@@ -59,6 +57,6 @@ public class ManagerGUI extends JFrame {
      * Closes the game GUI.
      */
     public static void closeGame() {
-        //game.goBack();
+        game.goBack();
     }
 }
