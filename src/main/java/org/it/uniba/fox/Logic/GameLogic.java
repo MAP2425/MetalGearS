@@ -4,6 +4,7 @@ import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.GUI.GameGUI;
+import org.it.uniba.fox.InteractionManager.TriviaGame;
 import org.it.uniba.fox.InteractionManager.UserInputFlow;
 
 /**
@@ -37,6 +38,7 @@ public class GameLogic {
     public void talkToPersonage(Agent c) {
         if (game.getCurrentRoom().getName().equals("Stanza5") && game.getCurrentRoom().getAgents().contains(c)) {
             UserInputFlow.Event = 2;
+            TriviaGame.getInstance().getQAndA();
             return;
         }
         if (c.hasName("Dottoressa") && game.getCurrentRoom().getName().equals("Stanza10")) {
