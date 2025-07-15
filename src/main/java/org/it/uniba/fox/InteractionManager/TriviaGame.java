@@ -120,7 +120,7 @@ public class TriviaGame {
                 Game game = Game.getInstance();
 
 
-                game.unlockCorridor("Stanza5" "Stanza6");
+                game.unlockCorridor("Stanza5", "Stanza6");
                 UserInputFlow.Event = 0;
             } else {
                 OutputDisplayManager.displayText("> \"Bravo nipotino, è corretto! Ancora " + (3 - correctAnswers) + ".\"");
