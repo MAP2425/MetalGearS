@@ -1,6 +1,5 @@
 package org.it.uniba.fox.Type;
-
-import org.it.uniba.fox.Entity.Agent;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Item;
 
 /**
@@ -127,8 +126,8 @@ public class ParserOutput {
      *
      * @return the first Agent or null if not a Agent
      */
-    public Agent getAgent1() {
-        return arg1 instanceof Agent ? (Agent) arg1 : null;
+    public Character getCharacter1() {
+        return arg1 instanceof Character ? (Character) arg1 : null;
     }
 
     /**
@@ -136,8 +135,8 @@ public class ParserOutput {
      *
      * @return the second Agent or null if not a Agent
      */
-    public Agent getAgent2() {
-        return arg2 instanceof Agent ? (Agent) arg2 : null;
+    public Character getCharacter2() {
+        return arg2 instanceof Character ? (Character) arg2 : null;
     }
 
     /**

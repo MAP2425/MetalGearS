@@ -1,14 +1,14 @@
 
 package org.it.uniba.fox.Logic;
-import org.it.uniba.fox.Entity.Agent;
-import org.it.uniba.fox.Entity.Command;
-import org.it.uniba.fox.Entity.Item;
+import org.it.uniba.fox.Entity.*;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Type.CommandType;
 import org.it.uniba.fox.Util.Converter;
 
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * The class that manages the game.
@@ -23,6 +23,8 @@ public class GameManager {
      * The converter.
      */
     private final Converter converter = new Converter();
+
+    private static Set<Character> allCharacters = new HashSet<>();
 
     /**
      * Instantiates a new game and creates all the agents.
@@ -56,19 +58,6 @@ public class GameManager {
         }
     }
 
-    /**
-     * Gets an agent from its name.
-     *
-     * @param name the name of the agent
-     * @return the agent
-     */
-    public Agent getAgentFromName(String name) {
-        Item item = allAgents.get(name);
-        if (item instanceof Agent) {
-            return (Agent) item;
-        }
-        return null;
-    }
 
     /**
      * Returns a set with all the items.
@@ -85,19 +74,34 @@ public class GameManager {
     }
 
     /**
-     * Returns a set with all the agents of type Agent.
+     * Returns a set with all the agents of type Character.
      *
-     * @return the set of all Agents
+     * @return the set of all Characters
      */
-    public Set<Agent> getAllAgents() {
-        if (allAgents == null) {
-            return new HashSet<>();
+    public Set<Character> getAllAgents() {
+        Set<Character> characters = new HashSet<>();
+        Game game = Game.getInstance();
+
+        if (game == null || game.getCorridorsMap() == null) {
+            return characters;
         }
 
-        return allAgents.values().stream()
-                .filter(item -> item instanceof Agent)
-                .map(item -> (Agent) item)
+        // Raccogliamo tutte le stanze dal gioco
+        Set<Room> allRooms = game.getCorridorsMap().stream()
+                .flatMap(c -> Stream.of(c.getStartingRoom(), c.getArrivingRoom()))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
+
+        // Raccogliamo tutti i personaggi dalle stanze
+        for (Room room : allRooms) {
+            List<Character> roomCharacters = room.getAgents();
+            if (roomCharacters != null) {
+                characters.addAll(roomCharacters);
+            }
+        }
+
+        System.out.println("Personaggi trovati nelle stanze: " + characters.size());
+        return characters;
     }
 
     /**

@@ -1,10 +1,8 @@
 package org.it.uniba.fox.Util;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.JsonIOException;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
@@ -12,15 +10,15 @@ import org.it.uniba.fox.Entity.Room;
 import org.it.uniba.fox.Entity.Agent;
 import org.it.uniba.fox.Logic.GameManager;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.Objects;
 
 /**
  * The class that manages the conversion of json files to java classes and vice versa.
@@ -82,83 +80,82 @@ public class Converter {
      * @return the map of the agents
      */
     private Map<String, Item> processJsonFiles(String gameFilePath, String itemsFilePath) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Agent.class, new AgentDeserializer())
+                .create();
+
         Map<String, Item> allItems = new HashMap<>();
         Map<String, Room> allRooms = new HashMap<>();
 
-        // Lettura Game.json
         try {
             byte[] fileBytes = Files.readAllBytes(Paths.get(gameFilePath));
-            if (fileBytes.length == 0) {
-                return allItems;
-            }
+            if (fileBytes.length == 0) return allItems;
+
             JsonReader reader = new JsonReader(new FileReader(gameFilePath));
             Game game = gson.fromJson(reader, Game.class);
-            if (game == null) {
-                return allItems;
-            }
+            if (game == null) return allItems;
+
             Game.setUpGame(game);
+
             if (game.getInventory() != null) {
                 game.getInventory().forEach(item -> allItems.put(item.getName(), item));
             }
+
             if (game.getCorridorsMap() != null) {
                 game.getCorridorsMap().forEach(corridor -> {
-                    Room room = corridor.getStartingRoom();
-                    if (!allRooms.containsKey(room.getName())) {
-                        allRooms.put(room.getName(), room);
-                        if (room.getItems() != null) {
-                            room.getItems().forEach(Item -> allItems.put(Item.getName(), Item));
+                    Room start = corridor.getStartingRoom();
+                    Room end = corridor.getArrivingRoom();
+
+                    if (!allRooms.containsKey(start.getName())) {
+                        allRooms.put(start.getName(), start);
+                        if (start.getItems() != null) {
+                            start.getItems().forEach(item -> allItems.put(item.getName(), item));
                         }
                     } else {
-                        Room existingRoom = allRooms.get(room.getName());
-                        corridor.setStartingRoom(existingRoom);
+                        corridor.setStartingRoom(allRooms.get(start.getName()));
                     }
-                    room = corridor.getArrivingRoom();
-                    if (!allRooms.containsKey(room.getName())) {
-                        allRooms.put(room.getName(), room);
-                        if (room.getItems() != null) {
-                            room.getItems().forEach(Item -> allItems.put(Item.getName(), Item));
+
+                    if (!allRooms.containsKey(end.getName())) {
+                        allRooms.put(end.getName(), end);
+                        if (end.getItems() != null) {
+                            end.getItems().forEach(item -> allItems.put(item.getName(), item));
                         }
                     } else {
-                        Room existingRoom = allRooms.get(room.getName());
-                        corridor.setArrivingRoom(existingRoom);
+                        corridor.setArrivingRoom(allRooms.get(end.getName()));
                     }
                 });
             }
+
             if (game.getCurrentRoom() != null) {
                 game.setCurrentRoom(allRooms.get(game.getCurrentRoom().getName()));
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        // Items.json: solo se ti serve farci qualcosa
         try {
             byte[] fileBytes = Files.readAllBytes(Paths.get(itemsFilePath));
-            if (fileBytes.length == 0) {
-                return allItems;
-            }
-            JsonArray array = JsonParser.parseReader(new FileReader(itemsFilePath)).getAsJsonArray();
-            for (JsonElement elem : array) {
-                JsonObject obj = elem.getAsJsonObject();
-                String type = obj.get("type").getAsString();
-                Item item;
-                if ("Agent".equals(type)) {
-                    item = gson.fromJson(obj, Agent.class);
-                } else if ("Item".equals(type)) {
-                    item = gson.fromJson(obj, Item.class);
-                } else {
-                    continue;
+            if (fileBytes.length > 0) {
+                JsonArray array = JsonParser.parseReader(new FileReader(itemsFilePath)).getAsJsonArray();
+                for (JsonElement elem : array) {
+                    Agent agent = gson.fromJson(elem, Agent.class);
+                    if (agent instanceof Item) {
+                        Item item = (Item) agent;
+                        allItems.put(item.getName(), item);
+                    }
+                    // Se vuoi usare anche Character, aggiungi qui
                 }
-                allItems.put(item.getName(), item);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        new Thread(() -> printgameFiles()).start();
-
+        new Thread(this::printgameFiles).start();
         return allItems;
     }
+
     /**
      * Prints the details of the game, including the current room, inventory, rooms, corridors, all items, and Agents.
      */
@@ -177,9 +174,9 @@ public class Converter {
         System.out.println("\n--- INVENTARIO ---");
         List<Item> inventory = game.getInventory();
         if (inventory == null || inventory.isEmpty()) {
-            System.out.println("L’inventario è vuoto.");
+            System.out.println("L'inventario è vuoto.");
         } else {
-            System.out.println("Numero oggetti nell’inventario: " + inventory.size());
+            System.out.println("Numero oggetti nell'inventario: " + inventory.size());
             for (Item item : inventory) {
                 System.out.println("  - Nome: " + item.getName());
             }
@@ -203,20 +200,26 @@ public class Converter {
                     continue;
                 }
                 System.out.println("  - Nome: " + room.getName());
-                List<Item> roomItems = room.getItems();
-                List<Agent> agentsInRoom = roomItems == null ? Collections.emptyList() :
-                        roomItems.stream()
-                                .filter(item -> item instanceof Agent)
-                                .map(item -> (Agent) item)
-                                .collect(Collectors.toList());
-                if (agentsInRoom.isEmpty()) {
+
+                // Stampa i personaggi nella stanza
+                List<org.it.uniba.fox.Entity.Character> charactersInRoom = room.getAgents();
+                if (charactersInRoom == null || charactersInRoom.isEmpty()) {
                     System.out.println("    Personaggi: Nessuno");
                 } else {
-                    System.out.println("    Personaggi (" + agentsInRoom.size() + "):");
-                    for (Agent agent : agentsInRoom) {
-                        System.out.println("      - Nome: " + agent.getName());
-                        System.out.println("        Descrizione: " +
-                                (agent.getDescription() != null ? agent.getDescription() : "N/D"));
+                    System.out.println("    Personaggi (" + charactersInRoom.size() + "):");
+                    for (org.it.uniba.fox.Entity.Character character : charactersInRoom) {
+                        System.out.println("      - Nome: " + character.getName());
+                    }
+                }
+
+                // Stampa gli oggetti nella stanza
+                List<Item> roomItems = room.getItems();
+                if (roomItems == null || roomItems.isEmpty()) {
+                    System.out.println("    Oggetti: Nessuno");
+                } else {
+                    System.out.println("    Oggetti (" + roomItems.size() + "):");
+                    for (Item item : roomItems) {
+                        System.out.println("      - Nome: " + item.getName());
                     }
                 }
             }
@@ -232,7 +235,7 @@ public class Converter {
             }
         }
 
-        System.out.println("\n--- TUTTI GLI OGGETTI ---");
+        System.out.println("\n--- TUTTI GLI OGGETTI  ---");
         Set<Item> allItems = new GameManager().getAllItems();
         if (allItems == null || allItems.isEmpty()) {
             System.out.println("Non ci sono oggetti nel gioco.");
@@ -240,33 +243,39 @@ public class Converter {
             System.out.println("Numero totale oggetti: " + allItems.size());
             for (Item it : allItems) {
                 System.out.println("  - Nome: " + it.getName());
-                System.out.println("    Descrizione: " +
-                        (it.getDescription() != null ? it.getDescription() : "N/D"));
-                System.out.println("Raccolto  " + it.getPicked());
             }
 
+            System.out.println("\n--- PERSONAGGI ---");
+            // Raccogliamo i personaggi da tutte le stanze
+            List<Character> characters = new ArrayList<>();
+            if (corridors != null && !corridors.isEmpty()) {
+                Set<Room> allRooms = corridors.stream()
+                        .flatMap(c -> Stream.of(c.getStartingRoom(), c.getArrivingRoom()))
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toSet());
 
-        System.out.println("\n--- PERSONAGGI ---");
-        List<Agent> Agents = allItems.stream()
-                .filter(i -> i instanceof Agent)
-                .map(i -> (Agent) i)
-                .collect(Collectors.toList());
-        if (Agents.isEmpty()) {
-            System.out.println("Non ci sono personaggi nel gioco.");
-        } else {
-            System.out.println("Numero personaggi: " + Agents.size());
-            for (Agent ch : Agents) {
-                System.out.println("  - Nome: " + ch.getName());
-                System.out.println("    Descrizione: " +
-                        (ch.getDescription() != null ? ch.getDescription() : "N/D"));
-                System.out.println();
+                for (Room room : allRooms) {
+                    List<Character> roomCharacters = room.getAgents();
+                    if (roomCharacters != null) {
+                        characters.addAll(roomCharacters);
+                    }
+                }
+            }
+
+            if (characters.isEmpty()) {
+                System.out.println("Non ci sono personaggi nel gioco.");
+            } else {
+                System.out.println("Numero personaggi: " + characters.size());
+                for (Character ch : characters) {
+                    System.out.println("  - Nome: " + ch.getName());
+                }
             }
         }
 
         System.out.println("=======================================================");
-    }
-    }
 
+
+    }
     /**
      * Converts the game instance to json file to save the game.
      */

@@ -35,12 +35,12 @@ public class GameLogic {
      * @param c the personage to talk to
      */
     public void talkToPersonage(Agent c) {
-        if (c.getPosition().toString().equals("Stanza5")) {
-            UserInputFlow.Event = 1;
+        if (game.getCurrentRoom().getName().equals("Stanza5") && game.getCurrentRoom().getAgents().contains(c)) {
+            UserInputFlow.Event = 2;
             return;
         }
         if (c.hasName("Dottoressa") && game.getCurrentRoom().getName().equals("Stanza10")) {
-            GameGUI.displayTextPaneSetText("> Senza distogliere lo sguardo dal terminale, la dottoressa nota l’uomo che appena entrato nella stanza. La sua voce risuona, carica di un misto di frustrazione e determinazione: \"Snake, giusto? Non sapevo se qualcuno sarebbe mai arrivato… Ma ora che sei qui, abbiamo una possibilità. Non posso uscire finché non riesco a bypassare il sistema di sicurezza del progetto BLACK HAND. Serve una chiave speciale... un dispositivo capace di accedere direttamente al cuore del sistema.'");
+            GameGUI.displayTextPaneSetText("> Senza distogliere lo sguardo dal terminale, la dottoressa nota l'uomo che appena entrato nella stanza. La sua voce risuona, carica di un misto di frustrazione e determinazione: \"Snake, giusto? Non sapevo se qualcuno sarebbe mai arrivato… Ma ora che sei qui, abbiamo una possibilità. Non posso uscire finché non riesco a bypassare il sistema di sicurezza del progetto BLACK HAND. Serve una chiave speciale... un dispositivo capace di accedere direttamente al cuore del sistema.'");
             return;
         }
         if (c.hasName("IA") && game.getCurrentRoom().getName().equals("Stanza12")) {
@@ -48,7 +48,6 @@ public class GameLogic {
             return;
         }
         GameGUI.displayTextPaneSetText("> " + c.getName() + " non è qui!");
-
     }
 
         /**
@@ -63,7 +62,6 @@ public class GameLogic {
                 game.removeInventory(i);
                 game.getCurrentRoom().addItems(i);
                 game.unlockCorridor("Stanza10", "Stanza11");
-                i.setPicked(false);
                 return true;
             }
             return false;

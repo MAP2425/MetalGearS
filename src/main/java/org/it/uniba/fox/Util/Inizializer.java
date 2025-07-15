@@ -2,6 +2,8 @@
 package org.it.uniba.fox.Util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Entity.Agent;
@@ -15,21 +17,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Inizializer {
 
     public static void main(String[] args) {
-        List<Item> items = new ArrayList<>();
+        List<Agent> items = new ArrayList<>();
         Game game = Game.getInstance();
 // Java
         Item pistola = new Item();
         pistola.setName("Pistola");
         pistola.setDescription("Una pistola semiautomatica in dotazione standard dell'esercito degli Stati Uniti, modello Beretta 92FS. E' dotata di silenziatore e munizioni stordenti.");
         pistola.setReusable(true);
-        pistola.setPicked(true);
-        pistola.setPickable(true);
-        pistola.setType("Item");
+        pistola.setPickable(false);
         pistola.setAliases(Arrays.asList("Beretta", "Arma", "PistolaSilenziata"));
         items.add(pistola);
 
@@ -37,9 +36,7 @@ public class Inizializer {
         sigarette.setName("Sigarette");
         sigarette.setDescription("Avvertenza del ministero della salute: fumare può essere pericoloso per la salute. Ha un uso limitato nel rivelare la posizione dei sensori a infrarossi.");
         sigarette.setReusable(false);
-        sigarette.setPicked(true);
         sigarette.setPickable(true);
-        sigarette.setType("Item");
         sigarette.setAliases(Arrays.asList("Pacchetto", "Fumo", "SigaretteAmericane"));
         items.add(sigarette);
 
@@ -47,9 +44,7 @@ public class Inizializer {
         tavolo.setName("Tavolo");
         tavolo.setDescription("Il tavolo di metallo è vecchio e segnato da graffi profondi. Sopra di esso, tra vecchi documenti e attrezzi abbandonati, un piccolo dispositivo elettronico attira l’attenzione di Snake. La luce tremolante del terminale spento riflette sulla superficie della passkey, facendola brillare leggermente.");
         tavolo.setReusable(false);
-        tavolo.setPicked(false);
         tavolo.setPickable(false);
-        tavolo.setType("Item");
         tavolo.setAliases(Arrays.asList("Banco", "Tavola", "Scrivania"));
         items.add(tavolo);
 
@@ -57,19 +52,15 @@ public class Inizializer {
         armadietto.setName("Armadietto");
         armadietto.setDescription("L’armadietto è leggermente socchiuso, come se qualcuno l’avesse lasciato in fretta. La lamiera è graffiata e opaca, ma all’interno si intravede chiaramente una uniforme piegata con cura su un ripiano. Il tessuto scuro porta ancora il distintivo della sicurezza della struttura. Un guanto penzola dal bordo, suggerendo che l’equipaggiamento è stato usato di recente... o abbandonato in fretta.");
         armadietto.setReusable(false);
-        armadietto.setPicked(false);
         armadietto.setPickable(false);
-        armadietto.setType("Item");
         armadietto.setAliases(Arrays.asList("Armadio", "Comodino", "Cassettone"));
         items.add(armadietto);
 
         Item passkey = new Item();
         passkey.setName("Passkey");
         passkey.setDescription("Una chiave elettronica indispensabile per disabilitare le serrature elettroniche della base.");
-        passkey.setReusable(true);
-        passkey.setPicked(false);
+        passkey.setReusable(false);
         passkey.setPickable(true);
-        passkey.setType("Item");
         passkey.setAliases(Arrays.asList("Chiave", "Passkey", "ChiaveElettronica"));
         items.add(passkey);
 
@@ -77,9 +68,7 @@ public class Inizializer {
         uniforme.setName("Uniforme");
         uniforme.setDescription("Un travestimento completo che consente a Snake di muoversi più liberamente senza essere immediatamente riconosciuto.");
         uniforme.setReusable(true);
-        uniforme.setPicked(false);
         uniforme.setPickable(true);
-        uniforme.setType("Item");
         uniforme.setAliases(Arrays.asList("Divisa", "Uniforme", "Travestimento"));
         items.add(uniforme);
 
@@ -87,9 +76,7 @@ public class Inizializer {
         scatola.setName("Scatola");
         scatola.setDescription("Perfetta per passare inosservato tra le guardie. Un classico che non delude mai.");
         scatola.setReusable(true);
-        scatola.setPicked(false);
         scatola.setPickable(true);
-        scatola.setType("Item");
         scatola.setAliases(Arrays.asList("Scatola", "Cartone", "ScatolaCartone"));
         items.add(scatola);
 
@@ -97,29 +84,23 @@ public class Inizializer {
         terminale.setName("Terminale");
         terminale.setDescription("Il terminale risponde con un leggero ronzio mentre Snake digita rapidamente. Le opzioni sullo schermo includono diverse impostazioni di sicurezza, ma il suo obiettivo è chiaro. Dopo pochi istanti, trova l’opzione -Disattivazione Telecamere-. Con un clic deciso, seleziona il comando.");
         terminale.setReusable(false);
-        terminale.setPicked(false);
         terminale.setPickable(false);
-        terminale.setType("Item");
         terminale.setAliases(Arrays.asList("Console", "Punto di Accesso", "Postazione di Controllo"));
         items.add(terminale);
 
         Item foglietto = new Item();
         foglietto.setName("Foglietto");
         foglietto.setDescription("Il foglio è leggermente sgualcito, come se fosse stato afferrato in fretta. L’inchiostro nero risalta sulla carta, tracciato con una calligrafia semplice ma decisa. Al centro del foglio è scritto chiaramente: 14112.");
-        foglietto.setReusable(true);
-        foglietto.setPicked(false);
+        foglietto.setReusable(false);
         foglietto.setPickable(true);
-        foglietto.setType("Item");
         foglietto.setAliases(Arrays.asList("Foglio", "Foglietto", "Biglietto"));
         items.add(foglietto);
 
         Item badge = new Item();
         badge.setName("Badge");
         badge.setDescription("Il badge è di metallo, con un design distintivo e il logo della base inciso sopra. Sotto il logo, il badge riporta un numero di identificazione e un nome, che potrebbe essere utile per le identificazioni future.");
-        badge.setReusable(true);
-        badge.setPicked(false);
+        badge.setReusable(false);
         badge.setPickable(true);
-        badge.setType("Item");
         badge.setAliases(Arrays.asList("Badge", "Tesserino", "Pass"));
         items.add(badge);
 
@@ -127,19 +108,15 @@ public class Inizializer {
         scaffale.setName("Scaffale");
         scaffale.setDescription("Su uno dei ripiani inferiori, quasi nascosta tra una vecchia lampada a raggi infrarossi e un dispositivo di misurazione rotto, si trova una piccola radio… È di un modello retrò, con una cassa di legno graffiata e pulsanti argentati consumati dal tempo. La radio emette un leggero ronzio, come se fosse ancora collegata a una fonte di alimentazione. È un oggetto insolito in mezzo a tutta quella tecnologia avanzata, come se la sua presenza potesse essere più di quanto sembri a prima vista…");
         scaffale.setReusable(false);
-        scaffale.setPicked(true);
         scaffale.setPickable(false);
-        scaffale.setType("Item");
         scaffale.setAliases(Arrays.asList("Ripiano", "Mensola", "Palchetto"));
         items.add(scaffale);
 
         Item radio = new Item();
         radio.setName("Radio");
         radio.setDescription("Un dispositivo retrò in legno scuro con manopole consumate e piccoli led lampeggianti. Collegata al sistema del laboratorio, potrebbe trasmettere segnali segreti o attivare funzioni nascoste.");
-        radio.setReusable(true);
-        radio.setPicked(false);
+        radio.setReusable(false);
         radio.setPickable(true);
-        radio.setType("Item");
         radio.setAliases(Arrays.asList("Radio", "Ricetrasmittente", "DispositivoRadio"));
         items.add(radio);
 
@@ -147,55 +124,48 @@ public class Inizializer {
         pannello.setName("Pannello");
         pannello.setDescription("Snake si avvicina con cautela al pannello. Sul display è presente la scritta:\"Inserire la password numerica per procedere\". I tasti sotto il display brillano leggermente, pronti a ricevere l’input corretto.");
         pannello.setReusable(false);
-        pannello.setPicked(false);
         pannello.setPickable(false);
-        pannello.setType("Item");
         pannello.setAliases(Arrays.asList("Pannello", "Tastiera", "Pannello di Controllo"));
         items.add(pannello);
 
         Item chiavetta = new Item();
         chiavetta.setName("Chiavetta");
         chiavetta.setDescription("La chiavetta contiene il protocollo \"Eclipse Omega\", un piano segreto e alternativo al progetto principale del laboratorio. Questo misterioso programma è stato ideato per attivarsi solo in situazioni critiche, capace di sovvertire le direttive attuali e prendere il controllo degli sviluppi in corso.");
-        chiavetta.setReusable(true);
-        chiavetta.setPicked(false);
+        chiavetta.setReusable(false);
         chiavetta.setPickable(true);
-        chiavetta.setType("Item");
         chiavetta.setAliases(Arrays.asList("Chiavetta", "USB", "ChiavettaUSB"));
         items.add(chiavetta);
 
 // Personaggi
-        Agent dottoressa = new Agent();
+        Character dottoressa = new Character();
         dottoressa.setName("Dottoressa");
         dottoressa.setDescription("La dottoressa ha un aspetto ordinato e professionale. Indossa un camice bianco sopra una camicia chiara e pantaloni pratici. I capelli biondi sono raccolti in uno chignon stretto, lasciando scoperto un volto dai tratti delicati ma decisi. Gli occhi chiari osservano con attenzione da dietro occhiali sottili, e ogni suo movimento è preciso, riflesso di un controllo totale su sé stessa e sull'ambiente che la circonda.");
         dottoressa.setReusable(false);
-        dottoressa.setPicked(false);
         dottoressa.setPickable(false);
-        dottoressa.setType("Agent");
         dottoressa.setAliases(Arrays.asList("Weissman", "Ragazza", "Ricercatrice"));
-        dottoressa.setPosition("Stanza10");
+        dottoressa.setTalkable(true);
         items.add(dottoressa);
 
-        Agent ia1 = new Agent();
-        ia1.setName("IA");
+
+        Character ia1 = new Character();
+        ia1.setName("Bot");
         ia1.setDescription("Nel cuore del corridoio immerso nella penombra, l'intelligenza artificiale si manifesta su uno schermo incastonato nella parete. Una sequenza di volti sfocati e in continuo mutamento scorre rapidamente, mescolando tratti umani e digitali in un flusso inquietante. Ogni volto si dissolve nell'altro in una danza ipnotica, come se l'IA stesse cercando una forma stabile che non riesce mai a raggiungere.Una sottile scarica elettrica attraversa l'aria, suggerendo che l'entità sta osservando... e aspettando una risposta.");
         ia1.setReusable(false);
-        ia1.setPicked(false);
         ia1.setPickable(false);
-        ia1.setType("Agent");
         ia1.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
-        ia1.setPosition("Stanza5");
+        ia1.setTalkable(true);
         items.add(ia1);
 
-        Agent ia2 = new Agent();
+        Character ia2 = new Character();
         ia2.setName("IA");
         ia2.setDescription("L'IA torna a manifestarsi su un nuovo schermo, più grande, incassato in una struttura metallica verticale. I volti sfocati scorrono ancora, ma ora sono più definiti, quasi familiari, come se l'entità stesse imparando. Attorno al monitor, luci gialle lampeggiano lentamente, segnalando uno stato di allerta moderato. Una serie di simboli criptici compare e scompare ai margini dello schermo, mentre il silenzio carico di attesa suggerisce che un nuovo enigma sta per essere proposto.");
         ia2.setReusable(false);
-        ia2.setPicked(false);
         ia2.setPickable(false);
-        ia2.setType("Agent");
         ia2.setAliases(Arrays.asList("AI", "Schermo", "Intelligenza Artificiale"));
-        ia2.setPosition("Stanza12");
+        ia2.setTalkable(true);
         items.add(ia2);
+
+
         Room stanza1 = new Room("Stanza1", "Ti trovi nell'ingresso principale della base, una stanza imponente e austera. Le pareti di cemento grigio sono scarsamente illuminate da luci fluorescenti che tremolano leggermente, proiettando ombre inquietanti. L'aria è densa e carica di tensione, interrotta solo dal monotono ronzio delle telecamere di sicurezza montate negli angoli del soffitto.\n" +
                 "Di fronte a te, c'è un tavolo di metallo con un terminale di sicurezza spento. Accanto al terminale, si nota un piccolo dispositivo che brilla debolmente sotto la luce tremolante: sembra essere una passkey.\n" +
                 "Sul lato destro della stanza, un piccolo armadietto di metallo è appoggiato contro la parete, con un gancio che sporge dalla porta leggermente aperta, rivelando un lembo di stoffa che sembra essere parte di un'uniforme.", true, null, null);
@@ -226,7 +196,7 @@ public class Inizializer {
         Room stanza11 = new Room("Stanza11", "Questa stanza rappresenta uno degli ostacoli più pericolosi dell'intera base. È completamente protetta da un sistema di sicurezza composto da raggi infrarossi invisibili all'occhio umano, che si incrociano tra loro formando una griglia intricata e mortale. Sebbene non letali di per sé, questi raggi attivano all'istante un protocollo d'emergenza che sigilla ermeticamente l'ambiente e libera gas tossico nell'aria. Non ci sarebbe alcuna possibilità di fuga. Attraversare questa stanza significa affrontare un equilibrio perfetto tra calma, precisione e sangue freddo. Snake sa che oltre questa soglia si apre il corridoio che porta all'uscita, ma un solo errore decreterebbe la fine.", true, null, null);
         Room stanza12 = new Room("Stanza12", "Nel corridoio finale, l'atmosfera cambia drasticamente. Non si tratta più solo di dispositivi o protocolli: è come se la base stessa si stesse rivolgendo a chi è giunto fino a qui. Una voce si manifesta, solenne e consapevole, affermando di essere l'ultimo guardiano, non un semplice sistema, ma un'entità progettata per testare la volontà e l'intelligenza dell'intruso. Qui non si passa semplicemente superando un ostacolo fisico, ma affrontando una prova mentale e psicologica che mette alla prova il valore e la determinazione. L'uscita è vicina, ma ogni passo verso la libertà dovrà essere guadagnato con astuzia, coraggio e lucidità. Nessuna vittoria sarà concessa facilmente.", true, null, null);
 
-        List<Item> temp = items.stream()
+        List<Agent> temp = items.stream()
                 .filter(i -> i.getName().equals("Uniforme") || i.getName().equals("Passkey") || i.getName().equals("Tavolo") || i.getName().equals("Armadietto"))
                 .toList();
         stanza1.addItems(temp.toArray(new Item[0]));
@@ -256,26 +226,12 @@ public class Inizializer {
                 .toList()
                 .toArray(new Item[0]));
 
-        // popolamento Agents
-        stanza10.addAgents(items.stream()
-                .filter(i -> i instanceof Agent && i.getName().equals("Dottoressa"))
-                .map(i -> (Agent) i)
-                .toList()
-                .toArray(new Agent[0]));
+        stanza5.addAgents(new Character[]{ia1});
+        stanza10.addAgents(new Character[]{dottoressa});
+        stanza12.addAgents(new Character[]{ia2});
 
-        stanza5.addAgents(items.stream()
-                .filter(i -> i instanceof Agent && i.getName().equals("IA"))
-                .map(i -> (Agent) i)
-                .limit(1)
-                .toList()
-                .toArray(new Agent[0]));
 
-        stanza12.addAgents(items.stream()
-                .filter(i -> i instanceof Agent && i.getName().equals("IA"))
-                .map(i -> (Agent) i)
-                .skip(1)
-                .toList()
-                .toArray(new Agent[0]));
+        // Popolamento Agents
 // Configurazione dei corridoi con setter
         Corridor c1 = new Corridor();
         c1.setStartingRoom(stanza1);
@@ -444,16 +400,15 @@ public class Inizializer {
         for (Map.Entry<String, Boolean> entry : freeMap.entrySet()) {
             game.setRoomState(entry.getKey(), entry.getValue());
         }
-        // Crea il file Game.json
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Agent.class, new AgentDeserializer ())
+                .create();
+
         String gameJson = gson.toJson(game);
         writeJsonToFile("src/main/resources/static/Game.json", gameJson);
 
-        // Crea il file Agents.json contentente gli oggetti e i personaggi
         String agentsJson = gson.toJson(items);
-
         writeJsonToFile("src/main/resources/static/Agents.json", agentsJson);
-
     }
 
     /**

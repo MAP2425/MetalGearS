@@ -1,56 +1,82 @@
 package org.it.uniba.fox.Entity;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * The class that represents a character of the game.
+ * Class that represents an agent in the game.
  */
-public class Agent extends Item{
+public abstract class Agent {
 
-    /**
-     * The room where the character is currently located.
-     */
-    Room position;
-    /**
-     * Returns the room where the character is currently located.
-     *
-     * @return the current room of the character
-     */
-    public Room getPosition(){
+    private String name;
+    private List<String> aliases;
+    private String description;
 
-        return this.position;
+    private boolean isReusable;
+    private boolean isPickable;
+    private boolean isTalkable;
+
+    public boolean isTalkable() {
+        return isTalkable;
     }
 
-    /**
-     * Sets the character's position using the room name.
-     *
-     * @param position the name of the room to set as the character's position
-     */
-    public void setPosition(String position){
-        this.position = Room.getRoomByName(position);
+    public void setTalkable(boolean talkable) {
+        this.isTalkable = talkable;
     }
 
-    /**
-     * Constructs a Character with the specified attributes.
-     *
-     * @param name        the name of the character
-     * @param description the description of the character
-     * @param reusable    whether the object is reusable
-     * @param isPicked    whether the object has been picked up
-     * @param isPickable  whether the object can be picked up
-     * @param aliases     list of aliases for the character
-     * @param roomName    the initial room name of the character
-     */
-    public Agent(String name, String description, boolean reusable, boolean isPicked, boolean isPickable,  List<String> aliases, String roomName) {
-        super(name, description, reusable, isPicked, isPickable, aliases);
-        this.position = null; // La posizione può essere risolta successivamente tramite il nome stanza
+    public boolean isPickable() {
+        return isPickable;
     }
 
+    public void setPickable(boolean pickable) {
+        this.isPickable = pickable;
+    }
 
+    public boolean isReusable() {
+        return isReusable;
+    }
 
-    /**
-     * Default constructor for Character.
-     */
-    public Agent(){}
+    public void setReusable(boolean reusable) {
+        this.isReusable = reusable;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(List<String> aliases) {
+        this.aliases = aliases;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean hasName(String name) {
+        return this.name.equals(name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Agent)) return false;
+        Agent agent = (Agent) o;
+        return Objects.equals(name, agent.name) &&
+                Objects.equals(aliases, agent.aliases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, aliases);
+    }
+
+    public abstract void getDescription(Room room);
 }

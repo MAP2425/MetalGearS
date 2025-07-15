@@ -65,6 +65,9 @@ public class UserInputFlow {
     private static void parserFlow(final String text) {
         ParserOutput output = parser.parse(text);
 
+
+        // If the output is null, it means that the input was not recognized
+        System.out.println("> " + output.getCharacter1() + " " + output.getCharacter2() + " " + output.getCommand() + " " + output.getArgs());
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {

@@ -120,8 +120,7 @@ public class TriviaGame {
                 Game game = Game.getInstance();
 
 
-                //game.setRoomState("Stanza6", Boolean.valueOf("Corretto"));
-                //game.unlockCorridor("Stanza6", "Stanza10");
+                game.unlockCorridor("Stanza5" "Stanza6");
                 UserInputFlow.Event = 0;
             } else {
                 OutputDisplayManager.displayText("> \"Bravo nipotino, è corretto! Ancora " + (3 - correctAnswers) + ".\"");
@@ -129,7 +128,6 @@ public class TriviaGame {
         } else {
             correctAnswers = 0;
             Game game = Game.getInstance();
-
 
             UserInputFlow.Event = 0;
         }

@@ -1,4 +1,3 @@
-
 package org.it.uniba.fox.Entity;
 import org.it.uniba.fox.DB_Web.DatabaseConnection;
 
@@ -12,13 +11,10 @@ import java.util.List;
  */
 public class Room {
 
-
     /**
      * The name of the room.
      */
     private String name;
-
-
 
     /**
      * The description of the room.
@@ -31,14 +27,14 @@ public class Room {
     private boolean free;
 
     /**
-     * The list of Agents present in the room.
+     * The list of Characters present in the room.
      */
-    private List <Agent> Agents;
+    private List<Character> agents;
 
     /**
      * The list of items present in the room.
      */
-    private List <Item> items;
+    private List<Item> items;
 
     /**
      * Static list containing all rooms in the game.
@@ -51,15 +47,15 @@ public class Room {
      * @param name the name of the room
      * @param description the description of the room
      * @param free whether the room is free (accessible)
-     * @param Agents the list of Agents in the room
+     * @param agents the list of Characters in the room
      * @param items the list of items in the room
      */
-    public Room(String name, String description, boolean free, List <Agent> Agents, List <Item> items){
-        this.name=name;
-        this.description=description;
+    public Room(String name, String description, boolean free, List<Character> agents, List<Item> items){
+        this.name = name;
+        this.description = description;
         this.free = free;
         this.items = (items != null) ? items : new ArrayList<>();
-        this.Agents = (Agents != null) ? Agents : new ArrayList<>();
+        this.agents = (agents != null) ? new ArrayList<>(agents) : new ArrayList<>();
     }
 
     /**
@@ -100,7 +96,7 @@ public class Room {
      *
      * @return the list of items
      */
-    public List <Item> getItems(){
+    public List<Item> getItems(){
         return this.items;
     }
 
@@ -109,8 +105,8 @@ public class Room {
      *
      * @return the list of Agents
      */
-    public List <Agent> getAgents(){
-        return this.Agents;
+    public List<Character> getAgents(){
+        return this.agents;
     }
 
     /**
@@ -121,7 +117,6 @@ public class Room {
     public boolean getFree(){
         return this.free;
     }
-
 
     /**
      * Sets whether the room is free.
@@ -141,36 +136,30 @@ public class Room {
         this.items.addAll(Arrays.asList(items));
     }
 
-    /**
-     * Adds one or more Agents to the room.
-     *
-     * @param Agents the Agents to add
-     */
-    public void addAgents(Agent... Agents) {
-        this.Agents.addAll(Arrays.asList(Agents));
+    public void addAgents(Character... characters) {
+        if (this.agents == null) {
+            this.agents = new ArrayList<>();
+        }
+        this.agents.addAll(Arrays.asList(characters));
     }
 
 
     /**
-     * Removes a Agent from the room by name.
+     * Removes an Agent from the room by name.
      *
      * @param name the name of the Agent to remove
      * @return true if the Agent was removed, false otherwise
      */
     public boolean removeAgent(String name){
-
-        return this.Agents.removeIf(ch->ch.getName().equals(name));
+        return this.agents.removeIf(ch -> ch.getName().equals(name));
     }
 
-
     /**
-     * Removes a Agent from the room by name.
+     * Removes an Item from the room by name.
      *
-     * @param name the name of the Agent to remove
-     * @return true if the Agent was removed, false otherwise
+     * @param name the name of the Item to remove
      */
     public void removeItem(String name){
-
         this.items.removeIf(item -> item.getName().equals(name));
     }
 

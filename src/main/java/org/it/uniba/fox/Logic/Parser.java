@@ -3,6 +3,7 @@ package org.it.uniba.fox.Logic;
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.Entity.Agent;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Type.ParserOutput;
 
 import java.io.BufferedReader;
@@ -13,39 +14,19 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * The class that manages the parsing of the input.
- */
 public class Parser {
 
-    /**
-     * The available commands set.
-     */
     private final Set<Command> availableCommands;
-
-    /**
-     * The available items set.
-     */
     private final Set<Item> availableItems;
-
-    /**
-     * The stop words set.
-     */
     private final Set<String> stopWords = new HashSet<>();
+    private final Set<Character> availableAgents;
 
-    /**
-     * The available Agents set.
-     */
-    private final Set<Agent> availableAgents;
-
-    /**
-     * Constructor of the class.
-     */
     public Parser() {
         GameManager gameManager = new GameManager();
         availableCommands = gameManager.getAllCommands();
         availableItems = gameManager.getAllItems();
         availableAgents = gameManager.getAllAgents();
+        System.out.println("AavailableAgents : " + availableAgents.size());
 
         try {
             setupUselessWords();
@@ -53,6 +34,7 @@ public class Parser {
             throw new RuntimeException("Errore durante il caricamento delle stopwords", e);
         }
     }
+
 
     /**
      * Parses the input and returns the output of the operation.
@@ -68,6 +50,7 @@ public class Parser {
                 .filter(w -> !stopWords.contains(w))
                 .toArray(String[]::new);
 
+        System.out.println("DEBUG - Parole dopo il filtro: " + Arrays.toString(words));
         if (words.length == 0) {
             return output;
         }
@@ -86,15 +69,17 @@ public class Parser {
             return output;
         }
 
-        // Cerca il primo argomento
+// Cerca il primo argomento
         if (words.length > 1) {
             Object found = findObjectByName(words[1]);
             if (found != null) {
                 output.setArg1(found);
                 output.setArgs(2);
+                System.out.println("DEBUG - Oggetto trovato: " + found.getClass().getSimpleName() + " - " +
+                        (found instanceof Character ? ((Character)found).getName() : found.toString()));
             } else {
                 output.setArgs(1);
-                return output;
+                // Non ritornare qui, potrebbe esserci un secondo argomento
             }
         }
 
@@ -115,6 +100,7 @@ public class Parser {
      * @param name the name or alias of the object to find
      * @return the found object, or null if not found
      */
+
     private Object findObjectByName(String name) {
         for (Item item : availableItems) {
             if (item.getName().equalsIgnoreCase(name) ||
@@ -124,14 +110,24 @@ public class Parser {
         }
 
         if (availableAgents != null) {
-            for (Agent Agent : availableAgents) {
-                if (Agent.getName().equalsIgnoreCase(name) ||
-                        Agent.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(name))) {
-                    return Agent;
+            System.out.println("Available agents: " + availableAgents.size());
+            for (Character character : availableAgents) {
+                System.out.println("Checking character: " + character.getName());
+                // Controllo nome e alias del personaggio
+                String charName = character.getName();
+                boolean nameMatches = charName.equalsIgnoreCase(name);
+                boolean aliasMatches = character.getAliases().stream()
+                        .anyMatch(alias -> alias.equalsIgnoreCase(name));
+                System.out.println("Nome corrispondente: " + nameMatches + ", Alias corrispondente: " + aliasMatches);
+
+                if (nameMatches || aliasMatches) {
+                    System.out.println("Personaggio trovato: " + character.getName());
+                    return character;
                 }
             }
         }
 
+        System.out.println("Nessun oggetto o personaggio trovato con nome: " + name);
         return null;
     }
 
