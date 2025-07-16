@@ -168,7 +168,7 @@ public class CommandExecutor {
                         return;
                     }
                     if (gameLogic.executeGiveCombination((Item) p.getItem1(), destinatario)) {
-                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""), "0");
+                        DatabaseConnection.printFromDB("Dai", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""));
                     } else {
                         OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + destinatario.getName() + "!");
                     }
