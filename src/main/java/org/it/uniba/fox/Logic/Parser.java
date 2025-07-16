@@ -61,6 +61,7 @@ public class Parser {
                     command.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(words[0]))) {
                 output.setCommand(command.getType());
                 output.setArgs(1);
+                System.out.println("DEBUG - Comando trovato: " + command.getName() + " - Tipo: " + command.getType());
                 break;
             }
         }

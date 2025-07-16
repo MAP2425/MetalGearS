@@ -110,12 +110,13 @@ public class TriviaGame {
         // Check if the answer is correct
         // If it is, increment the number of correct answers and check if the trivia is won
         // Otherwise, the trivia is lost
+
         if (guess.equalsIgnoreCase(correctAnswer)) {
             correctAnswers++;
 
             // If the player has answered correctly 3 times, the game is won
             // Otherwise, the player has to answer another question
-            if (correctAnswers == 3) {
+            if (correctAnswers == 1) {
                 correctAnswers = 0;
                 OutputDisplayManager.displayText("Complimenti la porta si è sbloccata!");
                 System.out.println("Complimenti la porta si è sbloccata!");
@@ -129,6 +130,7 @@ public class TriviaGame {
             }
         } else {
             correctAnswers = 0;
+            OutputDisplayManager.displayText("> \"Mi dispiace, la risposta è sbagliata. Riprova.\"");
             Game game = Game.getInstance();
 
             UserInputFlow.Event = 0;

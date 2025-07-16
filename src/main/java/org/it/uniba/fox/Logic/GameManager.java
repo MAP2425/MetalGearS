@@ -115,8 +115,8 @@ public class GameManager {
         availableCommands.add(new Command("Codec", List.of("h", "help", "comandi", "comando", "guida"), CommandType.CODEC));
         availableCommands.add(new Command("Nord", List.of("n", "north", "avanti", "vaiAvanti"), CommandType.NORD));
         availableCommands.add(new Command("Sud", List.of("s", "south", "indietro", "vaiIndietro"), CommandType.SUD));
-        availableCommands.add(new Command("Est", List.of("e", "east", "destra", "vaiDestra", "vaiADestra"), CommandType.EST));
-        availableCommands.add(new Command("Ovest", List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra"), CommandType.OVEST));
+        availableCommands.add(new Command("Est", List.of("east", "destra", "vaiDestra", "vaiADestra"), CommandType.EST));
+        availableCommands.add(new Command("Ovest", List.of("west", "sinistra", "vaiSinistra", "vaiASinistra"), CommandType.OVEST));
         availableCommands.add(new Command("Inventario", List.of("i", "inventory", "borsa", "zaino", "valigia", "inv"), CommandType.INVENTARIO));
         availableCommands.add(new Command("Osserva", List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona"), CommandType.OSSERVA));
         availableCommands.add(new Command("Prendi", List.of("p", "t", "take", "raccogli", "recupera", "intasca"), CommandType.PRENDI));

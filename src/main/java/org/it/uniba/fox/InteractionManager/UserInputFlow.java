@@ -1,6 +1,8 @@
 package org.it.uniba.fox.InteractionManager;
 import org.it.uniba.fox.DB_Web.DatabaseConnection;
 import org.it.uniba.fox.Entity.Game;
+import org.it.uniba.fox.Entity.Item;
+import org.it.uniba.fox.GUI.GameGUI;
 import org.it.uniba.fox.InteractionManager.OutputDisplayManager;
 import org.it.uniba.fox.Logic.CommandExecutor;
 import org.it.uniba.fox.Logic.Parser;
@@ -71,7 +73,7 @@ public class UserInputFlow {
 
 
         // If the output is null, it means that the input was not recognized
-        System.out.println("> " + output.getCharacter1() + " " + output.getCharacter2() + " " + output.getCommand() + " " + output.getArgs());
+        System.out.println("> " + output.getArg1() + " " + output.getArg2()+ " " + output.getCommand() + " " + output.getArgs());
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
@@ -125,5 +127,21 @@ public class UserInputFlow {
         triviaGame.resetCorrectAnswers();
         parser = new Parser();
         commandExecutor = new CommandExecutor(game);
+    }
+
+    public static void setUpLoadedGameFlow(final Game game) {
+        Event = 0;
+       // isGameEnded = false;
+        // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
+        // così da non bloccare il flusso del gioco
+        new Thread(() -> wordleGame = new WordleGame()).start();
+        triviaGame = TriviaGame.getInstance();
+        triviaGame.resetCorrectAnswers();
+        parser = new Parser();
+        commandExecutor = new CommandExecutor(game);
+        List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
+        String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+        GameGUI.updateInventoryTextArea(itemsNamesArray);
+        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", "0");
     }
 }

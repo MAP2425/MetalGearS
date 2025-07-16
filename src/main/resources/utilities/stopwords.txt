@@ -21,7 +21,6 @@ d
 da
 dagl
 dagli
-dai
 dal
 dall
 dalla
@@ -36,6 +35,7 @@ della
 delle
 dello
 di
+e
 ed
 i
 ie
@@ -62,6 +62,7 @@ nell
 nella
 nelle
 nello
+o
 od
 per
 po

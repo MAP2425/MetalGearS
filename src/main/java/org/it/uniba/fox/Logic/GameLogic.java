@@ -107,6 +107,11 @@ public class GameLogic {
                 game.unlockCorridor("Stanza11", "Stanza12");
                 return true;
             }
+            if (i.hasName("Chiavetta") && game.getCurrentRoom().getName().equals("Stanza8"))
+            {
+                game.unlockCorridor("Stanza8", "Stanza9");
+                return true;
+            }
 
             return false;
 

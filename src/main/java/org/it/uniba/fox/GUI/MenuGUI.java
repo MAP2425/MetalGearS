@@ -356,6 +356,18 @@ public class MenuGUI extends JPanel {
      * @throws ClassNotFoundException the class not found exception
      */
     private void loadGameActionPerformed(ActionEvent evt) throws IOException, ClassNotFoundException {
+        gameManager.resetAllAgents();
+        boolean loadedGameSuccessfully = gameManager.loadGame();
+
+        if (loadedGameSuccessfully) {
+            Game game = Game.getInstance();
+            CardLayout cl = (CardLayout) getParent().getLayout();
+
+            //new thread to set up a saved game during the charge of the progress bar
+            new Thread(() -> UserInputFlow.setUpLoadedGameFlow(game)).start();
+        } else {
+            showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
+        }
     }
 
     /**

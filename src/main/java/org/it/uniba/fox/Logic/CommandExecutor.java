@@ -127,7 +127,7 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.OSSERVA, 1),
                 p -> {
                     if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        DatabaseConnection.printFromDB("Osserva", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()),"0",p.getItem1().getName());
+                        DatabaseConnection.printFromDB("Osserva", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", p.getItem1().getName());
                     } else if (game.getInventory().contains(p.getItem1())) {
                         OutputDisplayManager.displayText("> La tua borsa non è trasparente!");
                     } else {
@@ -137,14 +137,14 @@ public class CommandExecutor {
 
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
-                    if (game.getInventory().contains(p.getItem1()) ) {
+                    if (game.getInventory().contains(p.getItem1())) {
                         gameLogic.executeUseSingleItem(p.getItem1());
                         if (!p.getItem1().isReusable()) {
                             game.getInventory().remove(p.getItem1());
                         } else {
                             OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");
                         }
-                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0",p.getItem1().getName());
+                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", p.getItem1().getName());
                     } else {
                         OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
@@ -152,31 +152,33 @@ public class CommandExecutor {
 
         commandMap.put(new CommandExecutorKey(CommandType.DAI, 2),
                 p -> {
-                    if (game.getInventory().contains(p.getItem1())) {
-                        if (game.getCurrentRoom().getItems().contains(p.getItem2())) {
-                            String statusBeforeAction = String.valueOf(game.getCurrentRoom().getFree());
-                            if (p.getItem2() instanceof Agent) {
-                                if (gameLogic.executeGiveCombination((Item) p.getItem1(), (Agent) p.getItem2())) {
-                                    DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""), "0");
-                                } else {
-                                    OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + p.getItem2().getName() + "!");
-                                }
-                            } else {
-                                OutputDisplayManager.displayText("> " + p.getItem2().getName() + " non è un personaggio!");
-                            }
-                        } else {
-                            OutputDisplayManager.displayText("> Se non è invisibile, allora " + p.getItem2().getName() + " non è qui con noi!");
-                        }
-                    } else {
+                    if (!game.getInventory().contains(p.getItem1())) {
                         OutputDisplayManager.displayText("> Non puoi dare qualcosa che non possiedi!");
+                        return;
                     }
-                });
-
+                    if (p.getCharacter2() == null || !(p.getCharacter2() instanceof Agent)) {
+                        OutputDisplayManager.displayText("> Devi specificare a chi vuoi dare l'oggetto!");
+                        return;
+                    }
+                    Agent destinatario = (Agent) p.getCharacter2();
+                    boolean isInRoom = game.getCurrentRoom().getAgents().stream()
+                            .anyMatch(a -> a.getName().equalsIgnoreCase(destinatario.getName()));
+                    if (!isInRoom) {
+                        OutputDisplayManager.displayText("> " + destinatario.getName() + " non è qui con noi!");
+                        return;
+                    }
+                    if (gameLogic.executeGiveCombination((Item) p.getItem1(), destinatario)) {
+                        DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), p.getItem1().getName().replaceAll("[^a-zA-Z0-9 ]", ""), "0");
+                    } else {
+                        OutputDisplayManager.displayText("> Non puoi dare " + p.getItem1().getName() + " a " + destinatario.getName() + "!");
+                    }
+                }
+        );
     }
 
     public void execute(ParserOutput p) {
         System.out.println("DEBUG - Comando: " + p.getCommand());
-        System.out.println("DEBUG - Character1: " + p.getCharacter1());
+        System.out.println("DEBUG - Character1: " + p.getArg1());
 
         // Consideriamo sia Item che Character nel calcolo degli argomenti
         boolean hasArg1 = (p.getItem1() != null || p.getCharacter1() != null);

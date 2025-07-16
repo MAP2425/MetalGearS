@@ -42,7 +42,6 @@ public class Converter {
      * @return the map of all the agents
      */
     public Map<String, Item> loadGame() {
-        ensureResourceDirectoriesExist();
         return processJsonFiles("src/main/resources/LoadedGame.json", "src/main/resources/LoadedAgents.json");
     }
 
@@ -312,7 +311,7 @@ public class Converter {
 
         String json = gson.toJson(itemsToSave);
         try {
-            Files.write(Paths.get("src", "main", "resources", "LoadedItems.json"), json.getBytes());
+            Files.write(Paths.get("src", "main", "resources", "LoadedAgents.json"), json.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,8 @@
 package org.it.uniba.fox.GUI;
 
+import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.InteractionManager.UserInputManager;
+import org.it.uniba.fox.Logic.GameManager;
 import org.it.uniba.fox.Util.Mixer;
 
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -441,7 +443,7 @@ public class GameGUI extends JPanel {
         int save = JOptionPane.showConfirmDialog(this, "Would you like to save?", "Save", JOptionPane.YES_NO_OPTION);
 
         if (save == JOptionPane.YES_OPTION) {
-            // saveFile();
+            saveFile();
         } else {
             notSavedFile();
         }
@@ -452,29 +454,46 @@ public class GameGUI extends JPanel {
      *
      * @throws IOException            the io exception
      * @throws ClassNotFoundException the class not found exception
-
-    private void saveFile() throws IOException, ClassNotFoundException {
-    GameManager gameManager = new GameManager();
-    Game game = Game.getInstance();
-    game.setCurrentTime(timerLabel.getText());
-    gameManager.saveGame();
-    JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
-    resetAllGames();
-    goBack();
-    }
      */
-
-
-
-
+    private void saveFile() throws IOException, ClassNotFoundException {
+        GameManager gameManager = new GameManager();
+        Game game = Game.getInstance();
+        game.setCurrentTime(timerLabel.getText());
+        gameManager.saveGame();
+        JOptionPane.showMessageDialog(this, "Game saved successfully", "Save", JOptionPane.INFORMATION_MESSAGE);
+        //resetAllGames();
+        goBack();
+    }
 
     /**
      * Method when you don't save the file
      */
     private void notSavedFile() {
-        UIManager.put("OptionPane.messageFont", new Font("Otacon", 0, 13));
+        UIManager.put("OptionPane.messageFont", new Font("Papyrus", 0, 13));
         JOptionPane.showMessageDialog(this, "Game not saved", "Save", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    /**
+     * Go back button action performed.
+     *
+     * @param evt the evt
+     */
+
+
+    /**
+     * Resets all the GUIs of the games.
+     */
+    private void resetWordle() {
+        WordleGUI wordleGUI = getWordle();
+        wordleGUI.resetBoxes();
+    }
+
+
+
+
+
+
+
 
     /**
      * Go back button action performed.

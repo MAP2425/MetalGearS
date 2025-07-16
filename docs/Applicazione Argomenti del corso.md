@@ -54,42 +54,43 @@ Il metodo <b>processJsonFiles</b> ha come compito quello di andare a leggere i f
 Tra gli utilizzi dei file, uno dei più importanti è sicuramente quello del salvataggio del gioco, anch'esso effettuato tramite file JSON.
 
 La classe che si occupa di fare ciò è <b>Converter</b>, in particolare il suo metodo <b>ConvertGameToJson</b> e <b>ConvertItemsToJson</b>, come mostrato di seguito:
+
 ```java
     public void ConvertGameToJson() {
-        Gson gson = new Gson();
-        Game game = Game.getInstance();
-        String json = gson.toJson(game);
+  Gson gson = new Gson();
+  Game game = Game.getInstance();
+  String json = gson.toJson(game);
 
-        try {
-            Files.write(Paths.get("src", "main", "resources", "LoadedGame.json"), json.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+  try {
+    Files.write(Paths.get("src", "main", "resources", "LoadedGame.json"), json.getBytes());
+  } catch (IOException e) {
+    throw new RuntimeException(e);
+  }
+}
 
-    public void ConvertItemsToJson() {
-        Gson gson = new Gson();
-        Game game = Game.getInstance();
-        GameManager gameManager = new GameManager();
-        Set<Item> allItems = gameManager.getAllItems();
+public void ConvertItemsToJson() {
+  Gson gson = new Gson();
+  Game game = Game.getInstance();
+  GameManager gameManager = new GameManager();
+  Set<Item> allItems = gameManager.getAllItems();
 
-        Set<Room> rooms = game.getCorridorsMap().stream()
-                .map(Corridor::getStartingRoom)
-                .collect(Collectors.toSet());
+  Set<Room> rooms = game.getCorridorsMap().stream()
+          .map(Corridor::getStartingRoom)
+          .collect(Collectors.toSet());
 
-        Set<Item> itemsToSave = allItems.stream()
-                .filter(item -> !game.getInventory().contains(item))
-                .filter(item -> rooms.stream()
-                        .noneMatch(room -> room.getItems().contains(item)))
-                .collect(Collectors.toSet());
+  Set<Item> itemsToSave = allItems.stream()
+          .filter(item -> !game.getInventory().contains(item))
+          .filter(item -> rooms.stream()
+                  .noneMatch(room -> room.getItems().contains(item)))
+          .collect(Collectors.toSet());
 
-        String json = gson.toJson(itemsToSave);
-        try {
-            Files.write(Paths.get("src", "main", "resources", "LoadedItems.json"), json.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+  String json = gson.toJson(itemsToSave);
+  try {
+    Files.write(Paths.get("src", "main", "resources", "LoadedAgents.json"), json.getBytes());
+  } catch (IOException e) {
+    throw new RuntimeException(e);
+  }
+}
 ```
 
 Il metodo <b>ConvertGameToJson</b> si occupa di convertire l'oggetto Game in formato JSON, mentre il metodo <b>ConvertAgentsToJson</b> si occupa di convertire gli oggetti di tipo Item in formato JSON, salvando solo gli oggetti che non sono presenti nell'inventario o in una stanza.
