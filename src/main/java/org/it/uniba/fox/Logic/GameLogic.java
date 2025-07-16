@@ -86,6 +86,12 @@ public class GameLogic {
                 game.unlockCorridor("Stanza2", "Stanza3");
                 return true;
             }
+            if ((i.hasName("Pistola") || i.hasName("Uniforme")) && game.getCurrentRoom().getName().equals("Stanza6"))
+            {
+                game.unlockCorridor("Stanza6", "Stanza7");
+                game.unlockCorridor("Stanza6", "Stanza8");
+                return true;
+            }
             if( i.hasName("Pistola") && game.getCurrentRoom().getName().equals("Stanza6"))
             {
                 game.unlockCorridor("Stanza6", "Stanza7");

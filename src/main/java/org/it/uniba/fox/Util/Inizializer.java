@@ -296,7 +296,7 @@ public class Inizializer {
         Corridor c6 = new Corridor();
         c6.setStartingRoom(stanza6);
         c6.setDirection(CommandType.EST);
-        c6.setLocked(false);
+        c6.setLocked(true);
         c6.setArrivingRoom(stanza7);
 
         Corridor c6b = new Corridor();
@@ -308,7 +308,7 @@ public class Inizializer {
         Corridor c7 = new Corridor();
         c7.setStartingRoom(stanza6);
         c7.setDirection(CommandType.OVEST);
-        c7.setLocked(false);
+        c7.setLocked(true);
         c7.setArrivingRoom(stanza8);
 
         Corridor c7b = new Corridor();
