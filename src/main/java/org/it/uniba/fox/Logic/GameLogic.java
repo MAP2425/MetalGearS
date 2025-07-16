@@ -81,12 +81,12 @@ public class GameLogic {
                 game.unlockCorridor("Stanza1", "Stanza2");
                 return true;
             }
-            if ((i.hasName("Pistola") || i.hasName("Uniforme")) && game.getCurrentRoom().getName().equals("Stanza2"))
+            if ((i.hasName("Pistola") || i.hasName("Uniforme") || i.hasName("Scatola")) && game.getCurrentRoom().getName().equals("Stanza2"))
             {
                 game.unlockCorridor("Stanza2", "Stanza3");
                 return true;
             }
-            if ((i.hasName("Pistola") || i.hasName("Uniforme")) && game.getCurrentRoom().getName().equals("Stanza6"))
+            if ((i.hasName("Pistola") || i.hasName("Uniforme")|| i.hasName("Scatola")) && game.getCurrentRoom().getName().equals("Stanza6"))
             {
                 game.unlockCorridor("Stanza6", "Stanza7");
                 game.unlockCorridor("Stanza6", "Stanza8");

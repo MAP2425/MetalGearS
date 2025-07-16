@@ -222,7 +222,12 @@ public class Inizializer {
                 .toArray(new Item[0]));
 
         stanza8.addItems(items.stream()
-                .filter(i -> i.getName().equals("Chiavetta") || i.getName().equals("Pannello"))
+                .filter(i -> i.getName().equals("Chiavetta"))
+                .toList()
+                .toArray(new Item[0]));
+
+        stanza9.addItems(items.stream()
+                .filter(i -> i.getName().equals("Pannello"))
                 .toList()
                 .toArray(new Item[0]));
 

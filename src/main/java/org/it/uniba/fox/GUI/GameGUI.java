@@ -117,7 +117,7 @@ public class GameGUI extends JPanel {
 
         imagePanel.setLayout(cardLayout);
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 12; i++) {
             final String imagePath = "src/main/resources/img/Stanza" + i + ".png";
             imagePanel.add(new JPanel() {
                 @Override
