@@ -51,6 +51,11 @@ public class Game {
      */
     public static void setUpGame(Game game) {
         Game.game = game;
+        if (game.getCurrentRoom() == null) {
+            System.err.println("Errore: currentRoom non inizializzata in setUpGame.");
+            OutputDisplayManager.displayText("> Errore: stanza corrente non inizializzata. Impossibile avviare la partita.");
+            return;
+        }
         GameGUI.setImagePanel(game.getCurrentRoom().getName());
     }
 

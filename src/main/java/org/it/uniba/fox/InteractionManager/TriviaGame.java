@@ -117,6 +117,7 @@ public class TriviaGame {
             // Otherwise, the player has to answer another question
             if (correctAnswers == 3) {
                 correctAnswers = 0;
+                OutputDisplayManager.displayText("Complimenti la porta si è sbloccata!");
                 System.out.println("Complimenti la porta si è sbloccata!");
                 Game game = Game.getInstance();
 

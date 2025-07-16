@@ -98,6 +98,16 @@ public class DatabaseConnection {
      */
     public static void printFromDB(String comando, String stanza, String stato, String personaggio, String oggetto) {
         String statoDB = stato.equalsIgnoreCase("true") ? "Libero" : "Sorvegliato";
+        OutputDisplayManager.displayText(statoDB);
+        OutputDisplayManager.displayText(stanza);
+        OutputDisplayManager.displayText(comando);
+        OutputDisplayManager.displayText(personaggio);
+        OutputDisplayManager.displayText(oggetto);
+        System.out.println(statoDB);
+        System.out.println(stanza);
+        System.out.println(comando);
+        System.out.println(personaggio);
+        System.out.println(oggetto);
         String query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = ? AND STANZA = ? AND STATO = ? AND PERSONAGGIO = ? AND OGGETTO = ?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -111,6 +121,8 @@ public class DatabaseConnection {
                 OutputDisplayManager.displayText(rs.getString("DESCRIZIONE"));
             } else {
                 OutputDisplayManager.displayText("No String Found");
+
+
             }
             rs.close();
         } catch (SQLException e) {

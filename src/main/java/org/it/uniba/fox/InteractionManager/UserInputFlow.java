@@ -63,6 +63,10 @@ public class UserInputFlow {
      * @param text the user input
      */
     private static void parserFlow(final String text) {
+        if (parser==null){
+            OutputDisplayManager.displayText("> Errore interno: parser non inizializzato. Avvia una nuova partita.");
+            return;
+        }
         ParserOutput output = parser.parse(text);
 
 
@@ -108,7 +112,12 @@ public class UserInputFlow {
      */
     public static void setUpGameFlow(final Game game) {
         Event = 0;
-         DatabaseConnection.printFromDB("0",game.getCurrentRoom().getName(), "0", "0", "0");
+        if (game.getCurrentRoom() == null) {
+            OutputDisplayManager.displayText("> Errore: stanza corrente non inizializzata. Impossibile avviare la partita.");
+            return;
+        }
+
+         DatabaseConnection.printFromDB("0",game.getCurrentRoom().getName(), "true", "0", "0");
         // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
         // così da non bloccare il flusso del gioco
         new Thread(() -> wordleGame = new WordleGame()).start();
