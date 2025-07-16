@@ -139,7 +139,7 @@ public class CommandExecutor {
                 p -> {
                     if (game.getInventory().contains(p.getItem1()) ) {
                         gameLogic.executeUseSingleItem(p.getItem1());
-                        if (p.getItem1().isReusable()) {
+                        if (!p.getItem1().isReusable()) {
                             game.getInventory().remove(p.getItem1());
                         } else {
                             OutputDisplayManager.displayText("> Hai usato: " + p.getItem1().getName() + "!");

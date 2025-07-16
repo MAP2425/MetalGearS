@@ -98,21 +98,11 @@ public class DatabaseConnection {
      */
     public static void printFromDB(String comando, String stanza, String stato, String personaggio, String oggetto) {
         String statoDB = stato.equalsIgnoreCase("true") ? "Libero" : "Sorvegliato";
-        OutputDisplayManager.displayText(statoDB);
-        OutputDisplayManager.displayText(stanza);
-        OutputDisplayManager.displayText(comando);
-        OutputDisplayManager.displayText(personaggio);
-        OutputDisplayManager.displayText(oggetto);
-        System.out.println(statoDB);
-        System.out.println(stanza);
-        System.out.println(comando);
-        System.out.println(personaggio);
-        System.out.println(oggetto);
         String query = "SELECT DESCRIZIONE FROM DESCRIZIONI WHERE COMANDO = ? AND STANZA = ? AND STATO = ? AND PERSONAGGIO = ? AND OGGETTO = ?";
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, comando.replaceAll("[^a-zA-Z0-9 ]", ""));
-            stmt.setString(2, stanza.replaceAll("[^a-zA-Z0-9 ]", ""));
+            stmt.setString(1, comando);
+            stmt.setString(2, stanza);
             stmt.setString(3, statoDB);
             stmt.setString(4, personaggio);
             stmt.setString(5, oggetto);
