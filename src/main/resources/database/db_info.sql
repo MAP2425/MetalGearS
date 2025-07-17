@@ -37,6 +37,7 @@ INSERT INTO DESCRIZIONI (ID, COMANDO, STANZA, STATO, PERSONAGGIO, OGGETTO, DESCR
 (36, 'Dai', 'Stanza10', 'true', '0', 'Chiavetta', 'Snake mostra la chiavetta. La dottoressa si illumina: "Questo potrebbe servire! Dammi un momento per collegarla."'),
 (37, 'Osserva', 'Stanza11', 'true', '0', '0', '"Snake, questa stanza è protetta da raggi infrarossi invisibili che si intrecciano. Non letali, ma pericolosi: al contatto, si attiva il gas tossico. È l’ultima stanza prima dell’uscita. Procedi con cautela."'),
 (38, 'Usa', 'Stanza11', 'true', '0', 'Sigarette', 'Il fumo delle sigarette rivela i raggi infrarossi. Snake guida la dottoressa attraverso la stanza, raggiungendo il corridoio finale.'),
+(39, 'Osserva', 'Stanza12', 'true', '0', '0', '"Il corridoio finale si apre come un lungo tunnel stretto e opprimente.Le pareti, rivestite di metallo scuro, erano attraversate da tubature, cavi scoperti e luci rosse intermittenti."'),
 (39, 'Osserva', 'Stanza12', 'true', 'IA', '0', '"IA: Benvenuto, intruso. Sono l’ultimo guardiano. Non c’è via d’uscita senza affrontare la prova finale. Dimostra il tuo valore. Non ti permetterò di vincere facilmente."'),
 (40, '0', 'Stanza12', 'Corretto', 'IA', '0', '"IA: Notevole. Hai superato le aspettative... Anomalia! Un programma estraneo sta distruggendo il mio sistema..." L’IA si spegne, il corridoio è true.'),
 (41, '0', 'Stanza12', 'Sbagliato', 'IA', '0', '"IA: Errore fatale. Hai fallito. Affronta le conseguenze."'),

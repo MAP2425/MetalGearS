@@ -116,7 +116,7 @@ public class TriviaGame {
 
             // If the player has answered correctly 3 times, the game is won
             // Otherwise, the player has to answer another question
-            if (correctAnswers == 1) {
+            if (correctAnswers == 3) {
                 correctAnswers = 0;
                 OutputDisplayManager.displayText("Complimenti la porta si è sbloccata!");
                 System.out.println("Complimenti la porta si è sbloccata!");
