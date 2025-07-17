@@ -885,3 +885,253 @@ Dopo aver compreso il funzionamento dell'API, abbiamo implementato la richiesta 
 Come è possibile notare dal codice, la richiesta viene effettuata attraverso un ciclo <b>for</b>, dovuto principalmente al fatto che in fase di testing l'API non rispondeva sempre correttamente, dunque abbiamo deciso di effettuare più tentativi per ottenere la singola domanda e salvarla nella variabile <b>question</b>.<br>
 
 Entrambe verranno utilizzate per visualizzare la domanda e controllare la risposta data dall'utente.
+</details>
+</li>
+        <h2>7) Utilizzo delle Espressioni Lambda </h2>
+        <details open>
+            <summary>Visualizza dettagli</summary>
+            <h3><b>Cosa sono le Lambda expressions?</b></h3>
+Le <b>lambda expressions</b> sono una caratteristica introdotta in Java 8 che permette di scrivere codice più conciso e leggibile.
+
+Le espressioni lambda trasformano il flusso di esecuzione del programma, che assume la forma di una serie di valutazioni di funzioni.
+Di fatti sono un esempio di programmazione funzionale, un paradigma che, come il nome suggerisce, si basa sul calcolo di funzioni. Conseguenza di ciò è l'immutabilità: i valori non vengono calcolati cambiando lo stato del programma, ma costruendo nuovi stati a partire dai precedenti.
+La programmazione funzionale ha le sue radici nel lambda calcolo, composto da un linguaggio formale utilizzato per esprimere le funzioni e un sistema di riscrittura per stabilire come i termini possano essere ridotti e semplificati.
+
+Il loro utilizzo è particolarmente utile quando si devono passare una o più funzioni come parametro ad un metodo, come ad esempio nei metodi di ordinamento o di filtraggio di una collezione, evitando scrittura di codici "poco eleganti" poichè fortemente connesse alle caratteristiche di classe e non alla logica, evitando inoltre riscritture pesanti in caso di cambiamenti.
+
+Un’espressione lambda è composta:
+- da una lista di parametri separati da virgole e racchiusi tra parentesi tonde (E' possibile omettere le parentesi tonde se il metodo ha un solo parametro o un tipo).
+- dal token <code>-></code> che separa i parametri dal corpo della lambda.
+- da un corpo che contiene una singola espressione o un blocco di istruzioni. Il
+  blocco di istruzioni è racchiuso nelle parentesi graffe <code>{}</code>. Se il blocco di
+  istruzioni contiene un’invocazione ad un metodo che non restituisce nessun
+  valore (void) si possono omettere le parentesi
+
+<h3><b>Come abbiamo utilizzato le Lambda expressions nel nostro progetto?</b></h3>
+L'utilizzo migliore delle lambda expressions in un gioco testuale è sicuramente quello relativo all'implementazione dei comportamenti dei comandi, in quanto permette di semplificare di molto il codice, oltre che renderlo più leggibile.
+Ma non è l'unico utilizzo che ne abbiamo fatto, andiamo a vederli all'interno del nostro progetto:
+
+- **Mappa dei comandi**:
+  Per gestire i comandi all'interno del gioco, abbiamo utilizzato una mappa di comandi, in cui ad ogni tipo comando è associata una lambda expression che ne definisce il comportamento.
+
+  Ecco un esempio di codice che mostra come abbiamo implementato la mappa dei comandi all'interno del gioco:
+```java
+private HashMap<CommandExecutorKey, CommandBehavior> commandMap;
+
+public CommandExecutor(Game game) {
+    this.game = game;
+    this.gameLogic = new GameLogic(game);
+    commandMap = new HashMap<>();
+
+    //other commands...
+
+    commandMap.put(new CommandExecutorKey(CommandType.USA, 2),
+            p -> {
+                if (game.getInventory().contains(p.getAgent1())) {
+                    if (game.getCurrentRoom().getAgents().contains(p.getAgent2())) {
+                        String statusBeforeAction = game.getCurrentRoom().getState();
+                        if (gameLogic.executeUseCombinationInRoom((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                            DatabaseConnection.printFromDB("Usa", game.getCurrentRoom().getName(), statusBeforeAction, "0", p.getAgent1().getName(), p.getAgent2().getName());
+                        } else {
+                            OutputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
+                        }
+                    } else if (game.getInventory().contains(p.getAgent2())) {
+                        if (gameLogic.executeUseCombinationInInventory((Item) p.getAgent1(), (Item) p.getAgent2())) {
+                            DatabaseConnection.printFromDB("Usa", "0", "0", "0", p.getAgent1().getName(), p.getAgent2().getName());
+                        } else {
+                            OutputDisplayManager.displayText("> Non puoi usare " + p.getAgent1().getName() + " su " + p.getAgent2().getName() + "!");
+                        }
+                    } else {
+                        OutputDisplayManager.displayText("> " + p.getAgent2().getName() + " non è qui con noi!");
+                    }
+                } else {
+                    OutputDisplayManager.displayText("> " + p.getAgent1().getName() + " non è nell'inventario!");
+                }
+            });
+    }
+```
+In questa parte di codice è definita la entry del dizionario riguardante il comando "USA", in particolare il caso in cui vogliamo usare un oggetto su un altro oggetto (vedi il numero 2 nella dichiarazione della chiave).
+Per la lambda expression da associare abbiamo definito un'interfaccia funzionale <code>CommandBehavior</code> che contiene un metodo <code>execute</code> che prende in input un oggetto di tipo <code>ParserOutput</code> e non restituisce nulla.
+Di fatti nella entry per il comando "USA", p è un oggetto di tipo <code>ParserOutput</code> che contiene i due oggetti su cui vogliamo eseguire l'azione.
+Il corpo della lambda expression si occupa di effettuare molteplici controlli: prima di tutto verifica che il primo oggetto sia presente nell'inventario, se sì allora verifica se il secondo si trova anch'esso nell'inventario oppure nella stanza in cui si trova il giocatore;
+poi chiama il metodo <code>executeUseCombinationInRoom</code> o <code>executeUseCombinationInInventory</code> a seconda dei casi. Questi metodi si occupano di verificare ed eseguire la combinazione di utilizzo tra i due oggetti, restituendo <code>true</code> se l'azione è presente ed è stata eseguita, <code>false</code> altrimenti.
+A seconda dei diversi casi poi, viene stampato un determinato messaggio sul display.
+
+A seguito l'elenco di tutti gli altri comandi, anch'essi implementati attraverso le lambda:
+### Comandi Disponibili:
+
+1. **Comando CODEC**:
+- **Descrizione**: Stampa l'elenco dei comandi disponibili.
+
+2. **Comando OSSERVA**:
+- **0 argomenti**: Stampa la descrizione della stanza corrente.
+- **1 argomento**: Stampa la descrizione dell'agente specificato.
+
+3. **Comando INVENTARIO**:
+- **Descrizione**: Stampa l'inventario.
+
+4. **Comando PRENDI**:
+- **Descrizione**: Permette di raccogliere un oggetto e metterlo nell'inventario.
+
+5. **Comando USA**:
+   - **Descrizione**: Permette di usare un oggetto presente nell'inventario.
+
+6. **Comando PARLA**:
+- **Descrizione**: Permette di parlare con un personaggio.
+
+8. **Comando DAI**:
+- **Descrizione**: Permette di dare un oggetto a un personaggio.
+- 
+9. **Comando NORD|EST|SUD|OVEST**:
+- **Descrizione**: Permettono il movimento del giocatore da una stanza all'altra. In particolare, per questi quattro comandi, la lambda expression è stata ulteriormente generalizzata.
+
+```java
+private CommandBehavior createDirectionCommandBehavior(CommandType direction) {
+    return p -> {
+        Corridor corridor = game.getCorridorsMap().stream()
+                .filter(c -> c.getStartingRoom().equals(game.getCurrentRoom()) && c.getDirection() == direction)
+                .findFirst()
+                .orElse(null);
+
+        if (corridor != null && !corridor.isLocked()) {
+            game.setCurrentRoom(corridor.getArrivingRoom());
+            outputDisplayManager.displayText("You moved to the " + direction);
+        } else if (corridor != null && corridor.isLocked()) {
+            outputDisplayManager.displayText("The corridor is locked");
+        } else {
+            outputDisplayManager.displayText("There is no corridor to the " + direction);
+        }
+    };
+}
+```
+
+Questo metodo, sempre facente parte della classe <code>CommandExecutor</code>, si occupa di creare la lambda expression per i comandi di direzione (specificato attraverso il parametro direction), in modo da evitare la duplicazione del codice.
+La lambda expression inizia con un ulteriore lambda che prende tutti i corridoio presenti nel gioco e cerca il corridoio che parte dalla stanza correntp e che va nella direzione specificata.
+Il risultato di questa ricerca viene poi usato per controllare se il corridoio esiste e se è bloccato o meno, stampando un messaggio appropriato a seconda dei casi.
+Nel caso in cui il corridoio esista e non sia bloccato, il giocatore viene spostato nella stanza di arrivo del corridoio.
+
+- **Assegnazione dei Task ai Thread**
+  In alcuni casi abbiamo creato dei Thread per eseguire operazioni in background, come l'esecuzione del server REST durante l'esecuzione del programma ed il set up del game flow in caso di nuova partita e caricamento di una partita salvata in contempornea al caricamento della progress bar.
+
+- **Aggiornamento posticipato della GUI del gioco della parola nascosta**
+  Similmente al punto precedente, sono state utilizzate delle lambda per assegnare al metodo statico <code>invokeLater</code> della classe <code>SwingUtilities</code> il compito di aggiornare la GUI del gioco della parola nascosta al momento più appropriato.
+
+- **Inizializzazione degli actionListener dei bottoni delle varie GUI**
+
+- **Sovrascrittura di proprietà estetiche di alcuni componenti delle GUI**
+
+- **Assegnazione dei task ai TimerTask**
+  Usato nel timer del gioco.
+
+- **Contribuzione al parsing dell'input**
+  Tra le altre cose, parte del parsing dell'input è svolto mediante lambda expressions, in particolare lo split ed eliminazione delle stopWords e la ricerca all'interno dei set di aliases. A seguito il codice:
+```java
+public class Parser {
+    // Attributes declaration...
+
+    public ParserOutput parse(String input) {
+      // rest of the code...
+
+      String[] words = Arrays.stream(input.split(" "))
+                .map(String::toLowerCase)
+                .filter(w -> !stopWords.contains(w))
+                .toArray(String[]::new);
+
+      // rest of the code...
+    }
+
+  // Other methods...
+}
+```
+In particolare, la prima lambda expression si occupa di splittare la stringa in input in un array di stringhe, trasformarle in lowercase, filtrare le stopWords e trasformare il tutto in un array di stringhe.
+La seconda lambda expression si occupa di cercare all'interno degli alias dell'agente specificato se è presente una corrispondenza con la terza parola inserita dall'utente, trasformata in lowercase. Se la corrispondenza è trovata, l'agente viene settato come secondo agente dell'output.
+
+- **Creazione di un set contenente tutti gli Items del gioco**
+  All'interno della classe GameManager è presente un metodo che a partire dalla mappa di tutti gli agenti mappati ai loro nomi crea un set contenente tutti gli Items del gioco. Ecco il codice:
+```java
+public class GameManager {
+    private static Map<String, Agent> allAgents;
+
+    // Other attributes declaration...
+  
+    // Other methods...
+
+    public Set<Item> getAllItems() {
+      if (allAgents == null) {
+        return new HashSet<>();
+      }
+      return allAgents.values().stream()
+              .filter(Objects::nonNull)
+              .collect(Collectors.toSet());
+    }
+
+    // Other methods...
+}
+```
+- **Conversione da file Json ad oggetti e viceversa**
+  Infine, le lambda expressions sono state utilizzate per l'istanziazione di tutti i componenti del gioco a partire dai file base, nel caso di una nuova partita o dai file di salvataggio, nel caso di un partita da caricare.
+  Stessa cosa è stata fatta per la conversione da oggetti a file Json, per salvare lo stato del gioco. A seguito il codice relativo:
+```java
+public class Converter {
+    // Other methods...
+
+  private Map<String, Agent> processJsonFiles(String gameFilePath, String agentsFilePath) {
+        // rest of the code...
+  
+        game.getInventory().forEach(item -> allAgents.put(item.getName(), item));
+
+        game.getCorridorsMap().forEach(corridor -> {
+          Room room = corridor.getStartingRoom();
+
+          if (!allRooms.containsKey(room.getName())) {
+            allRooms.put(room.getName(), room);
+            room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+          } else {
+            Room existingRoom = allRooms.get(room.getName());
+            corridor.setStartingRoom(existingRoom);
+          }
+
+          room = corridor.getArrivingRoom();
+
+          if (!allRooms.containsKey(room.getName())) {
+            allRooms.put(room.getName(), room);
+            room.getAgents().forEach(agent -> allAgents.put(agent.getName(), agent));
+          } else {
+            Room existingRoom = allRooms.get(room.getName());
+            corridor.setArrivingRoom(existingRoom);
+          }
+        });
+        
+      // rest of the code...
+  }
+
+  public void ConvertAgentsToJson() {
+    // rest of the code...
+
+    // Save only the items that are not in the inventory or in a room
+    Set<Room> rooms = game.getCorridorsMap().stream()
+            .map(Corridor::getStartingRoom)
+            .collect(Collectors.toSet());
+
+    Set<Item> itemsToSave = allItems.stream()
+            .filter(item -> !game.getInventory().contains(item))
+            .filter(item -> rooms.stream()
+                    .noneMatch(room -> room.getAgents().contains(item)))
+            .collect(Collectors.toSet());
+
+    // rest of the code...
+  }
+}
+```
+Il metodo <code>processJsonFiles</code> si occupa di leggere i file Json contenenti le informazioni del gioco e di creare tutti gli agenti e le stanze del gioco a partire da essi.
+In particolare, per evitare duplicazioni di Agenti e Stanze, vengono utilizzate delle lambda expressions per controllare se una stanza è già presente nella lista di tutte le stanze, se non lo è allora i suoi agenti vengono inseriti nella mappa di tutti gli agenti e la stanza è inserita nella lista di tutte le stanze;
+se lo è, invece, viene presa la sua copia già istanziata e viene utilizzata quella per proseguire con l'instanziazione della partita.
+Il secondo metodo, <code>ConvertAgentsToJson</code>, interviene invece quando dobbiamo salvare, si occupa di convertire tutti gli agenti del gioco in file Json, in modo da poter salvare lo stato del gioco.
+In particolare, viene creato un set di Stanze, così da evitare duplicati, poi viene creato un set di Item che non sono presenti nell'inventario o in una stanza, il risultato viene salvato nel file json.
+
+
+In conclusione, l'utilizzo delle lambda expressions ci ha permesso di scrivere codice più conciso e leggibile, semplificando la gestione dei comandi, la gestione di tutte le operazioni che richiedono l'implementazione di interfacce funzionali e la gestione dei dati all'interno del gioco.
+</details>
+</ul>
+
+Ritorna al [Report](Report.md)
