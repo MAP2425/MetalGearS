@@ -3,6 +3,7 @@ import org.it.uniba.fox.DB_Web.DatabaseConnection;
 import org.it.uniba.fox.Entity.Game;
 import org.it.uniba.fox.Entity.Item;
 import org.it.uniba.fox.GUI.GameGUI;
+import org.it.uniba.fox.GUI.ManagerGUI;
 import org.it.uniba.fox.InteractionManager.OutputDisplayManager;
 import org.it.uniba.fox.Logic.CommandExecutor;
 import org.it.uniba.fox.Logic.Parser;
@@ -53,6 +54,8 @@ public class UserInputFlow {
             case 2:
                 triviaFlow(text);
                 break;
+            case 3:
+                endingFlow(text);
             default:
                 parserFlow(text);
                 break;
@@ -109,6 +112,21 @@ public class UserInputFlow {
     }
 
 
+
+    /**
+     * The method to manage the ending of the game.
+     *
+     * @param text the user input
+     */
+    private static void endingFlow(final String text) throws RuntimeException {
+        String testo = "Snake e la dottoressa attraversarono l’ultima porta e salirono sull’elicottero che li aspettava: si alzò nel cielo, mentre la base esplodeva sotto di loro.\n" +
+                "Snake non disse una parola. Accanto a lui, la dottoressa teneva stretta la chiavetta ormai inutile.\n" +
+                "La missione era compiuta. Il silenzio della notte sanciva la fine di Black Hand.";
+        OutputDisplayManager.displayText("> " + testo);
+            ManagerGUI.closeGame();
+        OutputDisplayManager.displayText("> Grazie per aver giocato a MetalGearS");
+    }
+
     /**
      * Set up a new game
      */
@@ -118,8 +136,7 @@ public class UserInputFlow {
             OutputDisplayManager.displayText("> Errore: stanza corrente non inizializzata. Impossibile avviare la partita.");
             return;
         }
-
-         DatabaseConnection.printFromDB("0",game.getCurrentRoom().getName(), "true", "0", "0");
+        DatabaseConnection.printFromDB("0",game.getCurrentRoom().getName(), "true", "0", "0");
         // poiché la prima API è andata in down, spostiamo il setup del Wordle su un thread separato
         // così da non bloccare il flusso del gioco
         new Thread(() -> wordleGame = new WordleGame()).start();

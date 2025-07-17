@@ -47,6 +47,7 @@ public class GameLogic {
         }
         if (c.hasName("IA") && game.getCurrentRoom().getName().equals("Stanza12")) {
             UserInputFlow.Event = 1;
+            GameGUI.setImagePanel("WordleGUI");
             return;
         }
         GameGUI.displayTextPaneSetText("> " + c.getName() + " non è qui!");
@@ -62,6 +63,7 @@ public class GameLogic {
         public boolean executeGiveCombination(Item i, Agent c) {
             if (i.hasName("Chiavetta") && c.hasName("Dottoressa") && game.getCurrentRoom().getName().equals("Stanza10")) {
                 game.removeInventory(i);
+
                 game.getCurrentRoom().addItems(i);
                 game.unlockCorridor("Stanza10", "Stanza11");
                 return true;

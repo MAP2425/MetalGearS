@@ -118,10 +118,9 @@ public class WordleGame {
         // if it is the wordle game ends and the user wins
         if (text.equals(GuessingWord)) {
             DatabaseConnection.printFromDB("0", "Stanza12", "Corretto", "IA", "0");
-            UserInputFlow.Event = 0;
+            UserInputFlow.Event = 3; // Set the event to 3 to indicate the end of the game
             Game game = Game.getInstance();
             game.getCurrentRoom().setFree(true);
-            game.unlockCorridor("Desert", "Stanza1");
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
             return;
         }
@@ -132,9 +131,14 @@ public class WordleGame {
             DatabaseConnection.printFromDB("0", "Stanza12", "Sbagliato", "IA", "0");
             OutputDisplayManager.displayText("> \"La parola corretta era: " + GuessingWord + "!\"");
             UserInputFlow.Event = 0;
+            currentTry = 0; // Reset the current try for the next game
+            // Reset the game state
+
             Game game = Game.getInstance();
+            GameGUI.getWordle().resetBoxes();
             game.getCurrentRoom().setFree(false);
             GameGUI.setImagePanel(game.getCurrentRoom().getName());
+
         }
     }
 
