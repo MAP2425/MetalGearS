@@ -416,22 +416,7 @@ public class Inizializer {
         writeJsonToFile("src/main/resources/static/Agents.json", agentsJson);
     }
 
-    /**
-     * Crea una directory se non esiste
-     *
-     * @param directoryPath percorso della directory da creare
-     */
-    private static void createDirectory(String directoryPath) {
-        Path path = Paths.get(directoryPath);
-        if (!Files.exists(path)) {
-            try {
-                Files.createDirectories(path);
-                System.out.println("Directory creata: " + directoryPath);
-            } catch (IOException e) {
-                System.err.println("Errore nella creazione della directory " + directoryPath + ": " + e.getMessage());
-            }
-        }
-    }
+
 
     /**
      * Scrive un contenuto JSON in un file
@@ -442,7 +427,6 @@ public class Inizializer {
     private static void writeJsonToFile(String filePath, String jsonContent) {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.write(jsonContent);
-            System.out.println("File creato: " + filePath);
         } catch (IOException e) {
             System.err.println("Errore nella scrittura del file " + filePath + ": " + e.getMessage());
         }

@@ -362,11 +362,12 @@ public class MenuGUI extends JPanel {
         if (loadedGameSuccessfully) {
             Game game = Game.getInstance();
             CardLayout cl = (CardLayout) getParent().getLayout();
+            cl.show(getParent(), "GameGUI");
 
             //new thread to set up a saved game during the charge of the progress bar
             new Thread(() -> UserInputFlow.setUpLoadedGameFlow(game)).start();
         } else {
-            showMessageDialog(null, "No saved game found", "Error", ERROR_MESSAGE);
+            showMessageDialog(null, "Nessuna partita salvata trovata.", "Errore", ERROR_MESSAGE);
         }
     }
 

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Parser {
 
     private final Set<Command> availableCommands;
-    private final Set<Item> availableItems;
+    private final Set<Agent> availableItems;
     private final Set<String> stopWords = new HashSet<>();
     private final Set<Character> availableAgents;
 
@@ -26,7 +26,6 @@ public class Parser {
         availableCommands = gameManager.getAllCommands();
         availableItems = gameManager.getAllItems();
         availableAgents = gameManager.getAllAgents();
-        System.out.println("AavailableAgents : " + availableAgents.size());
 
         try {
             setupUselessWords();
@@ -50,7 +49,6 @@ public class Parser {
                 .filter(w -> !stopWords.contains(w))
                 .toArray(String[]::new);
 
-        System.out.println("DEBUG - Parole dopo il filtro: " + Arrays.toString(words));
         if (words.length == 0) {
             return output;
         }
@@ -61,7 +59,6 @@ public class Parser {
                     command.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(words[0]))) {
                 output.setCommand(command.getType());
                 output.setArgs(1);
-                System.out.println("DEBUG - Comando trovato: " + command.getName() + " - Tipo: " + command.getType());
                 break;
             }
         }
@@ -76,11 +73,8 @@ public class Parser {
             if (found != null) {
                 output.setArg1(found);
                 output.setArgs(2);
-                System.out.println("DEBUG - Oggetto trovato: " + found.getClass().getSimpleName() + " - " +
-                        (found instanceof Character ? ((Character)found).getName() : found.toString()));
             } else {
                 output.setArgs(1);
-                // Non ritornare qui, potrebbe esserci un secondo argomento
             }
         }
 
@@ -103,7 +97,7 @@ public class Parser {
      */
 
     private Object findObjectByName(String name) {
-        for (Item item : availableItems) {
+        for (Agent item : availableItems) {
             if (item.getName().equalsIgnoreCase(name) ||
                     item.getAliases().stream().anyMatch(alias -> alias.equalsIgnoreCase(name))) {
                 return item;
@@ -111,24 +105,19 @@ public class Parser {
         }
 
         if (availableAgents != null) {
-            System.out.println("Available agents: " + availableAgents.size());
             for (Character character : availableAgents) {
-                System.out.println("Checking character: " + character.getName());
                 // Controllo nome e alias del personaggio
                 String charName = character.getName();
                 boolean nameMatches = charName.equalsIgnoreCase(name);
                 boolean aliasMatches = character.getAliases().stream()
                         .anyMatch(alias -> alias.equalsIgnoreCase(name));
-                System.out.println("Nome corrispondente: " + nameMatches + ", Alias corrispondente: " + aliasMatches);
 
                 if (nameMatches || aliasMatches) {
-                    System.out.println("Personaggio trovato: " + character.getName());
                     return character;
                 }
             }
         }
 
-        System.out.println("Nessun oggetto o personaggio trovato con nome: " + name);
         return null;
     }
 

@@ -167,6 +167,7 @@ public class Room {
      * Prints the description of the room.
      */
     public void printDescription() {
-        DatabaseConnection.printFromDB("Osserva", name, String.valueOf(free), "0", "0");
+        Game game = Game.getInstance();
+        DatabaseConnection.printFromDB("Osserva", name, String.valueOf(game.getCurrentRoom().getFree()),"0", "0");
     }
 }

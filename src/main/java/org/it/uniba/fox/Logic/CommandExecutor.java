@@ -1,5 +1,6 @@
 package org.it.uniba.fox.Logic;
 import org.it.uniba.fox.DB_Web.DatabaseConnection;
+import org.it.uniba.fox.Entity.Character;
 import org.it.uniba.fox.Entity.Command;
 import org.it.uniba.fox.Entity.Corridor;
 import org.it.uniba.fox.Entity.Game;
@@ -69,10 +70,19 @@ public class CommandExecutor {
 
         commandMap.put(new CommandExecutorKey(CommandType.PRENDI, 1),
                 p -> {
+                    Object arg1 = p.getArg1();
+                    if (arg1 instanceof Character) {
+                        OutputDisplayManager.displayText("> Non puoi prendere un personaggio!");
+                        return;
+                    }
+                    if (p.getItem1() == null) {
+                        OutputDisplayManager.displayText("> Devi specificare cosa vuoi prendere!");
+                        return;
+                    }
                     if (game.getInventory().contains(p.getItem1())) {
                         OutputDisplayManager.displayText("> Hai già " + p.getItem1().getName() + " nell'inventario!");
                     } else if (game.getCurrentRoom().getItems().contains(p.getItem1())) {
-                        if (p.getItem1() != null && p.getItem1().isPickable()) {
+                        if (p.getItem1().isPickable()) {
                             game.addInventory(p.getItem1());
                             game.getCurrentRoom().removeItem(p.getItem1().getName());
                             OutputDisplayManager.displayText("> Hai raccolto: " + p.getItem1().getName() + "!");
@@ -82,12 +92,11 @@ public class CommandExecutor {
                     } else {
                         OutputDisplayManager.displayText("> Non c'è " + p.getItem1().getName() + " nella stanza!");
                     }
-                });
-
+                }
+        );
 
         commandMap.put(new CommandExecutorKey(CommandType.PARLA, 1),
                 p -> {
-                    // Ottieni il personaggio
                     Object character = p.getArg1();
 
                     if (character == null) {
@@ -101,25 +110,19 @@ public class CommandExecutor {
                     }
 
                     Agent agent = (Agent) character;
-                    System.out.println("DEBUG - Agente trovato: " + agent.getName());
                     boolean isInRoom = game.getCurrentRoom().getAgents().stream()
                             .anyMatch(a -> a.getName().equalsIgnoreCase(agent.getName()));
-                    System.out.println("DEBUG - Agente nella stanza: " + isInRoom);
 
                     if (!isInRoom) {
                         OutputDisplayManager.displayText("> " + agent.getName() + " non è nella stanza!");
                         return;
                     }
 
-                    // Verifica se l'agente può parlare
-                    System.out.println("DEBUG - Agente può parlare: " + agent.isTalkable());
                     if (!agent.isTalkable()) {
                         OutputDisplayManager.displayText("> " + agent.getName() + " non può parlare!");
                         return;
                     }
 
-                    // Esegui il dialogo
-                    System.out.println("DEBUG - Inizio dialogo con: " + agent.getName());
                     gameLogic.talkToPersonage(agent);
                 }
         );
@@ -138,7 +141,11 @@ public class CommandExecutor {
         commandMap.put(new CommandExecutorKey(CommandType.USA, 1),
                 p -> {
                     if (game.getInventory().contains(p.getItem1())) {
-                        gameLogic.executeUseSingleItem(p.getItem1());
+                        boolean used = gameLogic.executeUseSingleItem(p.getItem1());
+                        if (!used) {
+                            OutputDisplayManager.displayText("> Non succede nulla usando " + p.getItem1().getName() + ".");
+                            return;
+                        }
                         if (!p.getItem1().isReusable()) {
                             game.getInventory().remove(p.getItem1());
                         } else {
@@ -148,7 +155,8 @@ public class CommandExecutor {
                     } else {
                         OutputDisplayManager.displayText("> Non puoi usare qualcosa che non possiedi!");
                     }
-                });
+                }
+        );
 
         commandMap.put(new CommandExecutorKey(CommandType.DAI, 2),
                 p -> {
@@ -177,20 +185,13 @@ public class CommandExecutor {
     }
 
     public void execute(ParserOutput p) {
-        System.out.println("DEBUG - Comando: " + p.getCommand());
-        System.out.println("DEBUG - Character1: " + p.getArg1());
-
         // Consideriamo sia Item che Character nel calcolo degli argomenti
         boolean hasArg1 = (p.getItem1() != null || p.getCharacter1() != null);
         boolean hasArg2 = (p.getItem2() != null || p.getCharacter2() != null);
         int args = hasArg1 ? (hasArg2 ? 2 : 1) : 0;
 
-        System.out.println("DEBUG - Numero argomenti: " + args);
-
         CommandExecutorKey key = new CommandExecutorKey(p.getCommand(), args);
         CommandBehavior behavior = commandMap.get(key);
-
-        System.out.println("DEBUG - Behavior trovato: " + (behavior != null));
 
         if (behavior != null) {
             behavior.execute(p);

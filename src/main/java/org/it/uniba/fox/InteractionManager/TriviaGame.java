@@ -54,7 +54,6 @@ public class TriviaGame {
     public void getQAndA() {
         String urlToRead = "https://opentdb.com/api.php?amount=1&difficulty=easy&type=boolean";
         int maxAttempts = 3;
-        System.out.println("DEBUG - Risposta trivia API: ");
         // Try to get the question and answer from the API
         // if it fails 3 times, the player will have to talk to the mummy again
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
@@ -119,7 +118,6 @@ public class TriviaGame {
             if (correctAnswers == 3) {
                 correctAnswers = 0;
                 OutputDisplayManager.displayText("Complimenti la porta si è sbloccata!");
-                System.out.println("Complimenti la porta si è sbloccata!");
                 Game game = Game.getInstance();
 
 

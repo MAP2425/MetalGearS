@@ -108,11 +108,9 @@ public class DatabaseConnection {
 
             ResultSet rs = stmt.executeQuery();
 
-            System.out.println("> " + query);
             if (rs.next()) {
                 OutputDisplayManager.displayText(rs.getString("DESCRIZIONE"));
             } else {
-                System.out.println("Query: " + query);
                 OutputDisplayManager.displayText("No String Found");
             }
             rs.close();

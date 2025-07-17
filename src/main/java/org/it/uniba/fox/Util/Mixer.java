@@ -115,7 +115,7 @@ public class Mixer extends Thread {
                 currentClip = 0;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

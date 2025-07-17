@@ -95,9 +95,19 @@ public class Game {
      */
     public void removeInventory(Item item) {
         game.inventory.remove(item);
-        List<String> itemsNames = game.inventory.stream().map(Item::getName).toList();
-        String[] itemsNamesArray = itemsNames.toArray(new String[0]);
-        GameGUI.updateInventoryTextArea(itemsNamesArray);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000); // attesa di 1 secondo
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                List<String> itemsNames = game.inventory.stream().map(Item::getName).toList();
+                String[] itemsNamesArray = itemsNames.toArray(new String[0]);
+                GameGUI.updateInventoryTextArea(itemsNamesArray);
+            });
+        }).start();
     }
 
     /**

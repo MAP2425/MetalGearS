@@ -56,6 +56,7 @@ public class UserInputFlow {
                 break;
             case 3:
                 endingFlow(text);
+                break;
             default:
                 parserFlow(text);
                 break;
@@ -76,7 +77,6 @@ public class UserInputFlow {
 
 
         // If the output is null, it means that the input was not recognized
-        System.out.println("> " + output.getArg1() + " " + output.getArg2()+ " " + output.getCommand() + " " + output.getArgs());
         if (output.getArgs() != 0) {
             commandExecutor.execute(output);
         } else {
@@ -123,9 +123,14 @@ public class UserInputFlow {
                 "Snake non disse una parola. Accanto a lui, la dottoressa teneva stretta la chiavetta ormai inutile.\n" +
                 "La missione era compiuta. Il silenzio della notte sanciva la fine di Black Hand.";
         OutputDisplayManager.displayText("> " + testo);
-            ManagerGUI.closeGame();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        ManagerGUI.closeGame();
         OutputDisplayManager.displayText("> Grazie per aver giocato a MetalGearS");
-    }
+        }
 
     /**
      * Set up a new game
@@ -159,6 +164,15 @@ public class UserInputFlow {
         List<String> itemsNames = game.getInventory().stream().map(Item::getName).toList();
         String[] itemsNamesArray = itemsNames.toArray(new String[0]);
         GameGUI.updateInventoryTextArea(itemsNamesArray);
-        DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", "0");
+        if (game.getCurrentRoom().getName().equals("Stanza1")) {
+            DatabaseConnection.printFromDB("0", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", "0");
+
+        }
+        else
+        {
+            DatabaseConnection.printFromDB("Osserva", game.getCurrentRoom().getName(), String.valueOf(game.getCurrentRoom().getFree()), "0", "0");
+
+        }
     }
 }
+

@@ -119,6 +119,7 @@ public class WordleGame {
         if (text.equals(GuessingWord)) {
             DatabaseConnection.printFromDB("0", "Stanza12", "Corretto", "IA", "0");
             UserInputFlow.Event = 3; // Set the event to 3 to indicate the end of the game
+            OutputDisplayManager.displayText("> Scrivi qualsiasi cosa per terminare il gioco");
             Game game = Game.getInstance();
             game.getCurrentRoom().setFree(true);
             GameGUI.setImagePanel(game.getCurrentRoom().getName());

@@ -18,7 +18,7 @@ public class GameManager {
     /**
      * A map containing all the agents mapped to their names.
      */
-    private static Map<String, Item> allAgents = new HashMap<>();
+    private static Map<String, Agent> allAgents = new HashMap<>();
     /**
      * The converter.
      */
@@ -64,7 +64,7 @@ public class GameManager {
      *
      * @return the set of all items
      */
-    public Set<Item> getAllItems() {
+    public Set<Agent> getAllItems() {
         if (allAgents == null) {
             return new HashSet<>();
         }
@@ -100,7 +100,6 @@ public class GameManager {
             }
         }
 
-        System.out.println("Personaggi trovati nelle stanze: " + characters.size());
         return characters;
     }
 

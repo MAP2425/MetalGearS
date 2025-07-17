@@ -35,6 +35,8 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The GUI of the game.
@@ -116,6 +118,7 @@ public class GameGUI extends JPanel {
         cardLayout.maximumLayoutSize(imagePanel);
 
         imagePanel.setLayout(cardLayout);
+        imagePanel.add(new WordleGUI(), "WordleGUI");
 
         for (int i = 1; i <= 12; i++) {
             final String imagePath = "src/main/resources/img/Stanza" + i + ".png";
@@ -130,13 +133,15 @@ public class GameGUI extends JPanel {
         }
     }
 
+
+
     /**
      * Gets the instance of the WordleGUI.
      *
      * @return the wordle GUI
      */
     public static WordleGUI getWordle() {
-        return (WordleGUI) imagePanel.getComponent(1);
+        return (WordleGUI) imagePanel.getComponent(0);
     }
 
 
@@ -631,6 +636,25 @@ public class GameGUI extends JPanel {
 
         inventoryTextArea.setText(inventory.toString());
     }
+
+    public static JTextArea getInventoryTextArea() {
+        return inventoryTextArea;
+    }
+
+    public static String[] getInventoryItemNames() {
+        String text = inventoryTextArea.getText();
+        String[] lines = text.split("\n");
+        List<String> itemNames = new ArrayList<>();
+        for (int i = 1; i < lines.length; i++) {
+            String name = lines[i].replace(" - ", "").trim();
+            if (!name.isEmpty()) {
+                itemNames.add(name);
+            }
+        }
+        return itemNames.toArray(new String[0]);
+    }
+
+
 
     /**
      * Resets all the GUIs of the games.
