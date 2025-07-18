@@ -381,7 +381,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 
 ## 6 - Applicazione Argomenti del Corso
 
-- In questa sezione verrà spiegato come il progetto **Avventura nella Piramide** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
+- In questa sezione verrà spiegato come il progetto **Metal Gear** si collega agli argomenti trattati durante il corso di "Metodi Avanzati di Programmazione".
 
 
 [Applicazione Argomenti del Corso](Applicazione%20Argomenti%20del%20corso.md)

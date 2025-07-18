@@ -466,7 +466,7 @@ Ecco come appare il sito web:
 ![img_sito_web2](../resources/img/immagine_sito_web2.jpg)
 
 Il sito web contiene le seguenti informazioni:
-- **Titolo del gioco**: il nome del gioco, ossia "Avventura nella Piramide".
+- **Titolo del gioco**: il nome del gioco, ossia "Metal Gear".
 - **Indice linkato**: permette di accedere rapidamente alle varie sezioni del sito web.
 - **Avvenimenti nel gioco**: un breve racconto della storia del gioco.
 
